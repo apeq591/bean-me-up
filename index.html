@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Bean Me Up — coffee on the platform | Partick Station &amp; Cowcaddens, Glasgow</title>
-<meta name="description" content="Bean Me Up: a proper coffee cart on the platform at Partick Station and Cowcaddens Underground, Glasgow. Text ahead, walk up, take off.">
-<meta name="theme-color" content="#B87A3C">
+<title>Bean Me Up — the coffee cart at Partick Station, Glasgow</title>
+<meta name="description" content="Bean Me Up: a coffee cart on the platform at Partick Station, Glasgow. Open 6:45am, gone by one. Best coffee in the toon.">
+<meta name="theme-color" content="#1A0F07">
 <!-- Unlisted on purpose: this is a pitch demo for a business Mukta does not own
      yet. Keep it out of Google until the owner has said yes. Remove this line
      only once they've agreed to take the site on. -->
@@ -13,278 +13,322 @@
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Bean Me Up — coffee on the platform">
-<meta property="og:description" content="Partick Station &amp; Cowcaddens Underground, Glasgow. Text ahead, walk up, take off.">
+<meta property="og:title" content="Bean Me Up — Partick Station">
+<meta property="og:description" content="Open 6:45am, gone by one. Best coffee in the toon.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --caramel:#C08A47;
-  --caramel-dk:#96622C;
-  --caramel-lt:#D9A469;
-  --roast:#2A1608;
-  --bean:#5B3418;
-  --cream:#F7EDE0;
-  --ink:#20130A;
-  --white:#FFFFFF;
-  --shadow:0 26px 60px -28px rgba(42,22,8,.75);
+  --espresso:#180D05;
+  --espresso-2:#25150A;
+  --caramel:#C0873F;
+  --caramel-lt:#D9A468;
+  --caramel-dk:#8E5A22;
+  --cream:#F7F0E4;
+  --amber:#F0A63C;
+  --go:#5FD08A;
+  --ink:#1E1208;
+  --board:#0E0A06;
+  --radius:20px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
 html{-webkit-text-size-adjust:100%}
 body{
   font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;
-  color:var(--white);background:var(--caramel-dk);
-  -webkit-font-smoothing:antialiased;line-height:1.55;
-  overscroll-behavior:none;
+  color:var(--cream);background:var(--espresso);
+  -webkit-font-smoothing:antialiased;line-height:1.55;overscroll-behavior:none;
 }
 a{color:inherit;text-decoration:none}
 img,svg{display:block;max-width:100%}
-.serif{font-family:'Fraunces',Georgia,serif;font-weight:400}
+.mono{font-family:'Roboto Mono',ui-monospace,monospace}
 
 /* ---------- background ---------- */
 .bg{
   position:fixed;inset:0;z-index:0;
   background:
-    radial-gradient(ellipse at 30% 20%, #D8A365 0%, transparent 55%),
-    radial-gradient(ellipse at 78% 82%, #A96F35 0%, transparent 60%),
-    linear-gradient(150deg,#C6924E 0%,#A96F35 55%,#8B5722 100%);
+    radial-gradient(ellipse at 26% 18%, #D9A468 0%, transparent 52%),
+    radial-gradient(ellipse at 80% 84%, #9E6A2E 0%, transparent 58%),
+    linear-gradient(155deg,#C6924E 0%,#A96F35 52%,#7C4A1C 100%);
 }
-/* subtle embossed pattern, like the reference poster */
 .bg::after{
-  content:"";position:absolute;inset:0;
+  content:"";position:absolute;inset:0;mix-blend-mode:overlay;
   background-image:
-    repeating-linear-gradient(115deg, rgba(255,255,255,.045) 0 2px, transparent 2px 46px),
-    repeating-linear-gradient(-25deg, rgba(42,22,8,.05) 0 2px, transparent 2px 62px);
-  mix-blend-mode:overlay;
+    repeating-linear-gradient(112deg, rgba(255,255,255,.05) 0 2px, transparent 2px 44px),
+    repeating-linear-gradient(-28deg, rgba(24,13,5,.055) 0 2px, transparent 2px 58px);
 }
 .vignette{
   position:fixed;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 50%, transparent 45%, rgba(42,22,8,.42) 100%);
+  background:radial-gradient(ellipse at 50% 46%, transparent 42%, rgba(24,13,5,.5) 100%);
 }
 #beans{position:fixed;inset:0;z-index:2;pointer-events:none}
 
-/* ---------- the cup ---------- */
+/* ---------- cup ---------- */
 .cupwrap{
-  position:fixed;z-index:3;pointer-events:none;
-  left:50%;top:50%;
-  width:min(300px,58vw);
-  transform-origin:50% 50%;
-  will-change:transform,opacity;
-  filter:drop-shadow(0 40px 44px rgba(42,22,8,.55));
+  position:fixed;z-index:3;pointer-events:none;left:50%;top:50%;
+  width:min(300px,56vw);transform-origin:50% 50%;will-change:transform,opacity;
+  filter:drop-shadow(0 42px 46px rgba(24,13,5,.6));
 }
-.cupwrap .float{animation:bob 5.2s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(-8px) rotate(-1.2deg)}50%{transform:translateY(10px) rotate(1.4deg)}}
+.cupwrap .float{animation:bob 5.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(-9px) rotate(-1.3deg)}50%{transform:translateY(11px) rotate(1.5deg)}}
 
 /* ---------- header ---------- */
 header{
   position:fixed;top:0;left:0;right:0;z-index:40;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:max(.85rem,env(safe-area-inset-top)) clamp(1rem,4vw,2.4rem) .85rem;
+  padding:max(.8rem,env(safe-area-inset-top)) clamp(1rem,4vw,2.4rem) .8rem;
 }
 .brand{display:flex;align-items:center;gap:.6rem}
-.brand img{width:36px;height:36px;filter:drop-shadow(0 4px 10px rgba(42,22,8,.5))}
-.brand b{font-size:1.02rem;font-weight:700;letter-spacing:-.01em;line-height:1.05;display:block}
-.brand small{display:block;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;opacity:.75}
+.brand img{width:36px;height:36px;filter:drop-shadow(0 4px 10px rgba(24,13,5,.55))}
+.brand b{font-size:1rem;font-weight:700;letter-spacing:-.015em;line-height:1.05;display:block}
+.brand small{
+  display:block;font-family:'Roboto Mono',monospace;font-size:.58rem;
+  letter-spacing:.14em;text-transform:uppercase;opacity:.72;
+}
 @media(max-width:560px){.brand small{display:none}.brand img{width:31px;height:31px}}
 
+/* ---------- live status pill ---------- */
+.status{
+  display:inline-flex;align-items:center;gap:.55rem;
+  background:var(--board);border:1px solid rgba(247,240,228,.16);
+  border-radius:999px;padding:.5rem .95rem;
+  font-family:'Roboto Mono',monospace;font-size:.72rem;letter-spacing:.08em;
+  text-transform:uppercase;white-space:nowrap;
+}
+.status .led{width:8px;height:8px;border-radius:50%;background:var(--amber);flex:0 0 8px}
+.status.open .led{background:var(--go);box-shadow:0 0 0 0 rgba(95,208,138,.7);animation:pulse 2.2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(95,208,138,0)}100%{box-shadow:0 0 0 0 rgba(95,208,138,0)}}
+.status b{font-weight:700}
+.status .sep{opacity:.35}
+@media(max-width:560px){.status{font-size:.63rem;padding:.42rem .7rem;gap:.4rem}}
+
+/* ---------- buttons ---------- */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  font:inherit;font-weight:600;font-size:.95rem;
-  padding:.82rem 1.5rem;border-radius:999px;border:1.5px solid transparent;
-  cursor:pointer;white-space:nowrap;
+  font:inherit;font-weight:600;font-size:.95rem;padding:.82rem 1.5rem;
+  border-radius:999px;border:1.5px solid transparent;cursor:pointer;white-space:nowrap;
   transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease;
 }
 .btn:hover{transform:translateY(-2px)}
 .btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.btn-dark{background:var(--roast);color:var(--cream);box-shadow:0 14px 30px -14px rgba(42,22,8,.9)}
-.btn-cream{background:var(--cream);color:var(--roast);box-shadow:0 14px 30px -14px rgba(42,22,8,.7)}
-.btn-ghost{background:rgba(255,255,255,.09);color:#fff;border-color:rgba(255,255,255,.42);backdrop-filter:blur(6px)}
+.btn-cream{background:var(--cream);color:var(--ink);box-shadow:0 14px 30px -14px rgba(24,13,5,.8)}
+.btn-dark{background:var(--espresso);color:var(--cream);box-shadow:0 14px 30px -14px rgba(24,13,5,.9)}
+.btn-ghost{background:rgba(255,255,255,.09);color:var(--cream);border-color:rgba(247,240,228,.4);backdrop-filter:blur(6px)}
 .btn-ghost:hover{background:rgba(255,255,255,.18)}
-header .btn{padding:.6rem 1.15rem;font-size:.86rem}
-.btn-short{display:none}
-@media(max-width:560px){
-  header .btn{padding:.55rem .95rem;font-size:.82rem;gap:.38rem}
-  .btn-long{display:none}.btn-short{display:inline}
-}
 
 /* ---------- deck ---------- */
 .deck{
-  position:relative;z-index:20;
-  height:100dvh;height:100vh;
-  display:flex;
-  overflow-x:auto;overflow-y:hidden;
-  scroll-snap-type:x mandatory;
-  overscroll-behavior-x:contain;
-  scrollbar-width:none;-ms-overflow-style:none;
+  position:relative;z-index:20;height:100dvh;height:100vh;display:flex;
+  overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
+  overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none;
   -webkit-overflow-scrolling:touch;
 }
 .deck::-webkit-scrollbar{display:none}
-
 .panel{
   flex:0 0 100vw;width:100vw;height:100%;
   scroll-snap-align:center;scroll-snap-stop:always;
   display:flex;align-items:center;
-  padding:5.5rem clamp(1.2rem,5vw,4.5rem) 5.5rem;
+  padding:5.2rem clamp(1.2rem,5vw,4.5rem) 5.2rem;
   overflow-y:auto;overscroll-behavior-y:contain;
 }
 .panel > .inner{width:min(1080px,100%);margin-inline:auto}
-
-/* text sits left so it never fights the cup */
 .half{max-width:min(560px,100%)}
-@media(max-width:900px){
-  .panel{align-items:flex-start;padding-top:4.8rem}
-  .half{max-width:100%}
-}
+@media(max-width:900px){.panel{align-items:flex-start;padding-top:4.6rem}.half{max-width:100%}}
 
 .kicker{
-  font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
-  font-weight:600;color:var(--cream);opacity:.9;
+  font-family:'Roboto Mono',monospace;font-size:.68rem;letter-spacing:.2em;
+  text-transform:uppercase;font-weight:500;color:var(--cream);opacity:.85;
 }
-@media(max-width:560px){.kicker{font-size:.62rem;letter-spacing:.13em;overflow-wrap:break-word}}
+@media(max-width:560px){.kicker{font-size:.6rem;letter-spacing:.12em;overflow-wrap:break-word}}
 
 h1{
-  font-size:clamp(3.2rem,13vw,7.5rem);line-height:.9;font-weight:700;
-  letter-spacing:-.045em;margin:.75rem 0 0;
-  text-shadow:0 18px 40px rgba(42,22,8,.45);
+  font-size:clamp(3rem,12.5vw,7rem);line-height:.9;font-weight:700;
+  letter-spacing:-.045em;margin:.7rem 0 0;text-shadow:0 18px 40px rgba(24,13,5,.5);
 }
 h1 .lo{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.02em}
 h2{
-  font-size:clamp(2rem,6.2vw,3.6rem);line-height:1.02;letter-spacing:-.035em;
-  font-weight:700;margin:.7rem 0 0;text-shadow:0 14px 34px rgba(42,22,8,.4);
+  font-size:clamp(1.95rem,6vw,3.4rem);line-height:1.03;letter-spacing:-.035em;
+  font-weight:700;margin:.6rem 0 0;text-shadow:0 14px 34px rgba(24,13,5,.45);
 }
-h2 em{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:400;color:var(--cream)}
-.lede{font-size:clamp(1rem,2.4vw,1.22rem);margin-top:1.1rem;max-width:38ch;color:rgba(255,255,255,.93)}
-.cta{display:flex;gap:.7rem;margin-top:1.9rem;flex-wrap:wrap}
+h2 em{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:400;color:var(--amber)}
+.lede{font-size:clamp(1rem,2.3vw,1.2rem);margin-top:1rem;max-width:40ch;color:rgba(247,240,228,.93)}
+.cta{display:flex;gap:.7rem;margin-top:1.7rem;flex-wrap:wrap;align-items:center}
 
-/* ---------- panel 2 facts ---------- */
-.facts{display:grid;gap:1rem;margin-top:2rem}
-.fact{
-  display:flex;gap:1rem;align-items:flex-start;
-  background:rgba(42,22,8,.26);border:1px solid rgba(255,255,255,.16);
-  border-radius:18px;padding:1.1rem 1.25rem;backdrop-filter:blur(7px);
+/* their own tagline, treated like a stamp */
+.stamp{
+  display:inline-block;margin-top:1.1rem;
+  font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:clamp(1.05rem,2.6vw,1.4rem);
+  color:var(--cream);border-bottom:2px solid rgba(240,166,60,.7);padding-bottom:.15rem;
 }
-.fact .n{font-family:'Fraunces',serif;font-size:1.9rem;line-height:1;color:var(--cream);opacity:.85}
-.fact h3{font-size:1.05rem;font-weight:600;margin-bottom:.2rem}
-.fact p{font-size:.94rem;color:rgba(255,255,255,.82)}
+.stamp small{
+  display:block;font-family:'Roboto Mono',monospace;font-style:normal;
+  font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;opacity:.6;
+  border:0;margin-top:.4rem;
+}
+
+/* ---------- departure board ---------- */
+.board{
+  background:var(--board);border:1px solid rgba(247,240,228,.14);
+  border-radius:16px;padding:1rem 1.1rem;margin-top:1.6rem;
+  font-family:'Roboto Mono',monospace;max-width:440px;
+}
+.board .row{
+  display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:baseline;
+  padding:.34rem 0;font-size:.85rem;
+}
+.board .row + .row{border-top:1px dashed rgba(247,240,228,.12)}
+.board .d{letter-spacing:.1em;text-transform:uppercase;opacity:.62;font-size:.72rem}
+.board .t{text-align:right;font-weight:500;letter-spacing:.04em}
+.board .row.today{color:var(--amber)}
+.board .row.today .d{opacity:1;font-weight:700}
+.board .row.shut .t{opacity:.42}
+.board .cap{
+  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
+  margin-top:.7rem;padding-top:.7rem;border-top:1px solid rgba(247,240,228,.12);
+  font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;opacity:.6;
+}
+
+/* ---------- first cup / last call ---------- */
+.times{display:flex;gap:.9rem;margin-top:1.6rem;flex-wrap:wrap}
+.times .t{
+  background:var(--board);border:1px solid rgba(247,240,228,.14);
+  border-radius:16px;padding:.9rem 1.2rem;min-width:150px;
+}
+.times .t b{
+  display:block;font-family:'Roboto Mono',monospace;font-size:clamp(1.6rem,4.6vw,2.3rem);
+  font-weight:700;letter-spacing:-.02em;line-height:1;
+}
+.times .t.first b{color:var(--go)}
+.times .t.last b{color:var(--amber)}
+.times .t span{
+  display:block;margin-top:.35rem;font-family:'Roboto Mono',monospace;
+  font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;opacity:.65;
+}
+.times .shut{
+  align-self:center;font-family:'Roboto Mono',monospace;font-size:.66rem;
+  letter-spacing:.13em;text-transform:uppercase;opacity:.6;max-width:12ch;line-height:1.5;
+}
+
+/* ---------- amenities ---------- */
+.amen{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+.amen span{
+  font-family:'Roboto Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(24,13,5,.4);border:1px solid rgba(247,240,228,.18);
+  border-radius:999px;padding:.42rem .8rem;
+}
 
 /* ---------- menu ---------- */
 .menucard{
-  background:var(--cream);color:var(--ink);border-radius:26px;
-  padding:clamp(1.4rem,3.4vw,2.4rem);box-shadow:var(--shadow);
+  background:var(--cream);color:var(--ink);border-radius:24px;
+  padding:clamp(1.2rem,3.2vw,2.3rem);box-shadow:0 30px 60px -30px rgba(24,13,5,.85);
   max-width:min(760px,100%);
 }
 .menucard .kicker{color:var(--caramel-dk);opacity:1}
 .menucard h2{color:var(--ink);text-shadow:none}
 .menucard h2 em{color:var(--caramel-dk)}
-.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;margin-top:1.4rem}
-@media(max-width:640px){.mgrid{grid-template-columns:1fr;gap:1.1rem}}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.2rem}
+@media(max-width:640px){.mgrid{grid-template-columns:1fr;gap:.9rem}}
 .mcol h3{
-  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--caramel-dk);
-  font-weight:700;padding-bottom:.5rem;border-bottom:1.5px solid rgba(32,19,10,.16);
+  font-family:'Roboto Mono',monospace;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--caramel-dk);font-weight:700;padding-bottom:.45rem;border-bottom:1.5px solid rgba(30,18,8,.18);
 }
-.mcol ul{list-style:none;margin-top:.5rem}
-.mcol li{display:flex;align-items:baseline;gap:.6rem;padding:.42rem 0;border-bottom:1px dashed rgba(32,19,10,.12)}
-.mcol li .nm{font-weight:500;font-size:.97rem}
-.mcol li .dot{flex:1;border-bottom:1px dotted rgba(32,19,10,.28);translate:0 -4px}
-.mcol li .pr{font-variant-numeric:tabular-nums;font-weight:600;font-size:.92rem;color:#6E5540}
-.mnote{margin-top:1.2rem;font-size:.86rem;color:#6E5540;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-/* fit the whole menu on one phone screen */
+.mcol ul{list-style:none;margin-top:.45rem}
+.mcol li{padding:.36rem 0;border-bottom:1px dashed rgba(30,18,8,.12)}
+.mcol .top{display:flex;align-items:baseline;gap:.6rem}
+.mcol .nm{font-weight:500;font-size:.96rem}
+.mcol .dot{flex:1;border-bottom:1px dotted rgba(30,18,8,.28);translate:0 -4px}
+.mcol .pr{font-family:'Roboto Mono',monospace;font-weight:500;font-size:.88rem;color:#6E5540}
+.mcol .nt{display:block;font-size:.76rem;color:#8A6A4C;font-style:italic;margin-top:.05rem}
+.mnote{margin-top:1rem;font-size:.84rem;color:#6E5540;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 @media(max-width:640px){
-  .menucard{padding:1.15rem 1.2rem;border-radius:20px}
-  .menucard h2{font-size:1.75rem}
-  .mgrid{gap:.85rem;margin-top:1rem}
-  .mcol li{padding:.3rem 0}
-  .mcol li .nm{font-size:.92rem}
-  .mnote{margin-top:.85rem;font-size:.79rem}
+  .menucard{padding:1.1rem 1.15rem;border-radius:18px}
+  .menucard h2{font-size:1.7rem}
+  .mcol li{padding:.28rem 0}
+  .mcol .nm{font-size:.9rem}
+  .mcol .nt{font-size:.72rem}
+  .mnote{margin-top:.8rem;font-size:.76rem}
 }
 
-/* ---------- steps ---------- */
-.steps{display:grid;gap:.9rem;margin-top:1.8rem}
-.step{display:flex;gap:.9rem;align-items:flex-start}
-.step .n{
-  flex:0 0 32px;height:32px;border-radius:50%;display:grid;place-items:center;
-  background:var(--roast);color:var(--cream);font-weight:700;font-size:.9rem;
+/* ---------- reviews ---------- */
+.rate{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.2rem}
+.rate .r{
+  background:rgba(24,13,5,.4);border:1px solid rgba(247,240,228,.18);
+  border-radius:14px;padding:.7rem .95rem;display:flex;align-items:baseline;gap:.45rem;
 }
-.step h4{font-size:1rem;font-weight:600;margin-bottom:.1rem}
-.step p{font-size:.92rem;color:rgba(255,255,255,.82)}
+.rate .r b{font-size:1.35rem;font-weight:700;letter-spacing:-.02em}
+.rate .r span{font-family:'Roboto Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.revs{display:grid;gap:.8rem;margin-top:1.3rem}
+.rev{
+  background:rgba(24,13,5,.32);border:1px solid rgba(247,240,228,.15);
+  border-left:3px solid var(--amber);border-radius:0 16px 16px 0;padding:1rem 1.15rem;
+}
+.rev p{font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:1.02rem;line-height:1.4}
+.rev .x{font-size:.9rem;opacity:.8;margin-top:.3rem;font-family:'Space Grotesk',sans-serif;font-style:normal}
+.rev cite{
+  display:block;margin-top:.55rem;font-style:normal;font-family:'Roboto Mono',monospace;
+  font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;opacity:.62;
+}
+@media(max-width:640px){.rev{padding:.8rem .9rem}.rev p{font-size:.94rem}}
 
-/* ---------- locations ---------- */
-.locs{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.6rem}
-@media(max-width:760px){.locs{grid-template-columns:1fr}}
-.loc{
-  background:rgba(42,22,8,.3);border:1px solid rgba(255,255,255,.17);
-  border-radius:20px;padding:1.3rem 1.3rem;backdrop-filter:blur(7px);
-  display:flex;flex-direction:column;gap:.55rem;
+/* ---------- find ---------- */
+.place{
+  background:rgba(24,13,5,.34);border:1px solid rgba(247,240,228,.17);
+  border-radius:20px;padding:1.3rem;margin-top:1.3rem;
 }
-.loc .tag{
-  align-self:flex-start;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
-  padding:.28rem .7rem;border-radius:999px;font-weight:700;
-  background:rgba(247,237,224,.2);border:1px solid rgba(247,237,224,.4);color:var(--cream);
+.place h3{font-size:1.3rem;font-weight:700;letter-spacing:-.02em}
+.place p{font-size:.93rem;opacity:.88;margin-top:.25rem}
+.contact{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:1.2rem;font-size:.92rem}
+.contact a{border-bottom:1px solid rgba(247,240,228,.4);padding-bottom:2px}
+/* keep the find-us panel inside one phone screen */
+@media(max-width:640px){
+  .place{padding:1rem;border-radius:16px;margin-top:1rem}
+  .place h3{font-size:1.14rem}
+  .place p{font-size:.86rem}
+  .board{padding:.75rem .85rem;border-radius:12px}
+  .board .row{padding:.22rem 0;font-size:.76rem}
+  .board .d{font-size:.66rem}
+  .board .cap{margin-top:.5rem;padding-top:.5rem;font-size:.58rem}
+  .contact{margin-top:.9rem;gap:.85rem;font-size:.84rem}
 }
-.loc h3{font-size:1.22rem;font-weight:700;letter-spacing:-.02em}
-.loc p{font-size:.92rem;color:rgba(255,255,255,.85)}
-.loc dl{display:grid;grid-template-columns:auto 1fr;gap:.2rem .8rem;font-size:.9rem}
-.loc dt{opacity:.72}
-.loc .btn{margin-top:.4rem;align-self:flex-start;padding:.6rem 1.1rem;font-size:.86rem}
+
 .chip{
-  display:inline-block;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
-  padding:.2rem .5rem;border-radius:999px;font-weight:700;
-  background:rgba(42,22,8,.55);color:#FFD9A6;border:1px solid rgba(255,217,166,.5);
+  display:inline-block;font-family:'Roboto Mono',monospace;
+  font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:.2rem .5rem;border-radius:6px;font-weight:700;
+  background:rgba(240,166,60,.16);color:var(--amber);border:1px solid rgba(240,166,60,.45);
 }
-.menucard .chip{background:rgba(150,98,44,.16);color:#8A5620;border-color:rgba(150,98,44,.45)}
+.menucard .chip{background:rgba(142,90,34,.14);color:var(--caramel-dk);border-color:rgba(142,90,34,.42)}
 
-blockquote{
-  font-family:'Fraunces',Georgia,serif;font-style:italic;
-  font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.35;color:var(--cream);
-  margin-top:1.8rem;max-width:34ch;
-}
-blockquote cite{display:block;margin-top:.7rem;font-style:normal;font-family:'Space Grotesk',sans-serif;
-  font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;opacity:.72}
-.contact{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:1.6rem;font-size:.92rem}
-/* keep the last panel inside one screen on a phone */
-@media(max-width:640px){
-  .loc{padding:1rem 1.05rem;gap:.4rem;border-radius:16px}
-  .loc h3{font-size:1.08rem}
-  .loc p{font-size:.86rem}
-  .locs{gap:.7rem;margin-top:1.1rem}
-  blockquote{margin-top:1.1rem;font-size:1.02rem}
-  .contact{margin-top:1rem;gap:.9rem;font-size:.86rem}
-}
-.contact a{border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:2px}
-
-/* ---------- dots + hint ---------- */
+/* ---------- progress ---------- */
 .dots{
   position:fixed;z-index:40;left:50%;translate:-50% 0;
-  bottom:max(1.1rem,env(safe-area-inset-bottom));
-  display:flex;gap:.55rem;align-items:center;
-  background:rgba(42,22,8,.34);padding:.55rem .8rem;border-radius:999px;
-  backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.16);
+  bottom:max(1rem,env(safe-area-inset-bottom));
+  display:flex;gap:.5rem;align-items:center;
+  background:rgba(14,10,6,.55);padding:.5rem .75rem;border-radius:999px;
+  backdrop-filter:blur(8px);border:1px solid rgba(247,240,228,.16);
 }
 .dots button{
-  width:9px;height:9px;border-radius:50%;border:0;padding:0;cursor:pointer;
-  background:rgba(247,237,224,.42);transition:width .3s ease,background .3s ease;
+  width:8px;height:8px;border-radius:50%;border:0;padding:0;cursor:pointer;
+  background:rgba(247,240,228,.4);transition:width .3s ease,background .3s ease;
 }
-.dots button.on{width:26px;border-radius:999px;background:var(--cream)}
-
+.dots button.on{width:24px;border-radius:999px;background:var(--amber)}
 .hint{
   position:fixed;z-index:40;right:clamp(1rem,4vw,2.4rem);
-  bottom:max(1.4rem,env(safe-area-inset-bottom));
+  bottom:max(1.3rem,env(safe-area-inset-bottom));
   display:flex;align-items:center;gap:.5rem;
-  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;
-  color:rgba(255,255,255,.85);transition:opacity .5s ease;
+  font-family:'Roboto Mono',monospace;font-size:.66rem;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(247,240,228,.85);transition:opacity .5s ease;
 }
-.hint svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.7s ease-in-out infinite}
+.hint svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.7s ease-in-out infinite}
 @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
 .hint.gone{opacity:0;pointer-events:none}
 @media(max-width:640px){.hint{display:none}}
 
 @media(prefers-reduced-motion:reduce){
-  .cupwrap .float,.hint svg{animation:none}
-  .deck{scroll-behavior:auto}
+  .cupwrap .float,.hint svg,.status.open .led{animation:none}
 }
 </style>
 </head>
@@ -294,45 +338,32 @@ blockquote cite{display:block;margin-top:.7rem;font-style:normal;font-family:'Sp
 <canvas id="beans"></canvas>
 <div class="vignette"></div>
 
-<!-- floating cup -->
 <div class="cupwrap" id="cup" aria-hidden="true">
   <div class="float">
     <svg viewBox="0 0 260 320" width="260" height="320">
       <defs>
         <linearGradient id="body" x1="40" y1="90" x2="220" y2="300" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#4A4A4C"/>
-          <stop offset=".28" stop-color="#1B1B1D"/>
-          <stop offset=".72" stop-color="#0E0E10"/>
-          <stop offset="1" stop-color="#2C2C2F"/>
+          <stop offset="0" stop-color="#4A4A4C"/><stop offset=".28" stop-color="#1B1B1D"/>
+          <stop offset=".72" stop-color="#0E0E10"/><stop offset="1" stop-color="#2C2C2F"/>
         </linearGradient>
-        <linearGradient id="lid" x1="20" y1="60" x2="240" y2="110" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#3A3A3D"/>
-          <stop offset=".5" stop-color="#141416"/>
-          <stop offset="1" stop-color="#333336"/>
+        <linearGradient id="lidg" x1="20" y1="60" x2="240" y2="110" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#3A3A3D"/><stop offset=".5" stop-color="#141416"/><stop offset="1" stop-color="#333336"/>
         </linearGradient>
-        <linearGradient id="rim" x1="30" y1="285" x2="230" y2="305" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#D8D8DA"/>
-          <stop offset=".5" stop-color="#F2F2F3"/>
-          <stop offset="1" stop-color="#B9B9BC"/>
+        <linearGradient id="rimg" x1="30" y1="285" x2="230" y2="305" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#D8D8DA"/><stop offset=".5" stop-color="#F2F2F3"/><stop offset="1" stop-color="#B9B9BC"/>
         </linearGradient>
       </defs>
-      <!-- cup body (tapered) -->
       <path d="M46 96 h168 l-22 186 a16 16 0 0 1 -16 14 H84 a16 16 0 0 1 -16 -14 z" fill="url(#body)"/>
-      <!-- base ring -->
-      <path d="M70 282 h120 l-2 14 a16 16 0 0 1 -16 14 H88 a16 16 0 0 1 -16 -14 z" fill="url(#rim)"/>
-      <!-- lid -->
-      <rect x="34" y="72" width="192" height="30" rx="12" fill="url(#lid)"/>
+      <path d="M70 282 h120 l-2 14 a16 16 0 0 1 -16 14 H88 a16 16 0 0 1 -16 -14 z" fill="url(#rimg)"/>
+      <rect x="34" y="72" width="192" height="30" rx="12" fill="url(#lidg)"/>
       <ellipse cx="130" cy="74" rx="96" ry="15" fill="#232326"/>
       <ellipse cx="130" cy="72" rx="88" ry="12" fill="#0D0D0F"/>
-      <!-- sip hole -->
       <ellipse cx="130" cy="70" rx="17" ry="6" fill="#000" opacity=".75"/>
-      <!-- highlight down the side -->
       <path d="M62 104 q10 90 22 176" stroke="rgba(255,255,255,.16)" stroke-width="9" fill="none" stroke-linecap="round"/>
-      <!-- wordmark -->
-      <text x="130" y="196" text-anchor="middle" font-family="Space Grotesk, sans-serif"
-            font-size="34" font-weight="700" fill="#F4EFE8" letter-spacing="-1">BEAN</text>
-      <text x="130" y="228" text-anchor="middle" font-family="Space Grotesk, sans-serif"
-            font-size="22" font-weight="500" fill="#C79A5E" letter-spacing="3">ME UP</text>
+      <text x="130" y="194" text-anchor="middle" font-family="Space Grotesk, sans-serif"
+            font-size="33" font-weight="700" fill="#F7F0E4" letter-spacing="-1">BEAN</text>
+      <text x="130" y="224" text-anchor="middle" font-family="Roboto Mono, monospace"
+            font-size="17" font-weight="500" fill="#C79A5E" letter-spacing="4">ME UP</text>
     </svg>
   </div>
 </div>
@@ -340,22 +371,21 @@ blockquote cite{display:block;margin-top:.7rem;font-style:normal;font-family:'Sp
 <header>
   <a class="brand" href="#" data-go="0">
     <img src="assets/logo.svg" alt="">
-    <span><b>Bean Me Up</b><small>Partick · Cowcaddens</small></span>
+    <span><b>Bean Me Up</b><small>Partick Station</small></span>
   </a>
-  <a class="btn btn-dark" href="#" data-go="3">
-    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    <span class="btn-long">Text your order</span><span class="btn-short">Order</span>
-  </a>
+  <div class="status" id="status" role="status">
+    <span class="led"></span><span id="status-text">—</span>
+  </div>
 </header>
 
 <div class="deck" id="deck">
 
-  <!-- 1 ---------------------------------------------------------------- -->
+  <!-- 1 — hero -->
   <section class="panel"><div class="inner">
     <div class="half">
-      <p class="kicker">Partick Station · Cowcaddens Underground</p>
+      <p class="kicker">Partick Station · Merkland Court · Glasgow</p>
       <h1>Bean<br>Me <span class="lo">Up</span></h1>
-      <p class="lede">Proper coffee, on the platform. No queue for a table, no walk into town — just the cup, and your train.</p>
+      <p class="stamp">“Best coffee in the toon.”<small>Their words, not ours</small></p>
       <div class="cta">
         <a class="btn btn-cream" href="#" data-go="2">See the menu</a>
         <a class="btn btn-ghost" href="#" data-go="4">
@@ -366,33 +396,22 @@ blockquote cite{display:block;margin-top:.7rem;font-style:normal;font-family:'Sp
     </div>
   </div></section>
 
-  <!-- 2 ---------------------------------------------------------------- -->
+  <!-- 2 — the morning -->
   <section class="panel"><div class="inner">
     <div class="half">
-      <p class="kicker">Why bother with a cart</p>
-      <h2>Ninety seconds, <em>start to cup</em>.</h2>
-      <div class="facts">
-        <div class="fact">
-          <span class="n">01</span>
-          <div><h3>No detour</h3><p>It's on the platform. You don't leave the station, you don't lose the train.</p></div>
-        </div>
-        <div class="fact">
-          <span class="n">02</span>
-          <div><h3>Same hands, every day</h3><p>Same cart, same beans. Regulars get their usual without saying it twice.</p></div>
-        </div>
-        <div class="fact">
-          <span class="n">03</span>
-          <div><h3>Two stops on your line</h3><p>Partick on the train, Cowcaddens on the Subway.</p></div>
-        </div>
-      </div>
+      <p class="kicker">The morning shift</p>
+      <h2>Open at 6:45. <em>Gone by one.</em></h2>
+      <p class="lede">This isn't a café you sit in. It's a cart on the platform for the people going somewhere — first cup before the early train, shutters down before the lunch crowd even wakes up.</p>
+      <div class="times" id="times"></div>
+      <div class="amen" id="amen"></div>
     </div>
   </div></section>
 
-  <!-- 3 ---------------------------------------------------------------- -->
+  <!-- 3 — menu -->
   <section class="panel"><div class="inner">
     <div class="menucard">
       <p class="kicker">The menu</p>
-      <h2>Everything you'd actually <em>order</em>.</h2>
+      <h2>What people actually <em>order</em>.</h2>
       <div class="mgrid">
         <div class="mcol"><h3>Espresso bar</h3><ul id="m-coffee"></ul></div>
         <div class="mcol"><h3>Not coffee</h3><ul id="m-other"></ul></div>
@@ -401,36 +420,25 @@ blockquote cite{display:block;margin-top:.7rem;font-style:normal;font-family:'Sp
     </div>
   </div></section>
 
-  <!-- 4 ---------------------------------------------------------------- -->
+  <!-- 4 — reviews -->
   <section class="panel"><div class="inner">
     <div class="half">
-      <p class="kicker">Skip the queue</p>
-      <h2>Text it from the train. <em>Pick it up on the platform.</em></h2>
-      <div class="steps">
-        <div class="step"><span class="n">1</span><div><h4>Text the cart</h4><p>Your order and the time you'll be there.</p></div></div>
-        <div class="step"><span class="n">2</span><div><h4>Get a thumbs up</h4><p>If we can't make it in time, we'll say so — no guessing.</p></div></div>
-        <div class="step"><span class="n">3</span><div><h4>Walk up and go</h4><p>Pay by card at the cart. Cup's already made.</p></div></div>
-      </div>
-      <div class="cta">
-        <a class="btn btn-cream" id="sms-link" href="#">
-          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Text your order
-        </a>
-        <a class="btn btn-ghost" id="tel-link" href="#">
-          <svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
-          Or just call
-        </a>
-      </div>
+      <p class="kicker">What people say</p>
+      <h2>Fifteen years of <em>regulars</em>.</h2>
+      <div class="rate" id="rate"></div>
+      <div class="revs" id="revs"></div>
+      <p class="kicker" id="rank" style="margin-top:1rem;opacity:.6"></p>
     </div>
   </div></section>
 
-  <!-- 5 ---------------------------------------------------------------- -->
+  <!-- 5 — find -->
   <section class="panel"><div class="inner">
-    <p class="kicker">Find the cart</p>
-    <h2>Two carts. Both of them <em>on your way</em>.</h2>
-    <div class="locs" id="locs"></div>
-    <blockquote id="quote"></blockquote>
-    <div class="contact" id="contact"></div>
+    <div class="half">
+      <p class="kicker">Find the cart</p>
+      <h2>On the platform. <em>Not a detour.</em></h2>
+      <div class="place" id="place"></div>
+      <div class="contact" id="contact"></div>
+    </div>
   </div></section>
 
 </div>

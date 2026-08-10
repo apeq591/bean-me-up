@@ -1,29 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Bean Me Up">
   <defs>
-    <linearGradient id="beam" x1="60" y1="4" x2="60" y2="72" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#F7EDE0" stop-opacity="0"/>
-      <stop offset=".6" stop-color="#F0C98A" stop-opacity=".7"/>
-      <stop offset="1" stop-color="#E0A85C" stop-opacity=".9"/>
+    <linearGradient id="beam" x1="60" y1="2" x2="60" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F7F0E4" stop-opacity="0"/>
+      <stop offset="1" stop-color="#F0A63C" stop-opacity=".85"/>
     </linearGradient>
-    <radialGradient id="bean" cx=".36" cy=".3" r=".82">
-      <stop offset="0" stop-color="#A87142"/>
-      <stop offset=".45" stop-color="#7C4B23"/>
+    <radialGradient id="bn" cx=".34" cy=".28" r=".85">
+      <stop offset="0" stop-color="#B87C49"/>
+      <stop offset=".42" stop-color="#7C4B23"/>
       <stop offset=".85" stop-color="#4A2A12"/>
-      <stop offset="1" stop-color="#311C0B"/>
+      <stop offset="1" stop-color="#2C190A"/>
     </radialGradient>
   </defs>
 
-  <!-- the beam it gets pulled up into -->
-  <path d="M48 74 L55 6 h10 l7 68 z" fill="url(#beam)"/>
+  <!-- short transporter beam: enough to read the pun, not enough to shrink the bean -->
+  <path d="M50 54 L56 8 h8 l6 46 z" fill="url(#beam)"/>
 
-  <!-- coffee bean, crease along the long axis -->
-  <g transform="translate(60 82) rotate(-18)">
-    <ellipse rx="38" ry="25" fill="url(#bean)"/>
-    <path d="M-29 -2 C -11 12, 11 -12, 29 2"
-          fill="none" stroke="#1C0E05" stroke-opacity=".85"
-          stroke-width="7" stroke-linecap="round"/>
-    <path d="M-26 -14 A 32 21 0 0 1 4 -23"
-          fill="none" stroke="#FFE2BE" stroke-opacity=".28"
-          stroke-width="5" stroke-linecap="round"/>
+  <!-- the bean does the work at small sizes -->
+  <g transform="translate(60 76) rotate(-20)">
+    <ellipse rx="46" ry="31" fill="url(#bn)"/>
+    <path d="M-35 -2 C -13 15, 13 -15, 35 2"
+          fill="none" stroke="#190C04" stroke-opacity=".9"
+          stroke-width="9" stroke-linecap="round"/>
+    <path d="M-31 -17 A 39 26 0 0 1 5 -28"
+          fill="none" stroke="#FFE2BE" stroke-opacity=".3"
+          stroke-width="6" stroke-linecap="round"/>
   </g>
 </svg>

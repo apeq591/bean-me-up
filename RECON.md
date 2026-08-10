@@ -1,56 +1,76 @@
-# Bean Me Up — what to find out before you pitch
+# Bean Me Up — what's real, what's not, and what to ask
 
-Everything on the site that isn't confirmed shows an amber **"to confirm"** chip.
-Fill these in inside `assets/app.js` (top of the file, `CONFIG`), then set
-`draft: false` and the chips disappear.
+Everything on the site comes from a public source, listed below. Anything not
+confirmed shows an amber **"to confirm"** chip. All of it lives in one place:
+`assets/data.js`. Fill the gaps, set `draft: false`, and the chips disappear.
 
-## Ask at the cart (you're a customer — this is a normal conversation)
+## What's confirmed (public listings, checked 10 Aug 2026)
 
-| # | Question | Goes into |
+| Fact | Source |
+|---|---|
+| Coffee cart, Merkland Court, Partick, Glasgow G11 6BU | Yelp, RestaurantGuru |
+| Phone 07875 697214 | RestaurantGuru |
+| Tagline **"Best coffee in the toon"** | their own Facebook page |
+| Google 4.7/5 from 26 reviews · Facebook 4.6/5 from 5 | RestaurantGuru |
+| #285 of 1,703 coffeehouses in Glasgow | RestaurantGuru |
+| Card, free Wi-Fi, wheelchair access, takeaway | Yelp, RestaurantGuru |
+| Hours 06:45–13:00 (Mon–Tue), 06:45–13:30 (Wed–Fri), closed weekends | RestaurantGuru |
+| Named after "Beam me up, Scotty" | obvious, and reviewers say it |
+
+**Reviews on the site are real and attributed** — Andrew M. (Yelp, Feb 2018),
+Usman B. (Google, 2025), Mary W. & Cara A. (Yelp, Feb 2011). Don't add one you
+haven't read on a public page yourself.
+
+## What was REMOVED and why
+
+- **Cowcaddens** — gone, your call. (For the record: a 2011 Yelp review does
+  mention a second Bean Me Up at Cowcaddens with hot food, but nothing confirms
+  it's still there or the same owner. You were right to cut it.)
+- **Text/call to place an order** — gone. It was never discussed with them, so
+  the site shouldn't promise it. Mention it out loud instead; it shows you came
+  with an idea rather than just a page.
+- **A quote I could not verify** — an earlier version carried a review line
+  ("a great wee addiction to the newly refurbished station"). It does not appear
+  in any Yelp review I could actually retrieve, and a direct search for it finds
+  nothing. It has been deleted. Treat it as never having existed.
+
+## Still unknown — ask at the cart
+
+| # | Question | Fills |
 |---|---|---|
-| 1 | Who owns it / who do I speak to? | nothing on the site — you need it for the pitch |
-| 2 | What are the opening times? Different at weekends? | `locations[0].hours` |
-| 3 | Is the Cowcaddens one yours too, or a different owner? | `locations[1]` — **if it's not theirs, delete that whole block** |
-| 4 | Cowcaddens times? | `locations[1].hours` |
-| 5 | What's actually on the menu — and is there food (croissants, pastries)? | `CONFIG.menu` |
-| 6 | Prices | `price` fields, then `showPrices: true` |
-| 7 | Milk options — oat, soya? | `menuNote` |
-| 8 | Would you take an order by text if someone was on the train? | this decides whether the **Text ahead** section stays |
-| 9 | Busiest time of day? Quietest? | your pitch — the site's job is to fill the quiet hours |
+| 1 | Who owns it / who do I speak to? | your pitch |
+| 2 | Are these hours right? Do they change? | `C.hours`, then `hoursConfirmed: true` |
+| 3 | Prices | `price` fields, then `showPrices: true` |
+| 4 | Full menu — any food beyond pastries? | `C.menu` |
+| 5 | **Can I photograph your sign?** | the logo — see below |
+| 6 | How long have you been here? | the site says "fifteen years" off a Feb 2011 review — confirm |
+| 7 | Busiest time? Quietest? | your pitch: the site's job is filling the quiet hours |
 
-## Two things to decide before you show it
+## About their logo
 
-**1. The "Text ahead" section is a promise you can't make for them.**
-It's the strongest thing on the page — it's the bit that gets them *more*
-customers rather than just looking nice. But if the owner says "no, I'm not
-reading texts during a rush," it has to come out. Ask question 8 **before** you
-show the site, not after.
+**I could not get it.** Their Facebook page is the only place it appears and
+Facebook blocks automated access. So the mark on the site is one I designed — a
+coffee bean in a transporter beam — and it is a **proposal, not their logo**.
 
-**2. The Cowcaddens cart might not be theirs.**
-Public sources say there's a Bean Me Up at Cowcaddens Underground, but nothing
-confirms it's the same owner. If it isn't, showing a site that claims their
-brand runs two carts is an own goal. Check first.
+When you go, photograph the cart's sign. If they have a real mark, it replaces
+mine and the site instantly stops looking like a template and starts looking
+like theirs. That's worth doing before any pitch.
 
-## Things deliberately NOT on the site
+## The idea the site is built on
 
-- **No fake reviews.** The one quote is a real published Yelp review. Don't add
-  more unless they're real.
-- **No prices.** Guessing a price in front of the person who sets it is the
-  fastest way to lose them.
-- **No "about us" story.** You don't know it yet. Ask, then write it.
+They open at **06:45** and are shut by **one**. Closed at weekends. That means
+they aren't a café — they're a **morning cart for people catching a train**. The
+whole site is built round that, which is why it can't be mistaken for a generic
+coffee-shop template.
 
-## Not confirmed, worth knowing
-
-- Public listings say: coffee cart at Merkland Court, Partick G11 6BU, takeaway,
-  card accepted, free Wi-Fi, hot chocolate with syrups. Phone 07875 697214.
-  Facebook page "Bean Me Up Partick" exists; **no website found** — which is the
-  whole opening.
-- `beanmeuproastery.com` is a **different, unrelated business in Munster,
-  Indiana**. Don't let it come up in conversation as if it's them.
+The most useful thing on it is the **live OPEN / CLOSED pill** in the corner. It
+reads the visitor's own clock and tells them whether the cart is open right now
+and when it shuts. For a business with a four-hour trading window, that's the
+single most valuable thing a website can do — and it only works because the
+hours are real. Which is why question 2 matters more than any other.
 
 ## Running it
 
-Open `index.html` in a browser — no build step, no server needed.
-To show it on your phone from your laptop: `python3 -m http.server 8080` in this
-folder, then visit `http://<your-laptop-ip>:8080`. Or push to GitHub Pages the
-same way as Ram Provision.
+Open `index.html` — no build step. Deep links: `#p1`–`#p5` open a given panel.
+Live at https://apeq591.github.io/bean-me-up/ (unlisted — `noindex` until they
+say yes).
