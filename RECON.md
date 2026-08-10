@@ -50,6 +50,11 @@ The photo is saved at `reference/the-shop.jpg`. What it corrected:
   straight into "meup" in a **rounded lowercase**, not a cursive script, and not
   two stacked lines. The site's lockup now matches. The tube is white; the green
   is the panel it is screwed to.
+- **The "u" of "up" is not a letter — it is a CUP, with steam coming off it.**
+  Mukta spotted this in the photo; zooming in confirms the squiggles above it.
+  The site draws it as a stroked tapered mug with two wafting steam wisps, on
+  the same baseline and lit by the same tube. This is the single most ownable
+  thing in their identity — never replace it with a plain "u".
 - **The hex tile is solid filled hexagons in mixed warm tones** — cream, tan,
   terracotta, brown — flat-top, thin grout. The earlier version had them as
   outlines on flat tan, which was wrong. `assets/hex.svg` is now traced from it.
