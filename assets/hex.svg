@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="100" viewBox="0 0 56 100">
+  <!-- The honeycomb tile off their back wall. Warm tan/cream, grout a shade
+       darker. Tiles seamlessly at 56x100. -->
+  <rect width="56" height="100" fill="#E7D8BC"/>
+  <g fill="none" stroke="#C6AC7E" stroke-width="2.4" stroke-linejoin="round">
+    <path d="M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100"/>
+    <path d="M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34"/>
+  </g>
+</svg>

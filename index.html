@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Bean Me Up — the coffee cart at Partick Station, Glasgow</title>
-<meta name="description" content="Bean Me Up: a coffee cart on the platform at Partick Station, Glasgow. Open 6:45, gone by one. Best coffee in the toon.">
-<meta name="theme-color" content="#080C11">
+<title>Bean Me Up — Partick Station, Glasgow</title>
+<meta name="description" content="Bean Me Up: the lit green hatch in the wall at Partick Station, Glasgow. Open 6:45, gone by one. Best coffee in the toon.">
+<meta name="theme-color" content="#9BD62E">
 <!-- Unlisted on purpose: this is a pitch demo for a business Mukta does not own
      yet. Keep it out of Google until the owner has said yes. -->
 <meta name="robots" content="noindex,nofollow">
@@ -17,133 +17,165 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&family=Sacramento&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================================================
-   The design system here is British railway platform signage — enamel signs,
-   the split-flap departure board, and the yellow platform edge line. That is
-   not decoration: this business IS a platform. It opens at 06:45 and is gone
-   by one, which is a train timetable, not a café's opening hours.
+   6:45 on a January morning. Partick station is grey concrete, brushed steel
+   and strip lighting — and Bean Me Up is a glowing green box in the middle
+   of it. That is the whole site: cold grey station, lit green content.
+
+   The palette is theirs, taken off the counter:
+     lime    the counter front and the light wash behind it
+     neon    BEAN in bold caps, "me up" in a lit script
+     hex     warm tan/cream honeycomb tile from the back wall
+     chalk   black boards, white handwriting
    ========================================================================= */
 :root{
-  --night:#070A0E;
-  --enamel:#0F1A24;
-  --enamel-2:#16242F;
-  --edge:rgba(255,255,255,.14);
+  --concrete:#23272C;
+  --concrete-2:#15181C;
+  --steel:#39404A;
+  --edge-l:rgba(255,255,255,.13);
+
+  --lime:#9BD62E;
+  --lime-lt:#C6F25C;
+  --lime-dk:#5F9214;
+
+  --tan:#E7D8BC;
+  --tan-ink:#3B2F1B;
+
+  --chalk-bg:#14171A;
+  --chalk:#F1F0E8;
+
+  --amber:#FFB000;          /* departure board only — a station colour */
   --white:#FFFFFF;
-  --dim:rgba(255,255,255,.66);
-  --platform:#F2C230;      /* the yellow line on the platform edge */
-  --board:#FFB000;         /* split-flap amber */
-  --go:#3ED598;
-  --coffee:#8A5A2B;
-  --paper:#F4EFE6;
-  --ink:#12181E;
-  --sign-r:14px;
+  --dim:rgba(255,255,255,.64);
+  --ink:#14181C;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
 html{-webkit-text-size-adjust:100%}
 body{
   font-family:'Inter',system-ui,-apple-system,sans-serif;
-  background:var(--night);color:var(--white);line-height:1.5;
-  -webkit-font-smoothing:antialiased;overscroll-behavior:none;
-  letter-spacing:-.006em;
+  background:var(--concrete-2);color:var(--white);line-height:1.5;
+  -webkit-font-smoothing:antialiased;overscroll-behavior:none;letter-spacing:-.006em;
 }
 a{color:inherit;text-decoration:none}
 img,svg{display:block;max-width:100%}
-.mono{font-family:'Roboto Mono',ui-monospace,monospace}
 
-/* ---------- the platform ---------- */
-.bg{position:fixed;inset:0;z-index:0;background:
-  /* first light, low on the right — they open at 06:45, so this is dawn */
-  radial-gradient(ellipse 78% 46% at 88% 74%, rgba(255,150,64,.34) 0%, rgba(214,104,44,.12) 44%, transparent 72%),
-  radial-gradient(ellipse 120% 70% at 46% -12%, #21384B 0%, transparent 62%),
-  radial-gradient(ellipse 90% 60% at 12% 96%, #16232F 0%, transparent 66%),
-  linear-gradient(178deg,#0B131C 0%,#0A1119 58%,#0E1620 100%);
-}
-/* The sodium lamp above the cart. This is the whole emotional point: cold blue
-   platform, one pool of warm light, coffee in it. */
-.lamp{
-  position:fixed;z-index:0;pointer-events:none;
-  right:-4vw;top:-20vh;width:64vw;height:110vh;
+/* ---------- the station: concrete, steel, strip lighting ---------- */
+.bg{
+  position:fixed;inset:0;z-index:0;
   background:
-    radial-gradient(ellipse 30% 30% at 60% 36%, rgba(255,176,86,.55) 0%, rgba(255,176,86,.16) 46%, transparent 72%),
-    radial-gradient(ellipse 13% 12% at 60% 30%, rgba(255,236,196,.72) 0%, transparent 66%);
-  filter:blur(4px);
+    radial-gradient(ellipse 70% 50% at 50% 4%, rgba(176,200,226,.10) 0%, transparent 60%),
+    linear-gradient(178deg,#3D444B 0%,#2E353B 40%,#1E242A 100%);
 }
-@media(max-width:920px){
-  .lamp{right:-24vw;top:-8vh;width:130vw;height:70vh}
-}
-/* tiled platform floor, in perspective, along the bottom */
-.floor{
-  position:fixed;left:0;right:0;bottom:0;height:34vh;z-index:0;pointer-events:none;
+.bg::after{     /* poured-concrete mottling + panel joints */
+  content:"";position:absolute;inset:0;opacity:.55;
   background:
-    radial-gradient(ellipse 60% 90% at 84% 30%, rgba(255,166,84,.16) 0%, transparent 70%),
-    linear-gradient(180deg, transparent 0%, rgba(9,14,20,0) 34%, rgba(9,14,20,.7) 100%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 64px),
-    repeating-linear-gradient(0deg,  rgba(255,255,255,.03) 0 1px, transparent 1px 40px);
-  mask-image:linear-gradient(180deg, transparent 0%, #000 55%);
-  -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 55%);
+    repeating-linear-gradient(90deg, rgba(255,255,255,.028) 0 1px, transparent 1px 132px),
+    repeating-linear-gradient(0deg,  rgba(0,0,0,.16) 0 1px, transparent 1px 168px),
+    radial-gradient(ellipse 60% 40% at 18% 22%, rgba(255,255,255,.05), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 74% 78%, rgba(0,0,0,.25), transparent 70%);
 }
+.strips{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.strips i{      /* fluorescent tubes overhead */
+  position:absolute;height:2px;border-radius:2px;filter:blur(.6px);
+  background:linear-gradient(90deg,transparent,rgba(206,226,255,.42) 18%,rgba(206,226,255,.5) 82%,transparent);
+  box-shadow:0 0 30px 10px rgba(180,208,255,.09);
+}
+.strips i:nth-child(1){top:9%;width:74%;left:13%;opacity:.55}
+.strips i:nth-child(2){top:14.5%;width:54%;left:23%;opacity:.28}
+.strips i:nth-child(3){top:18%;width:38%;left:31%;opacity:.13}
+.strips i:nth-child(4){display:none}
 #fx{position:fixed;inset:0;z-index:1;pointer-events:none}
 
-/* ---------- yellow platform edge, bottom of every screen ---------- */
+/* the green wash the hatch throws across the concourse */
+.wash{
+  position:fixed;z-index:0;pointer-events:none;
+  left:0;top:0;width:62vw;height:100vh;
+  background:
+    radial-gradient(ellipse 26% 24% at 34% 46%, rgba(155,214,46,.30) 0%, rgba(155,214,46,.07) 44%, transparent 66%);
+  filter:blur(14px);
+}
+@media(max-width:920px){.wash{left:0;top:0;width:100vw;height:56vh;opacity:.75}}
+
+/* ---------- the counter front, along the bottom of every screen ---------- */
 .edge{
-  position:fixed;left:0;right:0;bottom:0;z-index:35;height:34px;
-  background:var(--platform);
+  position:fixed;left:0;right:0;bottom:0;z-index:35;height:36px;
+  background:linear-gradient(180deg,var(--lime-lt) 0%,var(--lime) 42%,var(--lime-dk) 100%);
   display:flex;align-items:center;overflow:hidden;
-  box-shadow:0 -14px 34px rgba(242,194,48,.16);
+  box-shadow:0 -20px 60px rgba(155,214,46,.3), inset 0 1px 0 rgba(255,255,255,.4);
 }
-.edge::before{
-  content:"";position:absolute;left:0;right:0;top:0;height:3px;
-  background:repeating-linear-gradient(90deg,#12181E 0 14px,transparent 14px 28px);
-  opacity:.45;
-}
-.edge .run{
-  display:flex;gap:0;white-space:nowrap;
-  animation:run 34s linear infinite;will-change:transform;
-}
+.edge .run{display:flex;white-space:nowrap;animation:run 36s linear infinite;will-change:transform}
 .edge .run span{
   font-family:'Roboto Mono',monospace;font-size:.66rem;font-weight:700;
-  letter-spacing:.32em;text-transform:uppercase;color:#12181E;padding:0 1.1rem;
+  letter-spacing:.3em;text-transform:uppercase;color:#1E2A08;padding:0 1.1rem;
 }
 @keyframes run{to{transform:translateX(-50%)}}
-@media(max-width:560px){.edge{height:28px}.edge .run span{font-size:.58rem;letter-spacing:.24em}}
+@media(max-width:560px){.edge{height:30px}.edge .run span{font-size:.56rem;letter-spacing:.22em}}
 
-/* ---------- header: an enamel sign ---------- */
+/* ---------- neon ---------- */
+.neon{display:inline-block;line-height:1;position:relative}
+.neon .n-bean{
+  display:block;font-weight:800;text-transform:uppercase;letter-spacing:-.045em;
+  font-size:var(--neon-size,clamp(2.6rem,10vw,5.6rem));color:#FFFFFF;
+  text-shadow:
+    0 0 3px #fff, 0 0 10px #fff,
+    0 0 26px rgba(255,255,255,.85),
+    0 0 48px rgba(198,242,92,.7),
+    0 0 96px rgba(155,214,46,.5);
+}
+.neon .n-me{
+  display:block;font-family:'Sacramento',cursive;font-weight:400;
+  font-size:calc(var(--neon-size,clamp(2.6rem,10vw,5.6rem)) * .62);
+  color:#FFFFFF;margin-top:-.14em;margin-left:.12em;letter-spacing:.01em;
+  text-shadow:
+    0 0 3px #fff, 0 0 9px #fff,
+    0 0 22px rgba(255,255,255,.8),
+    0 0 44px rgba(198,242,92,.65),
+    0 0 84px rgba(155,214,46,.45);
+}
+.neon.lit{animation:buzz 7s infinite}
+@keyframes buzz{
+  0%,96%,100%{opacity:1}
+  96.6%{opacity:.62}
+  97.2%{opacity:1}
+  97.8%{opacity:.7}
+}
+
+/* ---------- header ---------- */
 header{
   position:fixed;top:0;left:0;right:0;z-index:40;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:max(.75rem,env(safe-area-inset-top)) clamp(.9rem,3.5vw,2rem) .75rem;
+  padding:max(.7rem,env(safe-area-inset-top)) clamp(.9rem,3.5vw,2rem) .7rem;
 }
 .brand{
   display:flex;align-items:center;gap:.6rem;
-  background:var(--enamel);border:1px solid var(--edge);border-radius:10px;
-  padding:.45rem .8rem .45rem .55rem;
+  background:rgba(20,23,26,.72);border:1px solid var(--edge-l);border-radius:11px;
+  padding:.42rem .85rem;backdrop-filter:blur(8px);
 }
-.brand img{width:28px;height:28px}
-.brand b{font-size:.94rem;font-weight:700;letter-spacing:-.02em;line-height:1.1;display:block}
+.brand .neon{--neon-size:.98rem}
+.brand .n-me{font-size:.86rem;margin-top:-.3em}
 .brand small{
-  display:block;font-family:'Roboto Mono',monospace;font-size:.54rem;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
+  display:block;font-family:'Roboto Mono',monospace;font-size:.52rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:.2rem;
 }
-@media(max-width:560px){.brand small{display:none}.brand img{width:24px;height:24px}.brand{padding:.4rem .65rem .4rem .45rem}}
+@media(max-width:560px){.brand small{display:none}.brand{padding:.38rem .7rem}}
 
-/* live status, styled as a board row */
 .status{
   display:inline-flex;align-items:center;gap:.5rem;
-  background:#000;border:1px solid var(--edge);border-radius:10px;padding:.5rem .8rem;
-  font-family:'Roboto Mono',monospace;font-size:.68rem;letter-spacing:.1em;
-  text-transform:uppercase;white-space:nowrap;color:var(--board);
+  background:rgba(10,12,14,.85);border:1px solid var(--edge-l);border-radius:11px;padding:.5rem .8rem;
+  font-family:'Roboto Mono',monospace;font-size:.67rem;letter-spacing:.1em;
+  text-transform:uppercase;white-space:nowrap;color:var(--amber);backdrop-filter:blur(8px);
 }
-.status .led{width:7px;height:7px;border-radius:50%;background:var(--board);flex:0 0 7px}
-.status.open{color:var(--go)}
-.status.open .led{background:var(--go);animation:pulse 2.2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(62,213,152,.7)}70%{box-shadow:0 0 0 8px rgba(62,213,152,0)}100%{box-shadow:0 0 0 0 rgba(62,213,152,0)}}
+.status .led{width:7px;height:7px;border-radius:50%;background:var(--amber);flex:0 0 7px}
+.status.open{color:var(--lime-lt)}
+.status.open .led{background:var(--lime);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(155,214,46,.75)}70%{box-shadow:0 0 0 8px rgba(155,214,46,0)}100%{box-shadow:0 0 0 0 rgba(155,214,46,0)}}
 .status b{font-weight:700}
 .status .sep{opacity:.4}
-@media(max-width:560px){.status{font-size:.58rem;padding:.42rem .6rem;gap:.38rem}}
+@media(max-width:560px){.status{font-size:.57rem;padding:.42rem .6rem;gap:.36rem}}
 
 /* ---------- deck ---------- */
 .deck{
@@ -157,367 +189,326 @@ header{
   flex:0 0 100vw;width:100vw;height:100%;
   scroll-snap-align:center;scroll-snap-stop:always;
   display:flex;align-items:center;
-  /* bottom padding clears the platform edge AND the platform indicator */
-  padding:4.9rem clamp(1.1rem,4.5vw,4rem) 7rem;
+  padding:4.8rem clamp(1.1rem,4.5vw,4rem) 7rem;
   overflow-y:auto;overscroll-behavior-y:contain;
 }
 .panel > .inner{width:min(1120px,100%);margin-inline:auto}
 .half{max-width:min(600px,100%)}
-@media(max-width:920px){.panel{align-items:flex-start;padding-top:4.4rem;padding-bottom:6.2rem}.half{max-width:100%}}
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.4rem,4vw,3.4rem);align-items:center}
+@media(max-width:920px){
+  .panel{align-items:flex-start;padding-top:4.3rem;padding-bottom:6.3rem}
+  .half{max-width:100%}
+  .split{grid-template-columns:1fr;gap:1.1rem}
+}
 
-/* hero splits: signage left, the cup under the lamp on the right */
-.hero,.split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
-@media(max-width:920px){.hero,.split{grid-template-columns:1fr;gap:1.2rem}}
+.plate{
+  display:inline-block;background:rgba(20,23,26,.6);border:1px solid var(--edge-l);
+  border-radius:11px;padding:.34rem .8rem;
+  font-family:'Roboto Mono',monospace;font-size:.6rem;font-weight:500;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
+}
+@media(max-width:560px){.plate{font-size:.54rem;letter-spacing:.12em;padding:.3rem .62rem}}
+
+h2{
+  font-size:clamp(1.8rem,5.4vw,3.1rem);line-height:1.04;font-weight:800;
+  letter-spacing:-.04em;text-transform:uppercase;margin-top:.85rem;
+}
+h2 .thin{font-weight:400;color:var(--dim)}
+h2 .go{color:var(--lime)}
+.lede{font-size:clamp(.97rem,2.1vw,1.13rem);margin-top:.9rem;max-width:46ch;color:var(--dim)}
+
+/* ---------- the hatch ---------- */
+.hatch{
+  position:relative;border-radius:18px;overflow:hidden;
+  background:linear-gradient(180deg,#1B1F23 0%,#101316 78%);
+  border:1px solid rgba(255,255,255,.1);
+  padding:clamp(1.3rem,3.4vw,2.2rem) clamp(1.2rem,3.4vw,2.2rem) 0;
+  box-shadow:0 0 0 1px rgba(155,214,46,.16), 0 40px 110px -30px rgba(155,214,46,.5);
+}
+.hatch::before{   /* tan honeycomb on the back wall, glimpsed behind the sign */
+  content:"";position:absolute;inset:0;
+  background-image:url("assets/hex.svg");background-size:56px 100px;
+  opacity:.1;mix-blend-mode:soft-light;
+}
+.hatch .in{position:relative;z-index:2;padding-bottom:1.3rem}
+.hatch .counter{     /* the lime counter front */
+  position:relative;z-index:2;margin:0 calc(-1 * clamp(1.2rem,3.4vw,2.2rem));
+  height:26px;background:linear-gradient(180deg,var(--lime-lt),var(--lime) 46%,var(--lime-dk));
+  box-shadow:0 -16px 46px rgba(155,214,46,.4), inset 0 1px 0 rgba(255,255,255,.45);
+}
+.toon{
+  margin-top:1rem;font-family:'Caveat',cursive;font-weight:600;
+  font-size:clamp(1.1rem,2.8vw,1.5rem);color:var(--lime-lt);
+}
+.toon small{
+  display:block;font-family:'Roboto Mono',monospace;font-size:.53rem;
+  letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-top:.1rem;
+}
+
+/* today's special, as a strip */
+.special{
+  display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-top:1rem;
+  background:var(--chalk-bg);border:1px solid rgba(255,255,255,.14);
+  border-radius:12px;padding:.65rem .9rem;
+}
+.special .tag{
+  font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--lime);
+}
+.special b{font-family:'Caveat',cursive;font-size:1.3rem;font-weight:700;color:var(--chalk)}
+.special i{font-style:normal;font-size:.68rem;color:rgba(255,255,255,.4);font-family:'Roboto Mono',monospace;letter-spacing:.04em;margin-left:auto}
+@media(max-width:700px){.special i{margin-left:0;flex:1 0 100%}}
+
+.cta{display:flex;gap:.6rem;margin-top:1.4rem;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font:inherit;font-weight:700;font-size:.9rem;padding:.78rem 1.35rem;
+  border-radius:11px;border:1px solid transparent;cursor:pointer;white-space:nowrap;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-g{background:var(--lime);color:#16210A;box-shadow:0 14px 34px -14px rgba(155,214,46,.9)}
+.btn-o{background:rgba(255,255,255,.06);color:var(--white);border-color:rgba(255,255,255,.28)}
+.btn-o:hover{border-color:var(--lime);color:var(--lime-lt)}
 
 /* ---------- the cup ---------- */
-.cupstage{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:min(60vh,480px)}
-@media(max-width:920px){.cupstage{min-height:min(38vh,330px);margin-top:.5rem}}
+.cupstage{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:min(56vh,440px)}
+@media(max-width:920px){.cupstage{min-height:min(30vh,260px);margin-top:.6rem}}
 .cupstage .glow{
-  position:absolute;left:50%;bottom:22%;translate:-50% 0;
-  width:min(460px,96%);height:190px;border-radius:50%;
-  background:radial-gradient(ellipse at 50% 50%, rgba(255,186,104,.42), transparent 68%);
-  filter:blur(10px);z-index:0;
+  position:absolute;left:50%;bottom:20%;translate:-50% 0;width:min(440px,96%);height:180px;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 50%, rgba(155,214,46,.38), transparent 68%);filter:blur(10px);z-index:0;
 }
-.cupcol{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:min(268px,62%)}
-@media(max-width:920px){.cupcol{width:min(190px,48%)}}
+.cupcol{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:min(252px,58%)}
+@media(max-width:920px){.cupcol{width:min(168px,42%)}}
 .cupcol svg.cup{width:100%}
-.cupcol .ledge{                 /* the platform edge — and the mirror line */
-  width:118%;height:6px;border-radius:3px;margin-top:-4px;
-  background:linear-gradient(90deg,transparent,var(--platform) 16%,var(--platform) 84%,transparent);
-  box-shadow:0 0 26px rgba(242,194,48,.45);
+.cupcol .ledge{
+  width:116%;height:6px;border-radius:3px;margin-top:-4px;
+  background:linear-gradient(90deg,transparent,var(--lime) 16%,var(--lime) 84%,transparent);
+  box-shadow:0 0 28px rgba(155,214,46,.6);
 }
 .cupcol .steam{position:absolute;left:50%;top:0;transform:translate(-50%,-86%);width:52%;z-index:1}
 .steam path{
-  fill:none;stroke:rgba(255,238,214,.8);stroke-width:6;stroke-linecap:round;
-  filter:blur(3px);
+  fill:none;stroke:rgba(226,246,190,.75);stroke-width:6;stroke-linecap:round;filter:blur(3px);
   animation:rise 5.6s ease-in-out infinite;
 }
-.steam path:nth-child(2){animation-delay:-1.9s;stroke:rgba(255,238,214,.62)}
-.steam path:nth-child(3){animation-delay:-3.6s;stroke:rgba(255,238,214,.5)}
+.steam path:nth-child(2){animation-delay:-1.9s;stroke:rgba(226,246,190,.55)}
+.steam path:nth-child(3){animation-delay:-3.6s;stroke:rgba(226,246,190,.42)}
 @keyframes rise{
   0%{opacity:0;transform:translateY(16px) scaleX(.85)}
   22%{opacity:.9}
   100%{opacity:0;transform:translateY(-42px) scaleX(1.2)}
 }
 
-/* ---------- signage type ---------- */
-.plate{
-  display:inline-block;background:var(--enamel);border:1px solid var(--edge);
-  border-radius:var(--sign-r);padding:.34rem .85rem;
-  font-family:'Roboto Mono',monospace;font-size:.62rem;font-weight:500;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+/* ---------- times ---------- */
+.times{display:flex;gap:.65rem;margin-top:1.3rem;flex-wrap:wrap;align-items:stretch}
+.times .t{
+  background:rgba(20,23,26,.66);border:1px solid var(--edge-l);border-radius:14px;
+  padding:.85rem 1.1rem;min-width:142px;position:relative;overflow:hidden;
 }
-@media(max-width:560px){.plate{font-size:.55rem;letter-spacing:.14em;padding:.3rem .65rem}}
+.times .t::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px}
+.times .t.first::after{background:var(--lime)}
+.times .t.last::after{background:var(--amber)}
+.times .t b{display:block;font-family:'Roboto Mono',monospace;font-size:clamp(1.5rem,4.4vw,2.1rem);font-weight:700;letter-spacing:-.02em;line-height:1}
+.times .t.first b{color:var(--lime)}
+.times .t.last b{color:var(--amber)}
+.times .t span{display:block;margin-top:.35rem;font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+.times .shut{align-self:center;font-family:'Roboto Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);max-width:11ch;line-height:1.6}
 
-/* the big platform nameboard */
-.nameboard{
-  display:inline-block;margin-top:1rem;background:var(--enamel);border:1px solid var(--edge);
-  border-radius:20px;padding:clamp(1.1rem,3.2vw,2rem) clamp(1.2rem,3.6vw,2.4rem);
-  position:relative;overflow:hidden;
-  box-shadow:0 34px 70px -34px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.07);
-}
-.nameboard::after{ /* the yellow rule real station signs carry */
-  content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--platform);
-}
-h1{
-  font-size:clamp(2.6rem,11vw,6.6rem);line-height:.9;font-weight:800;
-  letter-spacing:-.05em;text-transform:uppercase;
-}
-h1 .thin{font-weight:400;color:var(--dim)}
-.nameboard .sub{
-  display:flex;align-items:center;gap:.7rem;margin-top:.85rem;flex-wrap:wrap;
-  font-family:'Roboto Mono',monospace;font-size:.72rem;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--dim);
-}
-.nameboard .sub .arw{color:var(--platform);font-size:.9rem;letter-spacing:0}
-@media(max-width:560px){.nameboard .sub{font-size:.6rem;letter-spacing:.12em;gap:.5rem}}
-
-h2{
-  font-size:clamp(1.8rem,5.4vw,3.1rem);line-height:1.04;font-weight:800;
-  letter-spacing:-.04em;text-transform:uppercase;margin-top:.9rem;
-}
-h2 .thin{font-weight:400;color:var(--dim)}
-.lede{font-size:clamp(.98rem,2.1vw,1.14rem);margin-top:.95rem;max-width:46ch;color:var(--dim)}
-
-/* their own words, treated as a quoted sign */
-.toon{
-  margin-top:1.15rem;display:inline-block;border-left:4px solid var(--platform);
-  padding:.15rem 0 .15rem .85rem;
-}
-.toon b{display:block;font-size:clamp(1.05rem,2.7vw,1.45rem);font-weight:600;letter-spacing:-.02em}
-.toon small{
-  display:block;margin-top:.2rem;font-family:'Roboto Mono',monospace;
-  font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.42);
+.amen{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.1rem}
+.amen span{
+  font-family:'Roboto Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
+  background:rgba(20,23,26,.6);border:1px solid var(--edge-l);border-radius:8px;padding:.4rem .7rem;color:var(--dim);
 }
 
-.cta{display:flex;gap:.6rem;margin-top:1.5rem;flex-wrap:wrap}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  font:inherit;font-weight:600;font-size:.9rem;padding:.78rem 1.35rem;
-  border-radius:10px;border:1px solid transparent;cursor:pointer;white-space:nowrap;
-  transition:transform .18s ease,background .18s ease,border-color .18s ease;
-}
-.btn:hover{transform:translateY(-2px)}
-.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.btn-y{background:var(--platform);color:#12181E;font-weight:700}
-.btn-o{background:transparent;color:var(--white);border-color:rgba(255,255,255,.3)}
-.btn-o:hover{border-color:var(--platform);color:var(--platform)}
-
-/* ---------- split-flap board ---------- */
+/* ---------- split-flap ---------- */
 .flap{
-  background:#000;border:1px solid var(--edge);border-radius:14px;
-  padding:1rem 1.1rem;margin-top:1.4rem;max-width:520px;
-  box-shadow:inset 0 2px 24px rgba(0,0,0,.9);
+  background:#000;border:1px solid var(--edge-l);border-radius:14px;padding:1rem 1.1rem;
+  max-width:520px;box-shadow:inset 0 2px 24px rgba(0,0,0,.9);
 }
 .flap .hdr{
   display:grid;grid-template-columns:1fr auto;gap:1rem;
-  font-family:'Roboto Mono',monospace;font-size:.55rem;letter-spacing:.22em;
-  text-transform:uppercase;color:rgba(255,255,255,.32);
+  font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(255,255,255,.3);
   padding-bottom:.55rem;border-bottom:1px solid rgba(255,255,255,.1);
 }
-.flap .line{
-  display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;
-  padding:.62rem 0;border-bottom:1px dashed rgba(255,255,255,.08);
-}
+.flap .line{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:.6rem 0;border-bottom:1px dashed rgba(255,255,255,.08)}
 .flap .line:last-of-type{border-bottom:0}
 .cells{display:flex;gap:2px}
 .cell{
-  position:relative;display:inline-grid;place-items:center;
-  min-width:.86em;height:1.5em;padding:0 .1em;
+  position:relative;display:inline-grid;place-items:center;min-width:.86em;height:1.5em;padding:0 .1em;
   font-family:'Roboto Mono',monospace;font-weight:700;
   background:linear-gradient(180deg,#1E1E1E 0 49.5%, #121212 50.5% 100%);
-  border-radius:3px;color:var(--board);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
+  border-radius:3px;color:var(--amber);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
 }
 .cell::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.85)}
 .cell.sp{background:none;box-shadow:none;min-width:.4em}
 .cell.sp::after{display:none}
-.flap .word .cell{font-size:clamp(.72rem,2vw,.88rem);color:var(--white)}
-.flap .time .cell{font-size:clamp(.95rem,2.6vw,1.25rem)}
+.flap .word .cell{font-size:clamp(.72rem,2vw,.86rem);color:var(--white)}
+.flap .time .cell{font-size:clamp(.94rem,2.5vw,1.2rem)}
 .flap .foot{
   display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;padding-top:.6rem;
   border-top:1px solid rgba(255,255,255,.1);
-  font-family:'Roboto Mono',monospace;font-size:.55rem;letter-spacing:.16em;
-  text-transform:uppercase;color:rgba(255,255,255,.34);
+  font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.32);
 }
-.flap .line.shut .cells .cell{color:rgba(255,255,255,.32)}
-.flap .line.today .word .cell{color:var(--platform)}
+.flap .line.shut .cells .cell{color:rgba(255,255,255,.3)}
+.flap .line.today .word .cell{color:var(--lime)}
 
-/* ---------- the two headline times ---------- */
-.times{display:flex;gap:.7rem;margin-top:1.4rem;flex-wrap:wrap;align-items:stretch}
-.times .t{
-  background:var(--enamel);border:1px solid var(--edge);border-radius:14px;
-  padding:.85rem 1.1rem;min-width:142px;position:relative;overflow:hidden;
+/* ---------- chalkboard ---------- */
+.chalkboard{
+  background:
+    radial-gradient(ellipse 70% 50% at 30% 25%, rgba(255,255,255,.045), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 78% 76%, rgba(255,255,255,.03), transparent 70%),
+    var(--chalk-bg);
+  border-radius:8px;padding:clamp(1.1rem,3vw,2rem);
+  max-width:min(700px,100%);margin-inline:auto;
+  border:10px solid #241C12;
+  box-shadow:0 40px 80px -34px rgba(0,0,0,.95), inset 0 0 60px rgba(0,0,0,.6);
+  color:var(--chalk);
 }
-.times .t::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px}
-.times .t.first::after{background:var(--go)}
-.times .t.last::after{background:var(--platform)}
-.times .t b{
-  display:block;font-family:'Roboto Mono',monospace;
-  font-size:clamp(1.5rem,4.4vw,2.1rem);font-weight:700;letter-spacing:-.02em;line-height:1;
+.chalkboard h3{
+  text-shadow:0 0 6px rgba(241,240,232,.3);
+  font-family:'Caveat',cursive;font-weight:700;font-size:clamp(1.9rem,5.2vw,2.9rem);
+  line-height:1;text-align:center;letter-spacing:.01em;
 }
-.times .t.first b{color:var(--go)}
-.times .t.last b{color:var(--platform)}
-.times .t span{
-  display:block;margin-top:.35rem;font-family:'Roboto Mono',monospace;
-  font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
+.chalkboard .rule{height:2px;background:rgba(241,240,232,.35);margin:.6rem auto 1rem;width:72%;border-radius:2px}
+.chalklist{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.1rem 2rem}
+@media(max-width:660px){.chalklist{grid-template-columns:1fr}}
+.chalklist li{padding:.3rem 0;border-bottom:1px dotted rgba(241,240,232,.22)}
+.chalklist .top{display:flex;align-items:baseline;gap:.5rem}
+.chalklist .nm{font-family:'Caveat',cursive;font-weight:600;font-size:1.32rem;letter-spacing:.01em;text-shadow:0 0 3px rgba(241,240,232,.35)}
+.chalklist .dot{flex:1;border-bottom:1px dotted rgba(241,240,232,.3);translate:0 -5px}
+.chalklist .pr{font-family:'Caveat',cursive;font-weight:700;font-size:1.24rem;color:rgba(241,240,232,.8)}
+.chalklist .nt{display:block;font-size:.72rem;color:rgba(241,240,232,.5);font-family:'Inter',sans-serif;margin-top:-.15rem}
+.chalknote{
+  margin-top:1rem;font-family:'Caveat',cursive;font-size:1.12rem;color:rgba(241,240,232,.78);
+  display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
 }
-.times .shut{
-  align-self:center;font-family:'Roboto Mono',monospace;font-size:.6rem;
-  letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);
-  max-width:11ch;line-height:1.6;
-}
-
-/* ---------- amenity plates ---------- */
-.amen{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
-.amen span{
-  font-family:'Roboto Mono',monospace;font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;
-  background:var(--enamel);border:1px solid var(--edge);border-radius:8px;padding:.4rem .7rem;color:var(--dim);
-}
-
-/* ---------- menu: a platform poster ---------- */
-.poster{
-  margin-inline:auto;
-  background:var(--paper);color:var(--ink);border-radius:6px;
-  padding:clamp(1.1rem,3vw,2.1rem);max-width:min(680px,100%);
-  box-shadow:0 40px 80px -34px rgba(0,0,0,.95);
-  position:relative;
-  background-image:radial-gradient(rgba(18,24,30,.045) 1px, transparent 1px);
-  background-size:4px 4px;
-}
-.poster::before{ /* the four pins that hold a real poster in its frame */
-  content:"";position:absolute;inset:9px;border:1px solid rgba(18,24,30,.16);border-radius:3px;pointer-events:none;
-}
-.poster .ptop{
-  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
-  border-bottom:2px solid var(--ink);padding-bottom:.5rem;
-}
-.poster .ptop b{font-size:.62rem;font-family:'Roboto Mono',monospace;letter-spacing:.24em;text-transform:uppercase}
-.poster h3{
-  font-size:clamp(1.5rem,4.4vw,2.4rem);font-weight:800;letter-spacing:-.04em;
-  text-transform:uppercase;margin-top:.7rem;line-height:1;
-}
-.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:1.1rem}
-@media(max-width:660px){.mgrid{grid-template-columns:1fr;gap:.85rem}}
-.mcol h4{
-  font-family:'Roboto Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--coffee);font-weight:700;padding-bottom:.35rem;border-bottom:1px solid rgba(18,24,30,.22);
-}
-.mcol ul{list-style:none;margin-top:.35rem}
-.mcol li{padding:.3rem 0;border-bottom:1px dotted rgba(18,24,30,.18)}
-.mcol .top{display:flex;align-items:baseline;gap:.5rem}
-.mcol .nm{font-weight:600;font-size:.94rem;letter-spacing:-.01em}
-.mcol .dot{flex:1;border-bottom:1px dotted rgba(18,24,30,.3);translate:0 -4px}
-.mcol .pr{font-family:'Roboto Mono',monospace;font-size:.85rem;color:#5C4A38}
-.mcol .nt{display:block;font-size:.73rem;color:#7A6752;margin-top:.02rem}
-.pnote{margin-top:.9rem;font-size:.8rem;color:#5C4A38;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
 @media(max-width:660px){
-  .poster{padding:1.05rem 1.1rem}
-  .poster h3{font-size:1.55rem}
-  .mcol li{padding:.24rem 0}
-  .mcol .nm{font-size:.88rem}
-  .mcol .nt{font-size:.7rem}
-  .pnote{margin-top:.75rem;font-size:.73rem}
+  .chalkboard{border-width:7px;padding:1rem}
+  .chalklist .nm{font-size:1.18rem}
+  .chalklist .pr{font-size:1.1rem}
 }
 
-/* ---------- reviews: passenger notices ---------- */
-.rate{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1.1rem}
+/* ---------- hex tile panel ---------- */
+.tile{
+  background-color:var(--tan);
+  background-image:url("assets/hex.svg");background-size:36px 64px;
+  color:var(--tan-ink);border-radius:16px;padding:clamp(1.2rem,3.2vw,2.2rem);
+  box-shadow:0 40px 80px -34px rgba(0,0,0,.9);
+}
+.tilehead{background:rgba(255,252,244,.9);border:1px solid rgba(59,47,27,.14);border-radius:12px;padding:.85rem 1rem}
+.tile h3{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;text-transform:uppercase;letter-spacing:-.03em;line-height:1}
+.tile .sub{font-size:.9rem;margin-top:.35rem;color:#5C4A2E;max-width:44ch}
+.sells{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1.2rem}
+@media(max-width:560px){.sells{grid-template-columns:1fr}}
+.sells .s{
+  background:rgba(255,252,244,.86);border:1px solid rgba(59,47,27,.16);border-radius:11px;padding:.7rem .85rem;
+}
+.sells .s b{display:block;font-size:1rem;font-weight:700;letter-spacing:-.01em}
+.sells .s span{display:block;font-size:.79rem;color:#6B5738;margin-top:.05rem}
+
+/* ---------- reviews ---------- */
+.rate{display:grid;gap:.55rem}
 .rate .r{
-  background:var(--enamel);border:1px solid var(--edge);border-radius:12px;
-  padding:.6rem .85rem;display:flex;align-items:baseline;gap:.4rem;
+  background:rgba(20,23,26,.66);border:1px solid var(--edge-l);border-radius:15px;
+  padding:1rem 1.15rem;display:flex;align-items:baseline;gap:.65rem;position:relative;overflow:hidden;
 }
-.rate .r b{font-size:1.25rem;font-weight:800;letter-spacing:-.03em;color:var(--platform)}
-.rate .r span{font-family:'Roboto Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-.revs{display:grid;gap:.6rem;margin-top:1rem}
-.rev{
-  background:var(--enamel);border:1px solid var(--edge);border-radius:12px;
-  padding:.85rem 1rem;border-left:3px solid var(--platform);
-}
-.rev p{font-size:.99rem;font-weight:500;letter-spacing:-.015em}
-.rev .x{font-size:.87rem;color:var(--dim);margin-top:.2rem;font-weight:400}
-.rev cite{
-  display:block;margin-top:.45rem;font-style:normal;font-family:'Roboto Mono',monospace;
-  font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.38);
-}
-@media(max-width:660px){.rev{padding:.7rem .8rem}.rev p{font-size:.91rem}}
+.rate .r::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:var(--lime);opacity:.8}
+.rate .r b{font-size:clamp(2rem,4.8vw,2.9rem);font-weight:800;letter-spacing:-.04em;color:var(--lime);line-height:1}
+.rate .r span{font-family:'Roboto Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);line-height:1.7}
+@media(max-width:920px){.rate{grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1rem}.rate .r{padding:.7rem .8rem}.rate .r b{font-size:1.45rem}}
+.revs{display:grid;gap:.55rem;margin-top:1rem}
+.rev{background:rgba(20,23,26,.6);border:1px solid var(--edge-l);border-left:3px solid var(--lime);border-radius:12px;padding:.85rem 1rem}
+.rev p{font-size:.98rem;font-weight:500;letter-spacing:-.015em}
+.rev .x{font-size:.86rem;color:var(--dim);margin-top:.2rem;font-weight:400}
+.rev cite{display:block;margin-top:.45rem;font-style:normal;font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.36)}
+@media(max-width:660px){.rev{padding:.7rem .8rem}.rev p{font-size:.9rem}}
 
-/* ---------- find ---------- */
-.place{background:var(--enamel);border:1px solid var(--edge);border-radius:16px;padding:1.15rem;margin-top:1.1rem}
-.place h3{font-size:1.2rem;font-weight:700;letter-spacing:-.03em;text-transform:uppercase}
-.place p{font-size:.9rem;color:var(--dim);margin-top:.25rem}
-.contact{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;font-size:.88rem}
+/* ---------- find it ---------- */
+.place{background:rgba(20,23,26,.66);border:1px solid var(--edge-l);border-radius:16px;padding:1.15rem;margin-top:1rem}
+.place .land{
+  display:flex;gap:.7rem;align-items:flex-start;
+  font-size:1rem;font-weight:600;letter-spacing:-.02em;
+}
+.place .land svg{width:20px;height:20px;flex:0 0 20px;margin-top:2px;stroke:var(--lime);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.place p{font-size:.89rem;color:var(--dim);margin-top:.5rem}
+.contact{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;font-size:.87rem}
 .contact a{border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:2px}
-.contact span{color:var(--dim)}
+
+.clockcard{background:#000;border:1px solid var(--edge-l);border-radius:18px;padding:1.35rem 1.45rem;box-shadow:inset 0 2px 30px rgba(0,0,0,.9)}
+.clockcard .lbl{font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:.5rem}
+.clockcard .now{font-family:'Roboto Mono',monospace;font-size:clamp(2.5rem,6.6vw,3.8rem);font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--white)}
+.clockcard .msg{margin-top:.95rem;padding-top:.85rem;border-top:1px solid rgba(255,255,255,.12);font-size:1rem;font-weight:700;letter-spacing:-.02em}
+.clockcard.open .msg{color:var(--lime)}
+.clockcard.shut .msg{color:var(--amber)}
+.clockcard .sub{font-family:'Roboto Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.3rem}
 
 .chip{
-  display:inline-block;font-family:'Roboto Mono',monospace;font-size:.53rem;
-  letter-spacing:.14em;text-transform:uppercase;padding:.18rem .45rem;border-radius:4px;
-  font-weight:700;background:rgba(242,194,48,.14);color:var(--platform);
-  border:1px solid rgba(242,194,48,.4);
+  display:inline-block;font-family:'Roboto Mono',monospace;font-size:.52rem;
+  letter-spacing:.14em;text-transform:uppercase;padding:.18rem .45rem;border-radius:4px;font-weight:700;
+  background:rgba(155,214,46,.14);color:var(--lime);border:1px solid rgba(155,214,46,.45);
 }
-.poster .chip{background:rgba(138,90,43,.12);color:var(--coffee);border-color:rgba(138,90,43,.4)}
+.chalkboard .chip,.tile .chip{background:rgba(59,47,27,.1);color:#6B5738;border-color:rgba(59,47,27,.35)}
+.chalkboard .chip{background:rgba(241,240,232,.1);color:rgba(241,240,232,.7);border-color:rgba(241,240,232,.3)}
 
-/* ---------- big score, panel 4 ---------- */
-.rate{display:grid;gap:.6rem}
-.rate .r{
-  background:var(--enamel);border:1px solid var(--edge);border-radius:16px;
-  padding:1.1rem 1.25rem;display:flex;align-items:baseline;gap:.7rem;
-  position:relative;overflow:hidden;
-}
-.rate .r::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:var(--platform);opacity:.75}
-.rate .r b{font-size:clamp(2.1rem,5vw,3rem);font-weight:800;letter-spacing:-.04em;color:var(--platform);line-height:1}
-.rate .r span{font-family:'Roboto Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);line-height:1.7}
-@media(max-width:920px){
-  .rate{grid-template-columns:1fr 1fr;gap:.55rem;margin-top:1rem}
-  .rate .r{padding:.7rem .85rem;border-radius:12px}
-  .rate .r b{font-size:1.5rem}
-}
-
-/* ---------- live clock, panel 5 ---------- */
-.clockcard{
-  background:#000;border:1px solid var(--edge);border-radius:18px;padding:1.4rem 1.5rem;
-  box-shadow:inset 0 2px 30px rgba(0,0,0,.9);
-}
-.clockcard .now{
-  font-family:'Roboto Mono',monospace;font-size:clamp(2.6rem,7vw,4rem);font-weight:700;
-  letter-spacing:-.03em;line-height:1;color:var(--white);
-}
-.clockcard .lbl{
-  font-family:'Roboto Mono',monospace;font-size:.55rem;letter-spacing:.22em;
-  text-transform:uppercase;color:rgba(255,255,255,.34);margin-bottom:.5rem;
-}
-.clockcard .msg{
-  margin-top:1rem;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.12);
-  font-size:1.02rem;font-weight:600;letter-spacing:-.02em;
-}
-.clockcard.open .msg{color:var(--go)}
-.clockcard.shut .msg{color:var(--board)}
-.clockcard .sub{
-  font-family:'Roboto Mono',monospace;font-size:.58rem;letter-spacing:.14em;
-  text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.35rem;
-}
-@media(max-width:920px){.clockcard{padding:1rem 1.1rem;margin-top:1rem;border-radius:14px}}
-
-/* The week board is big. Desktop shows it beside the copy on panel 2; a phone
-   has no room there, so it moves to panel 5 and the clock card steps aside
-   (the header pill already answers "are they open?"). */
-#board-slot-5{display:none}
-@media(max-width:920px){
-  .panel h2{font-size:1.62rem}
-  .place{padding:.9rem 1rem;margin-top:.9rem}
-  .place p{font-size:.85rem}
-  .flap{padding:.8rem .9rem;margin-top:1rem}
-  .flap .line{padding:.42rem 0}
-  .contact{margin-top:.85rem;gap:.8rem;font-size:.84rem}
-  .cupstage{min-height:min(34vh,300px)}
-  #board-slot{display:none}
-  #board-slot-5{display:block;margin-top:1rem}
-  .clockcard{display:none}
-}
-
-/* ---------- platform indicator ---------- */
+/* ---------- indicator ---------- */
 .dots{
-  position:fixed;z-index:38;left:50%;translate:-50% 0;bottom:calc(34px + max(.7rem,env(safe-area-inset-bottom)));
-  display:flex;gap:.35rem;align-items:center;background:rgba(0,0,0,.6);
-  padding:.4rem .55rem;border-radius:10px;border:1px solid var(--edge);backdrop-filter:blur(8px);
+  position:fixed;z-index:38;left:50%;translate:-50% 0;bottom:calc(36px + max(.65rem,env(safe-area-inset-bottom)));
+  display:flex;gap:.3rem;align-items:center;background:rgba(0,0,0,.62);
+  padding:.38rem .5rem;border-radius:10px;border:1px solid var(--edge-l);backdrop-filter:blur(8px);
 }
 .dots button{
-  width:22px;height:20px;border-radius:5px;border:0;padding:0;cursor:pointer;
+  width:21px;height:19px;border-radius:5px;border:0;padding:0;cursor:pointer;
   background:rgba(255,255,255,.12);color:rgba(255,255,255,.5);
-  font-family:'Roboto Mono',monospace;font-size:.58rem;font-weight:700;
+  font-family:'Roboto Mono',monospace;font-size:.56rem;font-weight:700;
   transition:background .25s ease,color .25s ease;
 }
-.dots button.on{background:var(--platform);color:#12181E}
-@media(max-width:560px){.edge~.dots,.dots{bottom:calc(28px + max(.55rem,env(safe-area-inset-bottom)))}}
-
+.dots button.on{background:var(--lime);color:#16210A}
+@media(max-width:560px){.dots{bottom:calc(30px + max(.5rem,env(safe-area-inset-bottom)))}}
 .hint{
-  position:fixed;z-index:38;right:clamp(1rem,4vw,2rem);
-  bottom:calc(34px + max(.9rem,env(safe-area-inset-bottom)));
-  display:flex;align-items:center;gap:.45rem;
-  font-family:'Roboto Mono',monospace;font-size:.6rem;letter-spacing:.2em;
-  text-transform:uppercase;color:rgba(255,255,255,.6);transition:opacity .5s ease;
+  position:fixed;z-index:38;right:clamp(1rem,4vw,2rem);bottom:calc(36px + max(.85rem,env(safe-area-inset-bottom)));
+  display:flex;align-items:center;gap:.45rem;font-family:'Roboto Mono',monospace;font-size:.59rem;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);transition:opacity .5s ease;
 }
 .hint svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.8s ease-in-out infinite}
 @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
 .hint.gone{opacity:0;pointer-events:none}
 @media(max-width:700px){.hint{display:none}}
 
+/* the week board is big — desktop shows it on panel 2, phones on panel 6 */
+#board-6{display:none}
+@media(max-width:920px){
+  .panel h2{font-size:1.6rem}
+  #board-2{display:none}
+  #board-6{display:block;margin-top:.75rem}
+  .clockcard{display:none}
+  .place{padding:.85rem .95rem;margin-top:.85rem}
+  .place .land{font-size:.94rem}
+  .place p{font-size:.84rem;margin-top:.4rem}
+  .flap{padding:.8rem .9rem}
+  .flap .line{padding:.4rem 0}
+  .contact{margin-top:.7rem;gap:.75rem;font-size:.82rem}
+}
+
 @media(prefers-reduced-motion:reduce){
-  .edge .run,.hint svg,.status.open .led{animation:none}
+  .edge .run,.hint svg,.status.open .led,.neon.lit,.steam path{animation:none}
 }
 </style>
 </head>
 <body>
 
 <div class="bg"></div>
-<div class="lamp"></div>
-<div class="floor"></div>
+<div class="wash"></div>
+<div class="strips" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <canvas id="fx"></canvas>
 
 <header>
-  <a class="brand" href="#" data-go="0">
-    <img src="assets/logo.svg" alt="">
-    <span><b>Bean Me Up</b><small>Partick Station</small></span>
+  <a class="brand" href="#" data-go="0" aria-label="Bean Me Up, Partick Station">
+    <span>
+      <span class="neon"><span class="n-bean">Bean</span><span class="n-me">me up</span></span>
+      <small>Partick Station</small>
+    </span>
   </a>
   <div class="status" id="status" role="status">
     <span class="led"></span><span id="status-text">—</span>
@@ -526,23 +517,25 @@ h2 .thin{font-weight:400;color:var(--dim)}
 
 <div class="deck" id="deck">
 
-  <!-- 1 — the platform nameboard -->
-  <section class="panel"><div class="inner hero">
+  <!-- 1 — the lit green hatch -->
+  <section class="panel"><div class="inner split">
     <div class="half">
-      <span class="plate">Platform level · Merkland Court · G11 6BU</span>
-      <div class="nameboard">
-        <h1>Bean<br>Me <span class="thin">Up</span></h1>
-        <div class="sub">
-          <span class="arw">→</span><span>Partick Station</span>
-          <span class="arw">·</span><span>Glasgow</span>
+      <span class="plate">Partick Station · Merkland Court · G11 6BU</span>
+      <div class="hatch">
+        <div class="in">
+          <span class="neon lit" style="--neon-size:clamp(2.5rem,9vw,5.2rem)">
+            <span class="n-bean">Bean</span><span class="n-me">me up</span>
+          </span>
+          <p class="toon">“Best coffee in the toon.”<small>Their words, not ours</small></p>
         </div>
+        <div class="counter"></div>
       </div>
-      <p class="toon"><b>“Best coffee in the toon.”</b><small>Their words, not ours</small></p>
+      <div class="special" id="special"></div>
       <div class="cta">
-        <a class="btn btn-y" href="#" data-go="2">See the menu</a>
-        <a class="btn btn-o" href="#" data-go="4">
+        <a class="btn btn-g" href="#" data-go="2">See the board</a>
+        <a class="btn btn-o" href="#" data-go="5">
           <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Find the cart
+          Where it is
         </a>
       </div>
     </div>
@@ -550,89 +543,99 @@ h2 .thin{font-weight:400;color:var(--dim)}
     <div class="cupstage" aria-hidden="true">
       <div class="glow"></div>
       <div class="cupcol">
-      <svg class="steam" viewBox="0 0 120 130" aria-hidden="true">
-        <path d="M40 120 C 22 96, 58 84, 40 58 C 26 38, 46 26, 40 8"/>
-        <path d="M62 124 C 44 100, 80 86, 62 60 C 48 40, 68 28, 62 10"/>
-        <path d="M84 120 C 66 96, 102 84, 84 58 C 70 38, 90 26, 84 8"/>
-      </svg>
-      <svg class="cup" viewBox="0 0 260 330">
-        <defs>
-          <linearGradient id="cb" x1="46" y1="92" x2="222" y2="308" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#8A949D"/><stop offset=".22" stop-color="#333C44"/>
-            <stop offset=".62" stop-color="#161C22"/><stop offset="1" stop-color="#57626B"/>
-          </linearGradient>
-          <linearGradient id="cl" x1="30" y1="66" x2="234" y2="106" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#4A535B"/><stop offset=".5" stop-color="#141A20"/><stop offset="1" stop-color="#3D464E"/>
-          </linearGradient>
-          <linearGradient id="cr" x1="34" y1="288" x2="226" y2="308" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#C9CDD1"/><stop offset=".5" stop-color="#F1F3F4"/><stop offset="1" stop-color="#AAB0B5"/>
-          </linearGradient>
-        </defs>
-        <g id="cupart">
-        <ellipse cx="130" cy="312" rx="86" ry="13" fill="#000" opacity=".45"/>
-        <path d="M46 98 h168 l-23 188 a16 16 0 0 1 -16 14 H85 a16 16 0 0 1 -16 -14 z" fill="url(#cb)"/>
-        <path d="M70 286 h120 l-2 14 a16 16 0 0 1 -16 14 H88 a16 16 0 0 1 -16 -14 z" fill="url(#cr)"/>
-        <rect x="34" y="74" width="192" height="30" rx="12" fill="url(#cl)"/>
-        <ellipse cx="130" cy="76" rx="96" ry="15" fill="#283037"/>
-        <ellipse cx="130" cy="74" rx="88" ry="12" fill="#0C1116"/>
-        <ellipse cx="130" cy="72" rx="17" ry="6" fill="#000" opacity=".8"/>
-        <!-- warm rim light from the lamp, on the right edge -->
-        <path d="M212 104 q-8 92 -20 178" stroke="rgba(255,196,120,.85)" stroke-width="9" fill="none" stroke-linecap="round"/>
-        <path d="M62 106 q9 90 21 176" stroke="rgba(255,255,255,.22)" stroke-width="8" fill="none" stroke-linecap="round"/>
-        <text x="130" y="196" text-anchor="middle" font-family="Inter, sans-serif"
-              font-size="35" font-weight="800" fill="#F4EFE6" letter-spacing="-1.4">BEAN</text>
-        <text x="130" y="226" text-anchor="middle" font-family="Roboto Mono, monospace"
-              font-size="16" font-weight="500" fill="#F2C230" letter-spacing="5">ME UP</text>
-        </g>
-      </svg>
-      <div class="ledge"></div>
+        <svg class="steam" viewBox="0 0 120 130">
+          <path d="M40 120 C 22 96, 58 84, 40 58 C 26 38, 46 26, 40 8"/>
+          <path d="M62 124 C 44 100, 80 86, 62 60 C 48 40, 68 28, 62 10"/>
+          <path d="M84 120 C 66 96, 102 84, 84 58 C 70 38, 90 26, 84 8"/>
+        </svg>
+        <svg class="cup" viewBox="0 0 260 330">
+          <defs>
+            <linearGradient id="cb" x1="46" y1="92" x2="222" y2="308" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#8A949D"/><stop offset=".22" stop-color="#333C44"/>
+              <stop offset=".62" stop-color="#161C22"/><stop offset="1" stop-color="#57626B"/>
+            </linearGradient>
+            <linearGradient id="cl" x1="30" y1="66" x2="234" y2="106" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#4A535B"/><stop offset=".5" stop-color="#141A20"/><stop offset="1" stop-color="#3D464E"/>
+            </linearGradient>
+            <linearGradient id="cr" x1="34" y1="288" x2="226" y2="308" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#C9CDD1"/><stop offset=".5" stop-color="#F1F3F4"/><stop offset="1" stop-color="#AAB0B5"/>
+            </linearGradient>
+          </defs>
+          <ellipse cx="130" cy="312" rx="86" ry="13" fill="#000" opacity=".45"/>
+          <path d="M46 98 h168 l-23 188 a16 16 0 0 1 -16 14 H85 a16 16 0 0 1 -16 -14 z" fill="url(#cb)"/>
+          <path d="M70 286 h120 l-2 14 a16 16 0 0 1 -16 14 H88 a16 16 0 0 1 -16 -14 z" fill="url(#cr)"/>
+          <rect x="34" y="74" width="192" height="30" rx="12" fill="url(#cl)"/>
+          <ellipse cx="130" cy="76" rx="96" ry="15" fill="#283037"/>
+          <ellipse cx="130" cy="74" rx="88" ry="12" fill="#0C1116"/>
+          <ellipse cx="130" cy="72" rx="17" ry="6" fill="#000" opacity=".8"/>
+          <path d="M212 104 q-8 92 -20 178" stroke="rgba(190,240,110,.8)" stroke-width="9" fill="none" stroke-linecap="round"/>
+          <path d="M62 106 q9 90 21 176" stroke="rgba(255,255,255,.2)" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <text x="130" y="198" text-anchor="middle" font-family="Inter, sans-serif"
+                font-size="34" font-weight="800" fill="#F4F4F0" letter-spacing="-1.4">BEAN</text>
+          <text x="130" y="228" text-anchor="middle" font-family="Sacramento, cursive"
+                font-size="26" fill="#C6F25C">me up</text>
+        </svg>
+        <div class="ledge"></div>
       </div>
     </div>
   </div></section>
 
-  <!-- 2 — the timetable -->
+  <!-- 2 — the morning shift -->
   <section class="panel"><div class="inner split">
     <div class="half">
       <span class="plate">The morning shift</span>
       <h2>Open at 6:45.<br><span class="thin">Gone by one.</span></h2>
-      <p class="lede">This isn't a café you sit in. It's a cart on the platform for people going somewhere — first cup before the early train, shutters down before the lunch crowd has even woken up.</p>
+      <p class="lede">This isn't a café you sit in. It's a hatch in the station wall for people going somewhere — first cup before the early train, shutters down before the lunch crowd has even woken up.</p>
       <div class="times" id="times"></div>
       <div class="amen" id="amen"></div>
     </div>
-    <div id="board-slot"></div>
+    <div id="board-2"></div>
   </div></section>
 
-  <!-- 3 — menu poster -->
+  <!-- 3 — the chalkboard -->
   <section class="panel"><div class="inner">
-    <div class="poster">
-      <div class="ptop"><b>Bean Me Up</b><b>Partick</b></div>
-      <h3>What people<br>actually order</h3>
-      <div class="mgrid">
-        <div class="mcol"><h4>Espresso bar</h4><ul id="m-coffee"></ul></div>
-        <div class="mcol"><h4>Not coffee</h4><ul id="m-other"></ul></div>
-      </div>
-      <p class="pnote" id="m-note"></p>
+    <div class="chalkboard">
+      <h3>The Board</h3>
+      <div class="rule"></div>
+      <ul class="chalklist" id="chalk"></ul>
+      <p class="chalknote" id="chalknote"></p>
     </div>
   </div></section>
 
-  <!-- 4 — passenger notices -->
+  <!-- 4 — not just coffee -->
+  <section class="panel"><div class="inner split">
+    <div class="half">
+      <span class="plate">Not just coffee</span>
+      <h2>There's a <span class="go">whole fridge</span> in there.</h2>
+      <p class="lede">It's a small hatch that turns out to hold a lot. If you only ever get a flat white off them, you're missing most of it.</p>
+    </div>
+    <div class="tile">
+      <div class="tilehead">
+        <h3>Also on the go</h3>
+        <p class="sub">Everything below was seen in the hatch. The full list is worth asking about.</p>
+      </div>
+      <div class="sells" id="sells"></div>
+    </div>
+  </div></section>
+
+  <!-- 5 — what people say -->
   <section class="panel"><div class="inner split">
     <div class="half">
       <span class="plate">What people say</span>
       <h2>Fifteen years<br><span class="thin">of regulars.</span></h2>
       <div class="revs" id="revs"></div>
-      <p class="plate" id="rank" style="margin-top:.9rem"></p>
+      <p class="plate" id="rank" style="margin-top:.85rem"></p>
     </div>
     <div class="rate" id="rate"></div>
   </div></section>
 
-  <!-- 5 — find the cart -->
+  <!-- 6 — you don't find it -->
   <section class="panel"><div class="inner split">
     <div class="half">
-      <span class="plate">Find the cart</span>
-      <h2>On the platform.<br><span class="thin">Not a detour.</span></h2>
+      <span class="plate">Where it is</span>
+      <h2>You don't find it.<br><span class="thin">You walk past it.</span></h2>
       <div class="place" id="place"></div>
-      <div id="board-slot-5"></div>
+      <div id="board-6"></div>
       <div class="contact" id="contact"></div>
     </div>
     <div class="clockcard" id="clockcard"></div>

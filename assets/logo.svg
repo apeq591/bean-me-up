@@ -1,10 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Bean Me Up">
-  <!-- Built to survive 20px: solid shapes, one accent, no gradients. -->
-  <circle cx="32" cy="32" r="30" fill="#0F1A24"/>
-  <circle cx="32" cy="32" r="30" fill="none" stroke="#F2C230" stroke-width="3"/>
-  <!-- bean, long axis on the diagonal -->
-  <g transform="translate(32 33) rotate(-24)">
-    <ellipse rx="19" ry="13" fill="#F4EFE6"/>
-    <path d="M-14 -1 C -5 6, 5 -6, 14 1" fill="none" stroke="#0F1A24" stroke-width="4.2" stroke-linecap="round"/>
-  </g>
+  <!-- Favicon only. The real identity is the neon lockup, which is built in
+       HTML/CSS so it can actually glow. This just has to survive 16px. -->
+  <rect width="64" height="64" rx="14" fill="#1C2126"/>
+  <rect x="4" y="4" width="56" height="56" rx="11" fill="#9BD62E"/>
+  <text x="32" y="45" text-anchor="middle"
+        font-family="Inter, Helvetica, Arial, sans-serif"
+        font-size="38" font-weight="800" fill="#14181C" letter-spacing="-2">B</text>
 </svg>

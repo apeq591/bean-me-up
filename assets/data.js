@@ -1,34 +1,46 @@
 /* =========================================================================
    Bean Me Up — single source of truth for every fact on the site.
 
-   RULE: nothing in here is invented. Each block says where it came from.
+   RULE: nothing here is invented. Each block says where it came from.
    Anything unknown is `null` and renders a visible "to confirm" chip.
+
+   Two kinds of source now:
+     LISTED  — public listings (Yelp, RestaurantGuru, their Facebook), 10 Aug 2026
+     SEEN    — Mukta's own observation of the place. Better evidence than any
+               listing, because she looked at it.
    ========================================================================= */
 
 window.BMU = {
 
-  // Set to false once every `null` is filled and the hours are confirmed.
   draft: true,
 
-  /* ---- CONFIRMED — public listings, checked 10 Aug 2026 --------------- */
+  /* ---- LISTED --------------------------------------------------------- */
   name: 'Bean Me Up',
-  // Their own tagline, from their Facebook page. Their words, not ours.
-  tagline: 'Best coffee in the toon',
+  tagline: 'Best coffee in the toon',      // their own Facebook line
   phone: '+447875697214',
   phoneDisplay: '07875 697214',
   facebook: 'https://www.facebook.com/beanmeuppartick/',
 
+  /* ---- SEEN: it is not a cart -----------------------------------------
+     A hatch built into the station wall, under the gig posters. Nothing on
+     wheels. So the site never says "cart", and directs people by the thing
+     they can actually see.                                                */
   place: {
     name: 'Partick Station',
     addr: 'Merkland Court, Partick, Glasgow G11 6BU',
     maps: 'https://maps.google.com/?q=Bean+Me+Up+Merkland+Court+Glasgow+G11+6BU',
-    note: 'Right beside the train station and the bus station. You do not need to leave.'
+    landmark: 'Look for the gig posters. It is the lit green hatch underneath them.',
+    note: 'Built into the station wall, beside the train and bus stations. You do not need to leave.'
   },
 
-  /* ---- HOURS ---------------------------------------------------------
-     From a public aggregator listing, NOT from the owner. Treat as a draft:
-     the open/closed banner on the site is only as right as this table.
-     Confirm at the cart, then set hoursConfirmed = true.                */
+  /* ---- SEEN: their identity -------------------------------------------
+     Observed at the counter, and now the whole design system:
+       green   — the counter front and the light wash behind it
+       neon    — BEAN in bold caps, "me up" in a lit script
+       hex     — warm tan/cream honeycomb tile on the back wall
+       chalk   — black boards, white handwriting                            */
+
+  /* ---- HOURS — LISTED, not owner-confirmed ---------------------------- */
   hoursConfirmed: false,
   hours: {                       // 0 = Sunday … 6 = Saturday
     1: { open: '06:45', close: '13:00' },
@@ -40,38 +52,48 @@ window.BMU = {
     0: null
   },
 
-  /* ---- RATINGS — real, published -------------------------------------- */
+  /* ---- RATINGS — LISTED, real ----------------------------------------- */
   ratings: [
     { score: '4.7', outOf: '5', count: '26 reviews', where: 'Google' },
     { score: '4.6', outOf: '5', count: '5 reviews',  where: 'Facebook' }
   ],
   rank: '#285 of 1,703 coffeehouses in Glasgow',
 
-  /* ---- WHAT THEY SELL --------------------------------------------------
-     Every item below is one a real customer named in a public review, or a
-     standard of any espresso bar. Prices are NOT guessed — see showPrices. */
+  /* ---- THE BOARD ------------------------------------------------------
+     Named by real reviewers, or standard of any espresso bar. Prices are
+     NOT guessed — no photo of the boards ever reached ApeQ, so showPrices
+     stays false until they are transcribed off the real thing.            */
   showPrices: false,
-  menu: {
-    coffee: [
-      { name: 'Cappuccino',        price: null, note: 'the one people write reviews about' },
-      { name: 'Coconut cappuccino', price: null, note: null },
-      { name: 'Flat white',        price: null, note: null },
-      { name: 'Caramel latte',     price: null, note: null },
-      { name: 'Latte',             price: null, note: null },
-      { name: 'Americano',         price: null, note: null },
-      { name: 'Espresso',          price: null, note: null }
-    ],
-    other: [
-      { name: 'Hot chocolate',     price: null, note: 'with caramel syrup, if you want it' },
-      { name: 'Tea',               price: null, note: null },
-      { name: 'Pastries',          price: null, note: null }
-    ]
-  },
+  menu: [
+    { name: 'Cappuccino',         price: null, note: 'the one people write reviews about' },
+    { name: 'Coconut cappuccino', price: null, note: null },
+    { name: 'Flat white',         price: null, note: null },
+    { name: 'Caramel latte',      price: null, note: null },
+    { name: 'Latte',              price: null, note: null },
+    { name: 'Americano',          price: null, note: null },
+    { name: 'Espresso',           price: null, note: null },
+    { name: 'Hot chocolate',      price: null, note: 'with caramel syrup, if you want it' },
+    { name: 'Tea',                price: null, note: null }
+  ],
   milks: 'Plant-based milks available — just ask.',
 
-  /* ---- REAL REVIEWS ----------------------------------------------------
-     Published, attributed, and quoted as written. Do NOT add a review here
-     that you have not read on a public page yourself.                     */
+  /* ---- SEEN: today's special ------------------------------------------
+     There is a hand-drawn special board up. This one was on it; it changes,
+     so it is flagged rather than presented as permanent.                   */
+  special: {
+    name: 'Iced chai latte',
+    note: 'Hand-drawn on the board — ask what today’s is'
+  },
+
+  /* ---- SEEN: it is not only coffee ------------------------------------ */
+  alsoSells: [
+    { name: 'Cold drinks',  note: 'A whole fridge of them' },
+    { name: 'Pastries',     note: 'Reviewers keep mentioning these' },
+    { name: 'Crisps',       note: null },
+    { name: 'Sweets',       note: null }
+  ],
+
+  /* ---- REVIEWS — LISTED, real, attributed ----------------------------- */
   reviews: [
     {
       text: 'The best cappuccino I’ve had in a long time.',
@@ -90,16 +112,11 @@ window.BMU = {
     }
   ],
 
-  /* ---- AMENITIES — listed publicly ------------------------------------ */
-  amenities: [
-    'Card &amp; contactless',
-    'Free Wi-Fi',
-    'Wheelchair accessible',
-    'Takeaway'
-  ],
+  /* ---- AMENITIES — LISTED --------------------------------------------- */
+  amenities: ['Card &amp; contactless', 'Free Wi-Fi', 'Wheelchair accessible', 'Takeaway'],
 
-  /* ---- STILL UNKNOWN — ask on the recon visit -------------------------
-     owner's name · real menu board · prices · food beyond pastries ·
-     their actual logo (Facebook blocks scraping, so photograph the cart)  */
-  unknown: ['owner', 'prices', 'full menu', 'logo artwork']
+  /* ---- STILL UNKNOWN — ask when you go --------------------------------
+     owner's name · prices off the chalkboards · the full food list ·
+     a clean photo of the neon sign to replace the drawn lockup            */
+  unknown: ['owner', 'prices', 'full food list', 'photo of the neon']
 };

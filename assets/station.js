@@ -36,7 +36,7 @@ function flapIn(root, startDelay = 0) {
   const all = [...root.querySelectorAll('.cell:not(.sp)')];
   all.forEach((cell, i) => {
     const final = cell.dataset.final;
-    const steps = 5 + (i % 7);
+    const steps = 4 + (i % 5);
     let n = 0;
     setTimeout(() => {
       const t = setInterval(() => {
@@ -48,12 +48,12 @@ function flapIn(root, startDelay = 0) {
         cell.textContent = FLAP_CHARS[(Math.random() * FLAP_CHARS.length) | 0];
         n++;
       }, 45);
-    }, startDelay + i * 22);
+    }, startDelay + i * 11);
   });
 
   // Guarantee: a throttled tab can stall those intervals, and a cell stuck on a
   // random character would display the WRONG opening time. Force the settle.
-  const settleBy = startDelay + all.length * 22 + 900;
+  const settleBy = startDelay + all.length * 11 + 700;
   setTimeout(() => all.forEach(c => { c.textContent = c.dataset.final; }), settleBy);
 }
 
@@ -117,25 +117,35 @@ function boardHTML() {
     <div class="flap">
       <div class="hdr"><span>Day</span><span>Service</span></div>
       ${rows}
-      <div class="foot">Times listed publicly ${C.hoursConfirmed ? '' : chip('confirm with the cart')}</div>
+      <div class="foot">Times listed publicly ${C.hoursConfirmed ? '' : chip('confirm with them')}</div>
     </div>`;
 }
 
 /* ===================== content ===================== */
 
-function renderMenu() {
-  const row = (i) => {
+function renderChalkboard() {
+  document.getElementById('chalk').innerHTML = C.menu.map(i => {
     const pr = i.price ? `<span class="pr">${i.price}</span>`
                        : (C.showPrices ? `<span class="pr">—</span>` : '');
     return `<li>
               <span class="top"><span class="nm">${i.name}</span><span class="dot"></span>${pr}</span>
               ${i.note ? `<span class="nt">${i.note}</span>` : ''}
             </li>`;
-  };
-  document.getElementById('m-coffee').innerHTML = C.menu.coffee.map(row).join('');
-  document.getElementById('m-other').innerHTML = C.menu.other.map(row).join('');
-  document.getElementById('m-note').innerHTML =
+  }).join('');
+  document.getElementById('chalknote').innerHTML =
     C.milks + (C.showPrices ? '' : ` ${chip('prices to confirm')}`);
+}
+
+function renderSpecial() {
+  document.getElementById('special').innerHTML = `
+    <span class="tag">Today&rsquo;s special</span>
+    <b>${C.special.name}</b>
+    <i>${C.special.note}</i>`;
+}
+
+function renderSells() {
+  document.getElementById('sells').innerHTML = C.alsoSells.map(s =>
+    `<div class="s"><b>${s.name}</b>${s.note ? `<span>${s.note}</span>` : ''}</div>`).join('');
 }
 
 function renderAmenities() {
@@ -157,9 +167,12 @@ function renderReviews() {
 function renderPlace() {
   const p = C.place;
   document.getElementById('place').innerHTML = `
-    <h3>${p.name}</h3>
-    <p>${p.addr}</p>
-    <p>${p.note}</p>`;
+    <p class="land">
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      ${p.landmark}
+    </p>
+    <p>${p.note}</p>
+    <p>${p.name} · ${p.addr}</p>`;
   document.getElementById('contact').innerHTML = `
     <a href="tel:${C.phone}">${C.phoneDisplay}</a>
     <a href="${C.facebook}" target="_blank" rel="noopener">Facebook</a>
@@ -361,12 +374,14 @@ function frame() {
 
 renderStatus();
 renderTimes();
-renderMenu();
+renderChalkboard();
+renderSpecial();
+renderSells();
 renderAmenities();
 renderReviews();
 renderPlace();
-document.getElementById('board-slot').innerHTML = boardHTML();
-document.getElementById('board-slot-5').innerHTML = boardHTML();
+document.getElementById('board-2').innerHTML = boardHTML();
+document.getElementById('board-6').innerHTML = boardHTML();
 renderClock();
 renderEdge();
 setInterval(() => { renderStatus(); renderClock(); }, 30000);
