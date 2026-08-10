@@ -94,6 +94,16 @@ header{
 .nav-links a.lnk:hover{color:var(--beam)}
 .nav .btn{padding:.6rem 1.15rem;font-size:.88rem}
 @media(max-width:880px){.nav-links a.lnk{display:none}}
+/* narrow phones: the header CTA was overflowing off-screen */
+.btn-short{display:none}
+@media(max-width:560px){
+  .brand img{width:34px;height:34px}
+  .brand b{font-size:.98rem}
+  .brand small{display:none}
+  .nav .btn{padding:.55rem .9rem;font-size:.84rem;gap:.4rem}
+  .btn-long{display:none}
+  .btn-short{display:inline}
+}
 
 /* ---------- hero ---------- */
 .hero{position:relative;z-index:2;padding:clamp(3.5rem,9vw,7rem) 0 clamp(3rem,7vw,5.5rem);overflow:hidden}
@@ -283,7 +293,7 @@ body.js .rv.in{opacity:1;transform:none}
     </nav>
     <a class="btn btn-amber" href="#ahead">
       <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      Text your order
+      <span class="btn-long">Text your order</span><span class="btn-short">Order</span>
     </a>
   </div>
 </header>
