@@ -58,16 +58,31 @@ like theirs. That's worth doing before any pitch.
 
 ## The idea the site is built on
 
-They open at **06:45** and are shut by **one**. Closed at weekends. That means
-they aren't a café — they're a **morning cart for people catching a train**. The
-whole site is built round that, which is why it can't be mistaken for a generic
-coffee-shop template.
+They open at **06:45** and are shut by **one**. Closed at weekends. That is not a
+café's opening hours — that is a **train timetable**. They are a morning cart for
+people catching a train.
 
-The most useful thing on it is the **live OPEN / CLOSED pill** in the corner. It
-reads the visitor's own clock and tells them whether the cart is open right now
-and when it shuts. For a business with a four-hour trading window, that's the
-single most valuable thing a website can do — and it only works because the
-hours are real. Which is why question 2 matters more than any other.
+So the site is built out of **railway platform signage**, because that is what
+they physically are:
+
+- the name sits on an **enamel platform nameboard** with the yellow rule real
+  station signs carry;
+- the week's hours are a working **split-flap departure board** that clatters
+  through its characters and settles, exactly like the board above your head;
+- a **yellow platform edge line** runs along the bottom of every screen, with
+  their own words — *best coffee in the toon* — running along it;
+- the scene is **dawn, not night** — cold blue platform, one warm lamp, a cup of
+  coffee steaming under it, because that is the hour they trade in.
+
+Two things make it useful rather than just good-looking, and both come straight
+from the hours:
+
+1. **The live OPEN / CLOSED pill** reads the visitor's own clock.
+2. **The clock card** counts it down — *"open for another 52m"*.
+
+For a business with a four-hour trading window that is the most valuable thing a
+website can do. It is also only as honest as the hours, which is why question 2
+above matters more than any other question on this page.
 
 ## Running it
 

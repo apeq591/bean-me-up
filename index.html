@@ -4,120 +4,146 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Bean Me Up — the coffee cart at Partick Station, Glasgow</title>
-<meta name="description" content="Bean Me Up: a coffee cart on the platform at Partick Station, Glasgow. Open 6:45am, gone by one. Best coffee in the toon.">
-<meta name="theme-color" content="#1A0F07">
+<meta name="description" content="Bean Me Up: a coffee cart on the platform at Partick Station, Glasgow. Open 6:45, gone by one. Best coffee in the toon.">
+<meta name="theme-color" content="#080C11">
 <!-- Unlisted on purpose: this is a pitch demo for a business Mukta does not own
-     yet. Keep it out of Google until the owner has said yes. Remove this line
-     only once they've agreed to take the site on. -->
+     yet. Keep it out of Google until the owner has said yes. -->
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Bean Me Up — Partick Station">
-<meta property="og:description" content="Open 6:45am, gone by one. Best coffee in the toon.">
+<meta property="og:description" content="Open 6:45, gone by one. Best coffee in the toon.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
+/* =========================================================================
+   The design system here is British railway platform signage — enamel signs,
+   the split-flap departure board, and the yellow platform edge line. That is
+   not decoration: this business IS a platform. It opens at 06:45 and is gone
+   by one, which is a train timetable, not a café's opening hours.
+   ========================================================================= */
 :root{
-  --espresso:#180D05;
-  --espresso-2:#25150A;
-  --caramel:#C0873F;
-  --caramel-lt:#D9A468;
-  --caramel-dk:#8E5A22;
-  --cream:#F7F0E4;
-  --amber:#F0A63C;
-  --go:#5FD08A;
-  --ink:#1E1208;
-  --board:#0E0A06;
-  --radius:20px;
+  --night:#070A0E;
+  --enamel:#0F1A24;
+  --enamel-2:#16242F;
+  --edge:rgba(255,255,255,.14);
+  --white:#FFFFFF;
+  --dim:rgba(255,255,255,.66);
+  --platform:#F2C230;      /* the yellow line on the platform edge */
+  --board:#FFB000;         /* split-flap amber */
+  --go:#3ED598;
+  --coffee:#8A5A2B;
+  --paper:#F4EFE6;
+  --ink:#12181E;
+  --sign-r:14px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
 html{-webkit-text-size-adjust:100%}
 body{
-  font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;
-  color:var(--cream);background:var(--espresso);
-  -webkit-font-smoothing:antialiased;line-height:1.55;overscroll-behavior:none;
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  background:var(--night);color:var(--white);line-height:1.5;
+  -webkit-font-smoothing:antialiased;overscroll-behavior:none;
+  letter-spacing:-.006em;
 }
 a{color:inherit;text-decoration:none}
 img,svg{display:block;max-width:100%}
 .mono{font-family:'Roboto Mono',ui-monospace,monospace}
 
-/* ---------- background ---------- */
-.bg{
-  position:fixed;inset:0;z-index:0;
+/* ---------- the platform ---------- */
+.bg{position:fixed;inset:0;z-index:0;background:
+  /* first light, low on the right — they open at 06:45, so this is dawn */
+  radial-gradient(ellipse 78% 46% at 88% 74%, rgba(255,150,64,.34) 0%, rgba(214,104,44,.12) 44%, transparent 72%),
+  radial-gradient(ellipse 120% 70% at 46% -12%, #21384B 0%, transparent 62%),
+  radial-gradient(ellipse 90% 60% at 12% 96%, #16232F 0%, transparent 66%),
+  linear-gradient(178deg,#0B131C 0%,#0A1119 58%,#0E1620 100%);
+}
+/* The sodium lamp above the cart. This is the whole emotional point: cold blue
+   platform, one pool of warm light, coffee in it. */
+.lamp{
+  position:fixed;z-index:0;pointer-events:none;
+  right:-4vw;top:-20vh;width:64vw;height:110vh;
   background:
-    radial-gradient(ellipse at 26% 18%, #D9A468 0%, transparent 52%),
-    radial-gradient(ellipse at 80% 84%, #9E6A2E 0%, transparent 58%),
-    linear-gradient(155deg,#C6924E 0%,#A96F35 52%,#7C4A1C 100%);
+    radial-gradient(ellipse 30% 30% at 60% 36%, rgba(255,176,86,.55) 0%, rgba(255,176,86,.16) 46%, transparent 72%),
+    radial-gradient(ellipse 13% 12% at 60% 30%, rgba(255,236,196,.72) 0%, transparent 66%);
+  filter:blur(4px);
 }
-.bg::after{
-  content:"";position:absolute;inset:0;mix-blend-mode:overlay;
-  background-image:
-    repeating-linear-gradient(112deg, rgba(255,255,255,.05) 0 2px, transparent 2px 44px),
-    repeating-linear-gradient(-28deg, rgba(24,13,5,.055) 0 2px, transparent 2px 58px);
+@media(max-width:920px){
+  .lamp{right:-24vw;top:-8vh;width:130vw;height:70vh}
 }
-.vignette{
-  position:fixed;inset:0;z-index:1;pointer-events:none;
-  background:radial-gradient(ellipse at 50% 46%, transparent 42%, rgba(24,13,5,.5) 100%);
+/* tiled platform floor, in perspective, along the bottom */
+.floor{
+  position:fixed;left:0;right:0;bottom:0;height:34vh;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 90% at 84% 30%, rgba(255,166,84,.16) 0%, transparent 70%),
+    linear-gradient(180deg, transparent 0%, rgba(9,14,20,0) 34%, rgba(9,14,20,.7) 100%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.035) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(0deg,  rgba(255,255,255,.03) 0 1px, transparent 1px 40px);
+  mask-image:linear-gradient(180deg, transparent 0%, #000 55%);
+  -webkit-mask-image:linear-gradient(180deg, transparent 0%, #000 55%);
 }
-#beans{position:fixed;inset:0;z-index:2;pointer-events:none}
+#fx{position:fixed;inset:0;z-index:1;pointer-events:none}
 
-/* ---------- cup ---------- */
-.cupwrap{
-  position:fixed;z-index:3;pointer-events:none;left:50%;top:50%;
-  width:min(300px,56vw);transform-origin:50% 50%;will-change:transform,opacity;
-  filter:drop-shadow(0 42px 46px rgba(24,13,5,.6));
+/* ---------- yellow platform edge, bottom of every screen ---------- */
+.edge{
+  position:fixed;left:0;right:0;bottom:0;z-index:35;height:34px;
+  background:var(--platform);
+  display:flex;align-items:center;overflow:hidden;
+  box-shadow:0 -14px 34px rgba(242,194,48,.16);
 }
-.cupwrap .float{animation:bob 5.4s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(-9px) rotate(-1.3deg)}50%{transform:translateY(11px) rotate(1.5deg)}}
+.edge::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:3px;
+  background:repeating-linear-gradient(90deg,#12181E 0 14px,transparent 14px 28px);
+  opacity:.45;
+}
+.edge .run{
+  display:flex;gap:0;white-space:nowrap;
+  animation:run 34s linear infinite;will-change:transform;
+}
+.edge .run span{
+  font-family:'Roboto Mono',monospace;font-size:.66rem;font-weight:700;
+  letter-spacing:.32em;text-transform:uppercase;color:#12181E;padding:0 1.1rem;
+}
+@keyframes run{to{transform:translateX(-50%)}}
+@media(max-width:560px){.edge{height:28px}.edge .run span{font-size:.58rem;letter-spacing:.24em}}
 
-/* ---------- header ---------- */
+/* ---------- header: an enamel sign ---------- */
 header{
   position:fixed;top:0;left:0;right:0;z-index:40;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:max(.8rem,env(safe-area-inset-top)) clamp(1rem,4vw,2.4rem) .8rem;
+  padding:max(.75rem,env(safe-area-inset-top)) clamp(.9rem,3.5vw,2rem) .75rem;
 }
-.brand{display:flex;align-items:center;gap:.6rem}
-.brand img{width:36px;height:36px;filter:drop-shadow(0 4px 10px rgba(24,13,5,.55))}
-.brand b{font-size:1rem;font-weight:700;letter-spacing:-.015em;line-height:1.05;display:block}
+.brand{
+  display:flex;align-items:center;gap:.6rem;
+  background:var(--enamel);border:1px solid var(--edge);border-radius:10px;
+  padding:.45rem .8rem .45rem .55rem;
+}
+.brand img{width:28px;height:28px}
+.brand b{font-size:.94rem;font-weight:700;letter-spacing:-.02em;line-height:1.1;display:block}
 .brand small{
-  display:block;font-family:'Roboto Mono',monospace;font-size:.58rem;
-  letter-spacing:.14em;text-transform:uppercase;opacity:.72;
+  display:block;font-family:'Roboto Mono',monospace;font-size:.54rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
 }
-@media(max-width:560px){.brand small{display:none}.brand img{width:31px;height:31px}}
+@media(max-width:560px){.brand small{display:none}.brand img{width:24px;height:24px}.brand{padding:.4rem .65rem .4rem .45rem}}
 
-/* ---------- live status pill ---------- */
+/* live status, styled as a board row */
 .status{
-  display:inline-flex;align-items:center;gap:.55rem;
-  background:var(--board);border:1px solid rgba(247,240,228,.16);
-  border-radius:999px;padding:.5rem .95rem;
-  font-family:'Roboto Mono',monospace;font-size:.72rem;letter-spacing:.08em;
-  text-transform:uppercase;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:#000;border:1px solid var(--edge);border-radius:10px;padding:.5rem .8rem;
+  font-family:'Roboto Mono',monospace;font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;white-space:nowrap;color:var(--board);
 }
-.status .led{width:8px;height:8px;border-radius:50%;background:var(--amber);flex:0 0 8px}
-.status.open .led{background:var(--go);box-shadow:0 0 0 0 rgba(95,208,138,.7);animation:pulse 2.2s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(95,208,138,0)}100%{box-shadow:0 0 0 0 rgba(95,208,138,0)}}
+.status .led{width:7px;height:7px;border-radius:50%;background:var(--board);flex:0 0 7px}
+.status.open{color:var(--go)}
+.status.open .led{background:var(--go);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(62,213,152,.7)}70%{box-shadow:0 0 0 8px rgba(62,213,152,0)}100%{box-shadow:0 0 0 0 rgba(62,213,152,0)}}
 .status b{font-weight:700}
-.status .sep{opacity:.35}
-@media(max-width:560px){.status{font-size:.63rem;padding:.42rem .7rem;gap:.4rem}}
-
-/* ---------- buttons ---------- */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  font:inherit;font-weight:600;font-size:.95rem;padding:.82rem 1.5rem;
-  border-radius:999px;border:1.5px solid transparent;cursor:pointer;white-space:nowrap;
-  transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease;
-}
-.btn:hover{transform:translateY(-2px)}
-.btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.btn-cream{background:var(--cream);color:var(--ink);box-shadow:0 14px 30px -14px rgba(24,13,5,.8)}
-.btn-dark{background:var(--espresso);color:var(--cream);box-shadow:0 14px 30px -14px rgba(24,13,5,.9)}
-.btn-ghost{background:rgba(255,255,255,.09);color:var(--cream);border-color:rgba(247,240,228,.4);backdrop-filter:blur(6px)}
-.btn-ghost:hover{background:rgba(255,255,255,.18)}
+.status .sep{opacity:.4}
+@media(max-width:560px){.status{font-size:.58rem;padding:.42rem .6rem;gap:.38rem}}
 
 /* ---------- deck ---------- */
 .deck{
@@ -131,242 +157,362 @@ header{
   flex:0 0 100vw;width:100vw;height:100%;
   scroll-snap-align:center;scroll-snap-stop:always;
   display:flex;align-items:center;
-  padding:5.2rem clamp(1.2rem,5vw,4.5rem) 5.2rem;
+  /* bottom padding clears the platform edge AND the platform indicator */
+  padding:4.9rem clamp(1.1rem,4.5vw,4rem) 7rem;
   overflow-y:auto;overscroll-behavior-y:contain;
 }
-.panel > .inner{width:min(1080px,100%);margin-inline:auto}
-.half{max-width:min(560px,100%)}
-@media(max-width:900px){.panel{align-items:flex-start;padding-top:4.6rem}.half{max-width:100%}}
+.panel > .inner{width:min(1120px,100%);margin-inline:auto}
+.half{max-width:min(600px,100%)}
+@media(max-width:920px){.panel{align-items:flex-start;padding-top:4.4rem;padding-bottom:6.2rem}.half{max-width:100%}}
 
-.kicker{
-  font-family:'Roboto Mono',monospace;font-size:.68rem;letter-spacing:.2em;
-  text-transform:uppercase;font-weight:500;color:var(--cream);opacity:.85;
+/* hero splits: signage left, the cup under the lamp on the right */
+.hero,.split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+@media(max-width:920px){.hero,.split{grid-template-columns:1fr;gap:1.2rem}}
+
+/* ---------- the cup ---------- */
+.cupstage{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:min(60vh,480px)}
+@media(max-width:920px){.cupstage{min-height:min(38vh,330px);margin-top:.5rem}}
+.cupstage .glow{
+  position:absolute;left:50%;bottom:22%;translate:-50% 0;
+  width:min(460px,96%);height:190px;border-radius:50%;
+  background:radial-gradient(ellipse at 50% 50%, rgba(255,186,104,.42), transparent 68%);
+  filter:blur(10px);z-index:0;
 }
-@media(max-width:560px){.kicker{font-size:.6rem;letter-spacing:.12em;overflow-wrap:break-word}}
+.cupcol{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:min(268px,62%)}
+@media(max-width:920px){.cupcol{width:min(190px,48%)}}
+.cupcol svg.cup{width:100%}
+.cupcol .ledge{                 /* the platform edge — and the mirror line */
+  width:118%;height:6px;border-radius:3px;margin-top:-4px;
+  background:linear-gradient(90deg,transparent,var(--platform) 16%,var(--platform) 84%,transparent);
+  box-shadow:0 0 26px rgba(242,194,48,.45);
+}
+.cupcol .steam{position:absolute;left:50%;top:0;transform:translate(-50%,-86%);width:52%;z-index:1}
+.steam path{
+  fill:none;stroke:rgba(255,238,214,.8);stroke-width:6;stroke-linecap:round;
+  filter:blur(3px);
+  animation:rise 5.6s ease-in-out infinite;
+}
+.steam path:nth-child(2){animation-delay:-1.9s;stroke:rgba(255,238,214,.62)}
+.steam path:nth-child(3){animation-delay:-3.6s;stroke:rgba(255,238,214,.5)}
+@keyframes rise{
+  0%{opacity:0;transform:translateY(16px) scaleX(.85)}
+  22%{opacity:.9}
+  100%{opacity:0;transform:translateY(-42px) scaleX(1.2)}
+}
 
+/* ---------- signage type ---------- */
+.plate{
+  display:inline-block;background:var(--enamel);border:1px solid var(--edge);
+  border-radius:var(--sign-r);padding:.34rem .85rem;
+  font-family:'Roboto Mono',monospace;font-size:.62rem;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+}
+@media(max-width:560px){.plate{font-size:.55rem;letter-spacing:.14em;padding:.3rem .65rem}}
+
+/* the big platform nameboard */
+.nameboard{
+  display:inline-block;margin-top:1rem;background:var(--enamel);border:1px solid var(--edge);
+  border-radius:20px;padding:clamp(1.1rem,3.2vw,2rem) clamp(1.2rem,3.6vw,2.4rem);
+  position:relative;overflow:hidden;
+  box-shadow:0 34px 70px -34px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.07);
+}
+.nameboard::after{ /* the yellow rule real station signs carry */
+  content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--platform);
+}
 h1{
-  font-size:clamp(3rem,12.5vw,7rem);line-height:.9;font-weight:700;
-  letter-spacing:-.045em;margin:.7rem 0 0;text-shadow:0 18px 40px rgba(24,13,5,.5);
+  font-size:clamp(2.6rem,11vw,6.6rem);line-height:.9;font-weight:800;
+  letter-spacing:-.05em;text-transform:uppercase;
 }
-h1 .lo{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.02em}
+h1 .thin{font-weight:400;color:var(--dim)}
+.nameboard .sub{
+  display:flex;align-items:center;gap:.7rem;margin-top:.85rem;flex-wrap:wrap;
+  font-family:'Roboto Mono',monospace;font-size:.72rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--dim);
+}
+.nameboard .sub .arw{color:var(--platform);font-size:.9rem;letter-spacing:0}
+@media(max-width:560px){.nameboard .sub{font-size:.6rem;letter-spacing:.12em;gap:.5rem}}
+
 h2{
-  font-size:clamp(1.95rem,6vw,3.4rem);line-height:1.03;letter-spacing:-.035em;
-  font-weight:700;margin:.6rem 0 0;text-shadow:0 14px 34px rgba(24,13,5,.45);
+  font-size:clamp(1.8rem,5.4vw,3.1rem);line-height:1.04;font-weight:800;
+  letter-spacing:-.04em;text-transform:uppercase;margin-top:.9rem;
 }
-h2 em{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:400;color:var(--amber)}
-.lede{font-size:clamp(1rem,2.3vw,1.2rem);margin-top:1rem;max-width:40ch;color:rgba(247,240,228,.93)}
-.cta{display:flex;gap:.7rem;margin-top:1.7rem;flex-wrap:wrap;align-items:center}
+h2 .thin{font-weight:400;color:var(--dim)}
+.lede{font-size:clamp(.98rem,2.1vw,1.14rem);margin-top:.95rem;max-width:46ch;color:var(--dim)}
 
-/* their own tagline, treated like a stamp */
-.stamp{
-  display:inline-block;margin-top:1.1rem;
-  font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:clamp(1.05rem,2.6vw,1.4rem);
-  color:var(--cream);border-bottom:2px solid rgba(240,166,60,.7);padding-bottom:.15rem;
+/* their own words, treated as a quoted sign */
+.toon{
+  margin-top:1.15rem;display:inline-block;border-left:4px solid var(--platform);
+  padding:.15rem 0 .15rem .85rem;
 }
-.stamp small{
-  display:block;font-family:'Roboto Mono',monospace;font-style:normal;
-  font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;opacity:.6;
-  border:0;margin-top:.4rem;
+.toon b{display:block;font-size:clamp(1.05rem,2.7vw,1.45rem);font-weight:600;letter-spacing:-.02em}
+.toon small{
+  display:block;margin-top:.2rem;font-family:'Roboto Mono',monospace;
+  font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.42);
 }
 
-/* ---------- departure board ---------- */
-.board{
-  background:var(--board);border:1px solid rgba(247,240,228,.14);
-  border-radius:16px;padding:1rem 1.1rem;margin-top:1.6rem;
-  font-family:'Roboto Mono',monospace;max-width:440px;
+.cta{display:flex;gap:.6rem;margin-top:1.5rem;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font:inherit;font-weight:600;font-size:.9rem;padding:.78rem 1.35rem;
+  border-radius:10px;border:1px solid transparent;cursor:pointer;white-space:nowrap;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease;
 }
-.board .row{
-  display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:baseline;
-  padding:.34rem 0;font-size:.85rem;
-}
-.board .row + .row{border-top:1px dashed rgba(247,240,228,.12)}
-.board .d{letter-spacing:.1em;text-transform:uppercase;opacity:.62;font-size:.72rem}
-.board .t{text-align:right;font-weight:500;letter-spacing:.04em}
-.board .row.today{color:var(--amber)}
-.board .row.today .d{opacity:1;font-weight:700}
-.board .row.shut .t{opacity:.42}
-.board .cap{
-  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
-  margin-top:.7rem;padding-top:.7rem;border-top:1px solid rgba(247,240,228,.12);
-  font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;opacity:.6;
-}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-y{background:var(--platform);color:#12181E;font-weight:700}
+.btn-o{background:transparent;color:var(--white);border-color:rgba(255,255,255,.3)}
+.btn-o:hover{border-color:var(--platform);color:var(--platform)}
 
-/* ---------- first cup / last call ---------- */
-.times{display:flex;gap:.9rem;margin-top:1.6rem;flex-wrap:wrap}
+/* ---------- split-flap board ---------- */
+.flap{
+  background:#000;border:1px solid var(--edge);border-radius:14px;
+  padding:1rem 1.1rem;margin-top:1.4rem;max-width:520px;
+  box-shadow:inset 0 2px 24px rgba(0,0,0,.9);
+}
+.flap .hdr{
+  display:grid;grid-template-columns:1fr auto;gap:1rem;
+  font-family:'Roboto Mono',monospace;font-size:.55rem;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(255,255,255,.32);
+  padding-bottom:.55rem;border-bottom:1px solid rgba(255,255,255,.1);
+}
+.flap .line{
+  display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;
+  padding:.62rem 0;border-bottom:1px dashed rgba(255,255,255,.08);
+}
+.flap .line:last-of-type{border-bottom:0}
+.cells{display:flex;gap:2px}
+.cell{
+  position:relative;display:inline-grid;place-items:center;
+  min-width:.86em;height:1.5em;padding:0 .1em;
+  font-family:'Roboto Mono',monospace;font-weight:700;
+  background:linear-gradient(180deg,#1E1E1E 0 49.5%, #121212 50.5% 100%);
+  border-radius:3px;color:var(--board);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
+}
+.cell::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.85)}
+.cell.sp{background:none;box-shadow:none;min-width:.4em}
+.cell.sp::after{display:none}
+.flap .word .cell{font-size:clamp(.72rem,2vw,.88rem);color:var(--white)}
+.flap .time .cell{font-size:clamp(.95rem,2.6vw,1.25rem)}
+.flap .foot{
+  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;padding-top:.6rem;
+  border-top:1px solid rgba(255,255,255,.1);
+  font-family:'Roboto Mono',monospace;font-size:.55rem;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(255,255,255,.34);
+}
+.flap .line.shut .cells .cell{color:rgba(255,255,255,.32)}
+.flap .line.today .word .cell{color:var(--platform)}
+
+/* ---------- the two headline times ---------- */
+.times{display:flex;gap:.7rem;margin-top:1.4rem;flex-wrap:wrap;align-items:stretch}
 .times .t{
-  background:var(--board);border:1px solid rgba(247,240,228,.14);
-  border-radius:16px;padding:.9rem 1.2rem;min-width:150px;
+  background:var(--enamel);border:1px solid var(--edge);border-radius:14px;
+  padding:.85rem 1.1rem;min-width:142px;position:relative;overflow:hidden;
 }
+.times .t::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px}
+.times .t.first::after{background:var(--go)}
+.times .t.last::after{background:var(--platform)}
 .times .t b{
-  display:block;font-family:'Roboto Mono',monospace;font-size:clamp(1.6rem,4.6vw,2.3rem);
-  font-weight:700;letter-spacing:-.02em;line-height:1;
+  display:block;font-family:'Roboto Mono',monospace;
+  font-size:clamp(1.5rem,4.4vw,2.1rem);font-weight:700;letter-spacing:-.02em;line-height:1;
 }
 .times .t.first b{color:var(--go)}
-.times .t.last b{color:var(--amber)}
+.times .t.last b{color:var(--platform)}
 .times .t span{
   display:block;margin-top:.35rem;font-family:'Roboto Mono',monospace;
-  font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;opacity:.65;
+  font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);
 }
 .times .shut{
-  align-self:center;font-family:'Roboto Mono',monospace;font-size:.66rem;
-  letter-spacing:.13em;text-transform:uppercase;opacity:.6;max-width:12ch;line-height:1.5;
+  align-self:center;font-family:'Roboto Mono',monospace;font-size:.6rem;
+  letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);
+  max-width:11ch;line-height:1.6;
 }
 
-/* ---------- amenities ---------- */
-.amen{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
+/* ---------- amenity plates ---------- */
+.amen{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
 .amen span{
-  font-family:'Roboto Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
-  background:rgba(24,13,5,.4);border:1px solid rgba(247,240,228,.18);
-  border-radius:999px;padding:.42rem .8rem;
+  font-family:'Roboto Mono',monospace;font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--enamel);border:1px solid var(--edge);border-radius:8px;padding:.4rem .7rem;color:var(--dim);
 }
 
-/* ---------- menu ---------- */
-.menucard{
-  background:var(--cream);color:var(--ink);border-radius:24px;
-  padding:clamp(1.2rem,3.2vw,2.3rem);box-shadow:0 30px 60px -30px rgba(24,13,5,.85);
-  max-width:min(760px,100%);
+/* ---------- menu: a platform poster ---------- */
+.poster{
+  margin-inline:auto;
+  background:var(--paper);color:var(--ink);border-radius:6px;
+  padding:clamp(1.1rem,3vw,2.1rem);max-width:min(680px,100%);
+  box-shadow:0 40px 80px -34px rgba(0,0,0,.95);
+  position:relative;
+  background-image:radial-gradient(rgba(18,24,30,.045) 1px, transparent 1px);
+  background-size:4px 4px;
 }
-.menucard .kicker{color:var(--caramel-dk);opacity:1}
-.menucard h2{color:var(--ink);text-shadow:none}
-.menucard h2 em{color:var(--caramel-dk)}
-.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.2rem}
-@media(max-width:640px){.mgrid{grid-template-columns:1fr;gap:.9rem}}
-.mcol h3{
-  font-family:'Roboto Mono',monospace;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--caramel-dk);font-weight:700;padding-bottom:.45rem;border-bottom:1.5px solid rgba(30,18,8,.18);
+.poster::before{ /* the four pins that hold a real poster in its frame */
+  content:"";position:absolute;inset:9px;border:1px solid rgba(18,24,30,.16);border-radius:3px;pointer-events:none;
 }
-.mcol ul{list-style:none;margin-top:.45rem}
-.mcol li{padding:.36rem 0;border-bottom:1px dashed rgba(30,18,8,.12)}
-.mcol .top{display:flex;align-items:baseline;gap:.6rem}
-.mcol .nm{font-weight:500;font-size:.96rem}
-.mcol .dot{flex:1;border-bottom:1px dotted rgba(30,18,8,.28);translate:0 -4px}
-.mcol .pr{font-family:'Roboto Mono',monospace;font-weight:500;font-size:.88rem;color:#6E5540}
-.mcol .nt{display:block;font-size:.76rem;color:#8A6A4C;font-style:italic;margin-top:.05rem}
-.mnote{margin-top:1rem;font-size:.84rem;color:#6E5540;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
-@media(max-width:640px){
-  .menucard{padding:1.1rem 1.15rem;border-radius:18px}
-  .menucard h2{font-size:1.7rem}
-  .mcol li{padding:.28rem 0}
-  .mcol .nm{font-size:.9rem}
-  .mcol .nt{font-size:.72rem}
-  .mnote{margin-top:.8rem;font-size:.76rem}
+.poster .ptop{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  border-bottom:2px solid var(--ink);padding-bottom:.5rem;
+}
+.poster .ptop b{font-size:.62rem;font-family:'Roboto Mono',monospace;letter-spacing:.24em;text-transform:uppercase}
+.poster h3{
+  font-size:clamp(1.5rem,4.4vw,2.4rem);font-weight:800;letter-spacing:-.04em;
+  text-transform:uppercase;margin-top:.7rem;line-height:1;
+}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:1.1rem}
+@media(max-width:660px){.mgrid{grid-template-columns:1fr;gap:.85rem}}
+.mcol h4{
+  font-family:'Roboto Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--coffee);font-weight:700;padding-bottom:.35rem;border-bottom:1px solid rgba(18,24,30,.22);
+}
+.mcol ul{list-style:none;margin-top:.35rem}
+.mcol li{padding:.3rem 0;border-bottom:1px dotted rgba(18,24,30,.18)}
+.mcol .top{display:flex;align-items:baseline;gap:.5rem}
+.mcol .nm{font-weight:600;font-size:.94rem;letter-spacing:-.01em}
+.mcol .dot{flex:1;border-bottom:1px dotted rgba(18,24,30,.3);translate:0 -4px}
+.mcol .pr{font-family:'Roboto Mono',monospace;font-size:.85rem;color:#5C4A38}
+.mcol .nt{display:block;font-size:.73rem;color:#7A6752;margin-top:.02rem}
+.pnote{margin-top:.9rem;font-size:.8rem;color:#5C4A38;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+@media(max-width:660px){
+  .poster{padding:1.05rem 1.1rem}
+  .poster h3{font-size:1.55rem}
+  .mcol li{padding:.24rem 0}
+  .mcol .nm{font-size:.88rem}
+  .mcol .nt{font-size:.7rem}
+  .pnote{margin-top:.75rem;font-size:.73rem}
 }
 
-/* ---------- reviews ---------- */
-.rate{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.2rem}
+/* ---------- reviews: passenger notices ---------- */
+.rate{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:1.1rem}
 .rate .r{
-  background:rgba(24,13,5,.4);border:1px solid rgba(247,240,228,.18);
-  border-radius:14px;padding:.7rem .95rem;display:flex;align-items:baseline;gap:.45rem;
+  background:var(--enamel);border:1px solid var(--edge);border-radius:12px;
+  padding:.6rem .85rem;display:flex;align-items:baseline;gap:.4rem;
 }
-.rate .r b{font-size:1.35rem;font-weight:700;letter-spacing:-.02em}
-.rate .r span{font-family:'Roboto Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
-.revs{display:grid;gap:.8rem;margin-top:1.3rem}
+.rate .r b{font-size:1.25rem;font-weight:800;letter-spacing:-.03em;color:var(--platform)}
+.rate .r span{font-family:'Roboto Mono',monospace;font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.revs{display:grid;gap:.6rem;margin-top:1rem}
 .rev{
-  background:rgba(24,13,5,.32);border:1px solid rgba(247,240,228,.15);
-  border-left:3px solid var(--amber);border-radius:0 16px 16px 0;padding:1rem 1.15rem;
+  background:var(--enamel);border:1px solid var(--edge);border-radius:12px;
+  padding:.85rem 1rem;border-left:3px solid var(--platform);
 }
-.rev p{font-family:'Fraunces',Georgia,serif;font-style:italic;font-size:1.02rem;line-height:1.4}
-.rev .x{font-size:.9rem;opacity:.8;margin-top:.3rem;font-family:'Space Grotesk',sans-serif;font-style:normal}
+.rev p{font-size:.99rem;font-weight:500;letter-spacing:-.015em}
+.rev .x{font-size:.87rem;color:var(--dim);margin-top:.2rem;font-weight:400}
 .rev cite{
-  display:block;margin-top:.55rem;font-style:normal;font-family:'Roboto Mono',monospace;
-  font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;opacity:.62;
+  display:block;margin-top:.45rem;font-style:normal;font-family:'Roboto Mono',monospace;
+  font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.38);
 }
-@media(max-width:640px){.rev{padding:.8rem .9rem}.rev p{font-size:.94rem}}
+@media(max-width:660px){.rev{padding:.7rem .8rem}.rev p{font-size:.91rem}}
 
 /* ---------- find ---------- */
-.place{
-  background:rgba(24,13,5,.34);border:1px solid rgba(247,240,228,.17);
-  border-radius:20px;padding:1.3rem;margin-top:1.3rem;
-}
-.place h3{font-size:1.3rem;font-weight:700;letter-spacing:-.02em}
-.place p{font-size:.93rem;opacity:.88;margin-top:.25rem}
-.contact{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:1.2rem;font-size:.92rem}
-.contact a{border-bottom:1px solid rgba(247,240,228,.4);padding-bottom:2px}
-/* keep the find-us panel inside one phone screen */
-@media(max-width:640px){
-  .place{padding:1rem;border-radius:16px;margin-top:1rem}
-  .place h3{font-size:1.14rem}
-  .place p{font-size:.86rem}
-  .board{padding:.75rem .85rem;border-radius:12px}
-  .board .row{padding:.22rem 0;font-size:.76rem}
-  .board .d{font-size:.66rem}
-  .board .cap{margin-top:.5rem;padding-top:.5rem;font-size:.58rem}
-  .contact{margin-top:.9rem;gap:.85rem;font-size:.84rem}
-}
+.place{background:var(--enamel);border:1px solid var(--edge);border-radius:16px;padding:1.15rem;margin-top:1.1rem}
+.place h3{font-size:1.2rem;font-weight:700;letter-spacing:-.03em;text-transform:uppercase}
+.place p{font-size:.9rem;color:var(--dim);margin-top:.25rem}
+.contact{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;font-size:.88rem}
+.contact a{border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:2px}
+.contact span{color:var(--dim)}
 
 .chip{
-  display:inline-block;font-family:'Roboto Mono',monospace;
-  font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
-  padding:.2rem .5rem;border-radius:6px;font-weight:700;
-  background:rgba(240,166,60,.16);color:var(--amber);border:1px solid rgba(240,166,60,.45);
+  display:inline-block;font-family:'Roboto Mono',monospace;font-size:.53rem;
+  letter-spacing:.14em;text-transform:uppercase;padding:.18rem .45rem;border-radius:4px;
+  font-weight:700;background:rgba(242,194,48,.14);color:var(--platform);
+  border:1px solid rgba(242,194,48,.4);
 }
-.menucard .chip{background:rgba(142,90,34,.14);color:var(--caramel-dk);border-color:rgba(142,90,34,.42)}
+.poster .chip{background:rgba(138,90,43,.12);color:var(--coffee);border-color:rgba(138,90,43,.4)}
 
-/* ---------- progress ---------- */
+/* ---------- big score, panel 4 ---------- */
+.rate{display:grid;gap:.6rem}
+.rate .r{
+  background:var(--enamel);border:1px solid var(--edge);border-radius:16px;
+  padding:1.1rem 1.25rem;display:flex;align-items:baseline;gap:.7rem;
+  position:relative;overflow:hidden;
+}
+.rate .r::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:var(--platform);opacity:.75}
+.rate .r b{font-size:clamp(2.1rem,5vw,3rem);font-weight:800;letter-spacing:-.04em;color:var(--platform);line-height:1}
+.rate .r span{font-family:'Roboto Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);line-height:1.7}
+@media(max-width:920px){
+  .rate{grid-template-columns:1fr 1fr;gap:.55rem;margin-top:1rem}
+  .rate .r{padding:.7rem .85rem;border-radius:12px}
+  .rate .r b{font-size:1.5rem}
+}
+
+/* ---------- live clock, panel 5 ---------- */
+.clockcard{
+  background:#000;border:1px solid var(--edge);border-radius:18px;padding:1.4rem 1.5rem;
+  box-shadow:inset 0 2px 30px rgba(0,0,0,.9);
+}
+.clockcard .now{
+  font-family:'Roboto Mono',monospace;font-size:clamp(2.6rem,7vw,4rem);font-weight:700;
+  letter-spacing:-.03em;line-height:1;color:var(--white);
+}
+.clockcard .lbl{
+  font-family:'Roboto Mono',monospace;font-size:.55rem;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(255,255,255,.34);margin-bottom:.5rem;
+}
+.clockcard .msg{
+  margin-top:1rem;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.12);
+  font-size:1.02rem;font-weight:600;letter-spacing:-.02em;
+}
+.clockcard.open .msg{color:var(--go)}
+.clockcard.shut .msg{color:var(--board)}
+.clockcard .sub{
+  font-family:'Roboto Mono',monospace;font-size:.58rem;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.35rem;
+}
+@media(max-width:920px){.clockcard{padding:1rem 1.1rem;margin-top:1rem;border-radius:14px}}
+
+/* The week board is big. Desktop shows it beside the copy on panel 2; a phone
+   has no room there, so it moves to panel 5 and the clock card steps aside
+   (the header pill already answers "are they open?"). */
+#board-slot-5{display:none}
+@media(max-width:920px){
+  .panel h2{font-size:1.62rem}
+  .place{padding:.9rem 1rem;margin-top:.9rem}
+  .place p{font-size:.85rem}
+  .flap{padding:.8rem .9rem;margin-top:1rem}
+  .flap .line{padding:.42rem 0}
+  .contact{margin-top:.85rem;gap:.8rem;font-size:.84rem}
+  .cupstage{min-height:min(34vh,300px)}
+  #board-slot{display:none}
+  #board-slot-5{display:block;margin-top:1rem}
+  .clockcard{display:none}
+}
+
+/* ---------- platform indicator ---------- */
 .dots{
-  position:fixed;z-index:40;left:50%;translate:-50% 0;
-  bottom:max(1rem,env(safe-area-inset-bottom));
-  display:flex;gap:.5rem;align-items:center;
-  background:rgba(14,10,6,.55);padding:.5rem .75rem;border-radius:999px;
-  backdrop-filter:blur(8px);border:1px solid rgba(247,240,228,.16);
+  position:fixed;z-index:38;left:50%;translate:-50% 0;bottom:calc(34px + max(.7rem,env(safe-area-inset-bottom)));
+  display:flex;gap:.35rem;align-items:center;background:rgba(0,0,0,.6);
+  padding:.4rem .55rem;border-radius:10px;border:1px solid var(--edge);backdrop-filter:blur(8px);
 }
 .dots button{
-  width:8px;height:8px;border-radius:50%;border:0;padding:0;cursor:pointer;
-  background:rgba(247,240,228,.4);transition:width .3s ease,background .3s ease;
+  width:22px;height:20px;border-radius:5px;border:0;padding:0;cursor:pointer;
+  background:rgba(255,255,255,.12);color:rgba(255,255,255,.5);
+  font-family:'Roboto Mono',monospace;font-size:.58rem;font-weight:700;
+  transition:background .25s ease,color .25s ease;
 }
-.dots button.on{width:24px;border-radius:999px;background:var(--amber)}
+.dots button.on{background:var(--platform);color:#12181E}
+@media(max-width:560px){.edge~.dots,.dots{bottom:calc(28px + max(.55rem,env(safe-area-inset-bottom)))}}
+
 .hint{
-  position:fixed;z-index:40;right:clamp(1rem,4vw,2.4rem);
-  bottom:max(1.3rem,env(safe-area-inset-bottom));
-  display:flex;align-items:center;gap:.5rem;
-  font-family:'Roboto Mono',monospace;font-size:.66rem;letter-spacing:.18em;
-  text-transform:uppercase;color:rgba(247,240,228,.85);transition:opacity .5s ease;
+  position:fixed;z-index:38;right:clamp(1rem,4vw,2rem);
+  bottom:calc(34px + max(.9rem,env(safe-area-inset-bottom)));
+  display:flex;align-items:center;gap:.45rem;
+  font-family:'Roboto Mono',monospace;font-size:.6rem;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(255,255,255,.6);transition:opacity .5s ease;
 }
-.hint svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.7s ease-in-out infinite}
-@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+.hint svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
 .hint.gone{opacity:0;pointer-events:none}
-@media(max-width:640px){.hint{display:none}}
+@media(max-width:700px){.hint{display:none}}
 
 @media(prefers-reduced-motion:reduce){
-  .cupwrap .float,.hint svg,.status.open .led{animation:none}
+  .edge .run,.hint svg,.status.open .led{animation:none}
 }
 </style>
 </head>
 <body>
 
 <div class="bg"></div>
-<canvas id="beans"></canvas>
-<div class="vignette"></div>
-
-<div class="cupwrap" id="cup" aria-hidden="true">
-  <div class="float">
-    <svg viewBox="0 0 260 320" width="260" height="320">
-      <defs>
-        <linearGradient id="body" x1="40" y1="90" x2="220" y2="300" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#4A4A4C"/><stop offset=".28" stop-color="#1B1B1D"/>
-          <stop offset=".72" stop-color="#0E0E10"/><stop offset="1" stop-color="#2C2C2F"/>
-        </linearGradient>
-        <linearGradient id="lidg" x1="20" y1="60" x2="240" y2="110" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#3A3A3D"/><stop offset=".5" stop-color="#141416"/><stop offset="1" stop-color="#333336"/>
-        </linearGradient>
-        <linearGradient id="rimg" x1="30" y1="285" x2="230" y2="305" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stop-color="#D8D8DA"/><stop offset=".5" stop-color="#F2F2F3"/><stop offset="1" stop-color="#B9B9BC"/>
-        </linearGradient>
-      </defs>
-      <path d="M46 96 h168 l-22 186 a16 16 0 0 1 -16 14 H84 a16 16 0 0 1 -16 -14 z" fill="url(#body)"/>
-      <path d="M70 282 h120 l-2 14 a16 16 0 0 1 -16 14 H88 a16 16 0 0 1 -16 -14 z" fill="url(#rimg)"/>
-      <rect x="34" y="72" width="192" height="30" rx="12" fill="url(#lidg)"/>
-      <ellipse cx="130" cy="74" rx="96" ry="15" fill="#232326"/>
-      <ellipse cx="130" cy="72" rx="88" ry="12" fill="#0D0D0F"/>
-      <ellipse cx="130" cy="70" rx="17" ry="6" fill="#000" opacity=".75"/>
-      <path d="M62 104 q10 90 22 176" stroke="rgba(255,255,255,.16)" stroke-width="9" fill="none" stroke-linecap="round"/>
-      <text x="130" y="194" text-anchor="middle" font-family="Space Grotesk, sans-serif"
-            font-size="33" font-weight="700" fill="#F7F0E4" letter-spacing="-1">BEAN</text>
-      <text x="130" y="224" text-anchor="middle" font-family="Roboto Mono, monospace"
-            font-size="17" font-weight="500" fill="#C79A5E" letter-spacing="4">ME UP</text>
-    </svg>
-  </div>
-</div>
+<div class="lamp"></div>
+<div class="floor"></div>
+<canvas id="fx"></canvas>
 
 <header>
   <a class="brand" href="#" data-go="0">
@@ -380,68 +526,121 @@ h2 em{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:400;col
 
 <div class="deck" id="deck">
 
-  <!-- 1 — hero -->
-  <section class="panel"><div class="inner">
+  <!-- 1 — the platform nameboard -->
+  <section class="panel"><div class="inner hero">
     <div class="half">
-      <p class="kicker">Partick Station · Merkland Court · Glasgow</p>
-      <h1>Bean<br>Me <span class="lo">Up</span></h1>
-      <p class="stamp">“Best coffee in the toon.”<small>Their words, not ours</small></p>
+      <span class="plate">Platform level · Merkland Court · G11 6BU</span>
+      <div class="nameboard">
+        <h1>Bean<br>Me <span class="thin">Up</span></h1>
+        <div class="sub">
+          <span class="arw">→</span><span>Partick Station</span>
+          <span class="arw">·</span><span>Glasgow</span>
+        </div>
+      </div>
+      <p class="toon"><b>“Best coffee in the toon.”</b><small>Their words, not ours</small></p>
       <div class="cta">
-        <a class="btn btn-cream" href="#" data-go="2">See the menu</a>
-        <a class="btn btn-ghost" href="#" data-go="4">
+        <a class="btn btn-y" href="#" data-go="2">See the menu</a>
+        <a class="btn btn-o" href="#" data-go="4">
           <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           Find the cart
         </a>
       </div>
     </div>
+
+    <div class="cupstage" aria-hidden="true">
+      <div class="glow"></div>
+      <div class="cupcol">
+      <svg class="steam" viewBox="0 0 120 130" aria-hidden="true">
+        <path d="M40 120 C 22 96, 58 84, 40 58 C 26 38, 46 26, 40 8"/>
+        <path d="M62 124 C 44 100, 80 86, 62 60 C 48 40, 68 28, 62 10"/>
+        <path d="M84 120 C 66 96, 102 84, 84 58 C 70 38, 90 26, 84 8"/>
+      </svg>
+      <svg class="cup" viewBox="0 0 260 330">
+        <defs>
+          <linearGradient id="cb" x1="46" y1="92" x2="222" y2="308" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#8A949D"/><stop offset=".22" stop-color="#333C44"/>
+            <stop offset=".62" stop-color="#161C22"/><stop offset="1" stop-color="#57626B"/>
+          </linearGradient>
+          <linearGradient id="cl" x1="30" y1="66" x2="234" y2="106" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#4A535B"/><stop offset=".5" stop-color="#141A20"/><stop offset="1" stop-color="#3D464E"/>
+          </linearGradient>
+          <linearGradient id="cr" x1="34" y1="288" x2="226" y2="308" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#C9CDD1"/><stop offset=".5" stop-color="#F1F3F4"/><stop offset="1" stop-color="#AAB0B5"/>
+          </linearGradient>
+        </defs>
+        <g id="cupart">
+        <ellipse cx="130" cy="312" rx="86" ry="13" fill="#000" opacity=".45"/>
+        <path d="M46 98 h168 l-23 188 a16 16 0 0 1 -16 14 H85 a16 16 0 0 1 -16 -14 z" fill="url(#cb)"/>
+        <path d="M70 286 h120 l-2 14 a16 16 0 0 1 -16 14 H88 a16 16 0 0 1 -16 -14 z" fill="url(#cr)"/>
+        <rect x="34" y="74" width="192" height="30" rx="12" fill="url(#cl)"/>
+        <ellipse cx="130" cy="76" rx="96" ry="15" fill="#283037"/>
+        <ellipse cx="130" cy="74" rx="88" ry="12" fill="#0C1116"/>
+        <ellipse cx="130" cy="72" rx="17" ry="6" fill="#000" opacity=".8"/>
+        <!-- warm rim light from the lamp, on the right edge -->
+        <path d="M212 104 q-8 92 -20 178" stroke="rgba(255,196,120,.85)" stroke-width="9" fill="none" stroke-linecap="round"/>
+        <path d="M62 106 q9 90 21 176" stroke="rgba(255,255,255,.22)" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <text x="130" y="196" text-anchor="middle" font-family="Inter, sans-serif"
+              font-size="35" font-weight="800" fill="#F4EFE6" letter-spacing="-1.4">BEAN</text>
+        <text x="130" y="226" text-anchor="middle" font-family="Roboto Mono, monospace"
+              font-size="16" font-weight="500" fill="#F2C230" letter-spacing="5">ME UP</text>
+        </g>
+      </svg>
+      <div class="ledge"></div>
+      </div>
+    </div>
   </div></section>
 
-  <!-- 2 — the morning -->
-  <section class="panel"><div class="inner">
+  <!-- 2 — the timetable -->
+  <section class="panel"><div class="inner split">
     <div class="half">
-      <p class="kicker">The morning shift</p>
-      <h2>Open at 6:45. <em>Gone by one.</em></h2>
-      <p class="lede">This isn't a café you sit in. It's a cart on the platform for the people going somewhere — first cup before the early train, shutters down before the lunch crowd even wakes up.</p>
+      <span class="plate">The morning shift</span>
+      <h2>Open at 6:45.<br><span class="thin">Gone by one.</span></h2>
+      <p class="lede">This isn't a café you sit in. It's a cart on the platform for people going somewhere — first cup before the early train, shutters down before the lunch crowd has even woken up.</p>
       <div class="times" id="times"></div>
       <div class="amen" id="amen"></div>
     </div>
+    <div id="board-slot"></div>
   </div></section>
 
-  <!-- 3 — menu -->
+  <!-- 3 — menu poster -->
   <section class="panel"><div class="inner">
-    <div class="menucard">
-      <p class="kicker">The menu</p>
-      <h2>What people actually <em>order</em>.</h2>
+    <div class="poster">
+      <div class="ptop"><b>Bean Me Up</b><b>Partick</b></div>
+      <h3>What people<br>actually order</h3>
       <div class="mgrid">
-        <div class="mcol"><h3>Espresso bar</h3><ul id="m-coffee"></ul></div>
-        <div class="mcol"><h3>Not coffee</h3><ul id="m-other"></ul></div>
+        <div class="mcol"><h4>Espresso bar</h4><ul id="m-coffee"></ul></div>
+        <div class="mcol"><h4>Not coffee</h4><ul id="m-other"></ul></div>
       </div>
-      <p class="mnote" id="m-note"></p>
+      <p class="pnote" id="m-note"></p>
     </div>
   </div></section>
 
-  <!-- 4 — reviews -->
-  <section class="panel"><div class="inner">
+  <!-- 4 — passenger notices -->
+  <section class="panel"><div class="inner split">
     <div class="half">
-      <p class="kicker">What people say</p>
-      <h2>Fifteen years of <em>regulars</em>.</h2>
-      <div class="rate" id="rate"></div>
+      <span class="plate">What people say</span>
+      <h2>Fifteen years<br><span class="thin">of regulars.</span></h2>
       <div class="revs" id="revs"></div>
-      <p class="kicker" id="rank" style="margin-top:1rem;opacity:.6"></p>
+      <p class="plate" id="rank" style="margin-top:.9rem"></p>
     </div>
+    <div class="rate" id="rate"></div>
   </div></section>
 
-  <!-- 5 — find -->
-  <section class="panel"><div class="inner">
+  <!-- 5 — find the cart -->
+  <section class="panel"><div class="inner split">
     <div class="half">
-      <p class="kicker">Find the cart</p>
-      <h2>On the platform. <em>Not a detour.</em></h2>
+      <span class="plate">Find the cart</span>
+      <h2>On the platform.<br><span class="thin">Not a detour.</span></h2>
       <div class="place" id="place"></div>
+      <div id="board-slot-5"></div>
       <div class="contact" id="contact"></div>
     </div>
+    <div class="clockcard" id="clockcard"></div>
   </div></section>
 
 </div>
+
+<div class="edge" aria-hidden="true"><div class="run" id="run"></div></div>
 
 <nav class="dots" id="dots" aria-label="Sections"></nav>
 <div class="hint" id="hint">
@@ -450,6 +649,6 @@ h2 em{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:400;col
 </div>
 
 <script src="assets/data.js"></script>
-<script src="assets/deck.js"></script>
+<script src="assets/station.js"></script>
 </body>
 </html>
