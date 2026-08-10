@@ -71,6 +71,24 @@ guessing, so they stay out and the "prices to confirm" chip stays on.
 as large as your phone will take it. Then the prices go into the `price` fields
 in `assets/data.js`, `showPrices` flips to `true`, and the last chip disappears.
 
+## The poster — measure these two things on site
+
+`poster/poster.html` is A3, prints black, and says one sentence. The QR points
+at `scan.html?p=barriers`. Two fields in `assets/data.js` → `posters` are still
+`null`, and **the arrow stays hidden until they are filled in** — a confident
+arrow pointing the wrong way down a platform is worse than no arrow:
+
+| Field | How to get it | Takes |
+|---|---|---|
+| `metres` | Pace it from the poster spot to the hatch. A stride ≈ 0.75m | 1 min |
+| `turn` | Stand facing the poster, open your phone compass, note the heading. Turn to face the hatch, note it again. `turn` = second minus first, mod 360 | 2 min |
+| `facing` | One plain sentence: *"Turn around, keep the wall on your left"* | — |
+
+Fill those three and the AR arrow switches itself on. Nothing else to change.
+
+**One more poster = one more entry** in `posters`, with its own `?p=` code. That
+is how the owner sees which position actually brings people in.
+
 ## Still to ask when you go
 
 | # | Question | Fills |
