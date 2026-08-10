@@ -1,24 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Bean Me Up">
   <defs>
-    <linearGradient id="beam" x1="60" y1="6" x2="60" y2="70" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#7FD4E8" stop-opacity="0"/>
-      <stop offset=".55" stop-color="#7FD4E8" stop-opacity=".85"/>
-      <stop offset="1" stop-color="#F0A64B" stop-opacity=".95"/>
+    <linearGradient id="beam" x1="60" y1="4" x2="60" y2="72" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F7EDE0" stop-opacity="0"/>
+      <stop offset=".6" stop-color="#F0C98A" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#E0A85C" stop-opacity=".9"/>
     </linearGradient>
-    <linearGradient id="cup" x1="30" y1="66" x2="90" y2="112" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#F3D9B4"/>
-      <stop offset="1" stop-color="#E0A85C"/>
-    </linearGradient>
+    <radialGradient id="bean" cx=".36" cy=".3" r=".82">
+      <stop offset="0" stop-color="#A87142"/>
+      <stop offset=".45" stop-color="#7C4B23"/>
+      <stop offset=".85" stop-color="#4A2A12"/>
+      <stop offset="1" stop-color="#311C0B"/>
+    </radialGradient>
   </defs>
-  <!-- transporter beam -->
-  <path d="M46 70 L54 8 h12 l8 62 z" fill="url(#beam)"/>
-  <!-- beam rings -->
-  <ellipse cx="60" cy="24" rx="9"  ry="2.4" fill="none" stroke="#7FD4E8" stroke-opacity=".55" stroke-width="2"/>
-  <ellipse cx="60" cy="40" rx="13" ry="3.2" fill="none" stroke="#7FD4E8" stroke-opacity=".7"  stroke-width="2"/>
-  <ellipse cx="60" cy="56" rx="17" ry="4"   fill="none" stroke="#9BE0F0" stroke-opacity=".85" stroke-width="2"/>
-  <!-- cup -->
-  <path d="M30 70 h60 l-6 34 a10 10 0 0 1 -10 8 H46 a10 10 0 0 1 -10 -8 z" fill="url(#cup)"/>
-  <path d="M88 76 h6 a11 11 0 0 1 0 22 h-8" fill="none" stroke="#E0A85C" stroke-width="6" stroke-linecap="round"/>
-  <!-- crema line -->
-  <rect x="30" y="70" width="60" height="6" rx="3" fill="#8A5A2B" opacity=".35"/>
+
+  <!-- the beam it gets pulled up into -->
+  <path d="M48 74 L55 6 h10 l7 68 z" fill="url(#beam)"/>
+
+  <!-- coffee bean, crease along the long axis -->
+  <g transform="translate(60 82) rotate(-18)">
+    <ellipse rx="38" ry="25" fill="url(#bean)"/>
+    <path d="M-29 -2 C -11 12, 11 -12, 29 2"
+          fill="none" stroke="#1C0E05" stroke-opacity=".85"
+          stroke-width="7" stroke-linecap="round"/>
+    <path d="M-26 -14 A 32 21 0 0 1 4 -23"
+          fill="none" stroke="#FFE2BE" stroke-opacity=".28"
+          stroke-width="5" stroke-linecap="round"/>
+  </g>
 </svg>

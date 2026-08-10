@@ -6,70 +6,8 @@
    "to confirm" chip instead of a made-up fact. See RECON.md.
    ========================================================================= */
 
-const CONFIG = {
+const CONFIG = window.BMU;   // single source of truth: assets/data.js
 
-  // Set to false once every `null` below has been filled in.
-  // While true, unknown facts show an amber "to confirm" chip.
-  draft: true,
-
-  // ---- CONFIRMED (public sources, Aug 2026) ----------------------------
-  phone: '+447875697214',           // listed publicly
-  phoneDisplay: '07875 697214',
-  facebook: 'https://www.facebook.com/beanmeuppartick/',
-
-  // ---- LOCATIONS -------------------------------------------------------
-  locations: [
-    {
-      tag: 'Main cart',
-      tagClass: 'tag-main',
-      name: 'Partick Station',
-      addr: 'Merkland Court, Partick, Glasgow G11 6BU',
-      maps: 'https://maps.google.com/?q=Bean+Me+Up+Merkland+Court+Glasgow+G11+6BU',
-      hours: null,                  // e.g. { 'Mon–Fri':'6:30am – 2pm', 'Sat':'8am – 1pm', 'Sun':'Closed' }
-      note: 'On the platform level — you do not need to leave the station.'
-    },
-    {
-      tag: 'Second cart',
-      tagClass: 'tag-sec',
-      name: 'Cowcaddens Underground',
-      addr: 'Cowcaddens Subway station, Glasgow',
-      maps: 'https://maps.google.com/?q=Cowcaddens+Subway+Station+Glasgow',
-      hours: null,
-      note: null                    // confirm: same owner? same hours? same menu?
-    }
-  ],
-
-  // ---- MENU ------------------------------------------------------------
-  // showPrices stays false until real prices are known — never guess a price
-  // in front of the person who sets them.
-  showPrices: false,
-  menu: {
-    coffee: [
-      { name: 'Espresso',            price: null },
-      { name: 'Americano',           price: null },
-      { name: 'Flat white',          price: null },
-      { name: 'Latte',               price: null },
-      { name: 'Cappuccino',          price: null },
-      { name: 'Mocha',               price: null },
-      { name: 'Iced latte',          price: null }
-    ],
-    other: [
-      { name: 'Hot chocolate',       price: null },   // confirmed real — syrups available
-      { name: 'Syrup shot',          price: null },   // caramel + others, per public review
-      { name: 'Tea',                 price: null },
-      { name: 'Cold drinks',         price: null }
-    ]
-  },
-  // Anything the cart sells that isn't a drink goes here once known.
-  menuNote: 'Oat, soya and semi-skimmed available. Sizes and food options to be confirmed with the cart.',
-
-  // ---- SOCIAL PROOF ----------------------------------------------------
-  // Real published customer review. Do not add any review that isn't real.
-  quote: {
-    text: 'A great wee addiction to the newly refurbished station.',
-    source: 'Customer review · Yelp'
-  }
-};
 
 /* ===================== render ===================== */
 
