@@ -29,7 +29,7 @@ window.BMU = {
     name: 'Partick Station',
     addr: 'Merkland Court, Partick, Glasgow G11 6BU',
     maps: 'https://maps.google.com/?q=Bean+Me+Up+Merkland+Court+Glasgow+G11+6BU',
-    landmark: 'Look for the gig posters. It is the lit green hatch underneath them.',
+    landmark: 'Look for the gig posters. It is the lit green hatch right beside them.',
     note: 'Built into the station wall, beside the train and bus stations. You do not need to leave.'
   },
 
@@ -77,20 +77,20 @@ window.BMU = {
   ],
   milks: 'Plant-based milks available — just ask.',
 
-  /* ---- SEEN: today's special ------------------------------------------
-     There is a hand-drawn special board up. This one was on it; it changes,
-     so it is flagged rather than presented as permanent.                   */
+  /* ---- SEEN in the photo: today's special ------------------------------
+     A framed chalkboard on the green wall, handwritten in chalk, with a
+     hand-drawn tall iced glass beside it. It changes, so it is flagged.    */
   special: {
     name: 'Iced chai latte',
-    note: 'Hand-drawn on the board — ask what today’s is'
+    note: 'Off their own special board — ask what today’s is'
   },
 
   /* ---- SEEN: it is not only coffee ------------------------------------ */
   alsoSells: [
-    { name: 'Cold drinks',  note: 'A whole fridge of them' },
-    { name: 'Pastries',     note: 'Reviewers keep mentioning these' },
-    { name: 'Crisps',       note: null },
-    { name: 'Sweets',       note: null }
+    { name: 'Cold drinks',   note: 'A full glass-door fridge of cans and bottles' },
+    { name: 'Pastries',      note: 'A heated glass case of them by the window' },
+    { name: 'Crisps',        note: 'Racked along the counter' },
+    { name: 'Sweets',        note: 'Boxes of them at the till' }
   ],
 
   /* ---- REVIEWS — LISTED, real, attributed ----------------------------- */
@@ -118,5 +118,5 @@ window.BMU = {
   /* ---- STILL UNKNOWN — ask when you go --------------------------------
      owner's name · prices off the chalkboards · the full food list ·
      a clean photo of the neon sign to replace the drawn lockup            */
-  unknown: ['owner', 'prices', 'full food list', 'photo of the neon']
+  unknown: ['owner', 'prices']   // the photo settled the rest
 };

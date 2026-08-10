@@ -17,7 +17,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&family=Sacramento&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&family=Fredoka:wght@500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================================================
@@ -115,10 +115,13 @@ img,svg{display:block;max-width:100%}
 @keyframes run{to{transform:translateX(-50%)}}
 @media(max-width:560px){.edge{height:30px}.edge .run span{font-size:.56rem;letter-spacing:.22em}}
 
-/* ---------- neon ---------- */
-.neon{display:inline-block;line-height:1;position:relative}
+/* ---------- neon ----------
+   Traced off the photo: it is ONE line — "BEAN" in bold caps running straight
+   into "meup" in a rounded lowercase. White tube; the green is the panel it is
+   mounted on. It is not two stacked lines and it is not a cursive script. */
+.neon{display:inline-flex;align-items:baseline;line-height:1;position:relative;white-space:nowrap}
 .neon .n-bean{
-  display:block;font-weight:800;text-transform:uppercase;letter-spacing:-.045em;
+  font-weight:800;text-transform:uppercase;letter-spacing:-.045em;
   font-size:var(--neon-size,clamp(2.6rem,10vw,5.6rem));color:#FFFFFF;
   text-shadow:
     0 0 3px #fff, 0 0 10px #fff,
@@ -127,9 +130,9 @@ img,svg{display:block;max-width:100%}
     0 0 96px rgba(155,214,46,.5);
 }
 .neon .n-me{
-  display:block;font-family:'Sacramento',cursive;font-weight:400;
-  font-size:calc(var(--neon-size,clamp(2.6rem,10vw,5.6rem)) * .62);
-  color:#FFFFFF;margin-top:-.14em;margin-left:.12em;letter-spacing:.01em;
+  font-family:'Fredoka','Inter',sans-serif;font-weight:500;
+  font-size:calc(var(--neon-size,clamp(2.6rem,10vw,5.6rem)) * .78);
+  color:#FFFFFF;margin-left:.02em;letter-spacing:-.01em;
   text-shadow:
     0 0 3px #fff, 0 0 9px #fff,
     0 0 22px rgba(255,255,255,.8),
@@ -156,7 +159,7 @@ header{
   padding:.42rem .85rem;backdrop-filter:blur(8px);
 }
 .brand .neon{--neon-size:.98rem}
-.brand .n-me{font-size:.86rem;margin-top:-.3em}
+.brand .n-me{font-size:.78rem}
 .brand small{
   display:block;font-family:'Roboto Mono',monospace;font-size:.52rem;
   letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:.2rem;
@@ -392,8 +395,7 @@ h2 .go{color:var(--lime)}
 
 /* ---------- hex tile panel ---------- */
 .tile{
-  background-color:var(--tan);
-  background-image:url("assets/hex.svg");background-size:36px 64px;
+  background-image:url("assets/hex.svg");background-size:240px 139px;
   color:var(--tan-ink);border-radius:16px;padding:clamp(1.2rem,3.2vw,2.2rem);
   box-shadow:0 40px 80px -34px rgba(0,0,0,.9);
 }
@@ -506,7 +508,7 @@ h2 .go{color:var(--lime)}
 <header>
   <a class="brand" href="#" data-go="0" aria-label="Bean Me Up, Partick Station">
     <span>
-      <span class="neon"><span class="n-bean">Bean</span><span class="n-me">me up</span></span>
+      <span class="neon"><span class="n-bean">Bean</span><span class="n-me">meup</span></span>
       <small>Partick Station</small>
     </span>
   </a>
@@ -523,8 +525,8 @@ h2 .go{color:var(--lime)}
       <span class="plate">Partick Station · Merkland Court · G11 6BU</span>
       <div class="hatch">
         <div class="in">
-          <span class="neon lit" style="--neon-size:clamp(2.5rem,9vw,5.2rem)">
-            <span class="n-bean">Bean</span><span class="n-me">me up</span>
+          <span class="neon lit" style="--neon-size:clamp(2rem,7.4vw,4.2rem)">
+            <span class="n-bean">Bean</span><span class="n-me">meup</span>
           </span>
           <p class="toon">“Best coffee in the toon.”<small>Their words, not ours</small></p>
         </div>
@@ -570,10 +572,9 @@ h2 .go{color:var(--lime)}
           <ellipse cx="130" cy="72" rx="17" ry="6" fill="#000" opacity=".8"/>
           <path d="M212 104 q-8 92 -20 178" stroke="rgba(190,240,110,.8)" stroke-width="9" fill="none" stroke-linecap="round"/>
           <path d="M62 106 q9 90 21 176" stroke="rgba(255,255,255,.2)" stroke-width="8" fill="none" stroke-linecap="round"/>
-          <text x="130" y="198" text-anchor="middle" font-family="Inter, sans-serif"
-                font-size="34" font-weight="800" fill="#F4F4F0" letter-spacing="-1.4">BEAN</text>
-          <text x="130" y="228" text-anchor="middle" font-family="Sacramento, cursive"
-                font-size="26" fill="#C6F25C">me up</text>
+          <text x="130" y="206" text-anchor="middle" font-family="Inter, sans-serif"
+                font-size="30" font-weight="800" fill="#F4F4F0" letter-spacing="-1.2">BEAN<tspan
+                font-family="Fredoka, sans-serif" font-weight="500" fill="#C6F25C" font-size="26">meup</tspan></text>
         </svg>
         <div class="ledge"></div>
       </div>

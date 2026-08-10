@@ -42,16 +42,29 @@ Reviews are real and attributed — Andrew M. (Yelp, Feb 2018), Usman B. (Google
 2025), Mary W. & Cara A. (Yelp, Feb 2011). Never add one you have not read on a
 public page yourself.
 
-## The one thing that could not be done
+## The photo — what it settled, and what it didn't
 
-**The prices are still missing, because no photo ever reached ApeQ.** The only
-image in the workspace is the phone-case screenshot from 8 August. So the board
-shows the drinks with no prices and a "prices to confirm" chip, rather than
-invented numbers.
+The photo is saved at `reference/the-shop.jpg`. What it corrected:
 
-**Send the photo of the chalkboards and they go straight in** — `price` fields in
-`assets/data.js`, then `showPrices: true`. Same for a clean shot of the neon: the
-lockup on the site is drawn from your description, not traced from their sign.
+- **The neon is ONE line — `BEANmeup`, joined.** "BEAN" in bold caps running
+  straight into "meup" in a **rounded lowercase**, not a cursive script, and not
+  two stacked lines. The site's lockup now matches. The tube is white; the green
+  is the panel it is screwed to.
+- **The hex tile is solid filled hexagons in mixed warm tones** — cream, tan,
+  terracotta, brown — flat-top, thin grout. The earlier version had them as
+  outlines on flat tan, which was wrong. `assets/hex.svg` is now traced from it.
+- Confirmed: the lime counter front, the framed special board with the
+  hand-drawn iced glass, the glass-door drinks fridge, the heated pastry case,
+  crisps racked along the counter, sweets at the till, the steel surround, and
+  the **gig posters immediately to the left** — the landmark line is right.
+
+**The prices are still not in.** The menu boards are in the photo but at 800×600
+the item names and prices are illegible even blown up 8×. Reading them would be
+guessing, so they stay out and the "prices to confirm" chip stays on.
+
+**What would finish it: one close-up photo of just the menu board**, square on,
+as large as your phone will take it. Then the prices go into the `price` fields
+in `assets/data.js`, `showPrices` flips to `true`, and the last chip disappears.
 
 ## Still to ask when you go
 
