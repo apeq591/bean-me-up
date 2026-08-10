@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Bean Me Up — Partick Station, Glasgow</title>
-<meta name="description" content="Bean Me Up: the lit green hatch in the wall at Partick Station, Glasgow. Open 6:45, gone by one. Best coffee in the toon.">
-<meta name="theme-color" content="#9BD62E">
-<!-- Unlisted on purpose: this is a pitch demo for a business Mukta does not own
-     yet. Keep it out of Google until the owner has said yes. -->
+<meta name="description" content="Bean Me Up: the green hatch in the wall at Partick Station, Glasgow. Open 6:45, gone by one. Best coffee in the toon.">
+<meta name="theme-color" content="#EFE3CE">
+<!-- Unlisted on purpose: a pitch demo for a business Mukta does not own yet.
+     Keep it out of Google until the owner has said yes. -->
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 
@@ -17,642 +17,452 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&family=Fredoka:wght@500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Fredoka:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 /* =========================================================================
-   6:45 on a January morning. Partick station is grey concrete, brushed steel
-   and strip lighting — and Bean Me Up is a glowing green box in the middle
-   of it. That is the whole site: cold grey station, lit green content.
+   THE WALL.
 
-   The palette is theirs, taken off the counter:
-     lime    the counter front and the light wash behind it
-     neon    BEAN in bold caps, "me up" in a lit script
-     hex     warm tan/cream honeycomb tile from the back wall
-     chalk   black boards, white handwriting
+   Everything in this shop hangs on one surface: the warm hexagon-tiled back
+   wall. The neon sign is screwed to it. The chalkboards hang off it. The green
+   counter runs along the bottom of it.
+
+   So the site is that wall, and every section is an object mounted on it.
+   You scroll down it the way your eye travels down it while you queue.
    ========================================================================= */
 :root{
-  --concrete:#23272C;
-  --concrete-2:#15181C;
-  --steel:#39404A;
-  --edge-l:rgba(255,255,255,.13);
+  --wall-ink:#2A2016;
+  --ink:#241B12;
+  --muted:#6E5C46;
+  --cream:#F7F1E6;
+  --paper:#FCF8F0;
 
-  --lime:#9BD62E;
-  --lime-lt:#C6F25C;
-  --lime-dk:#5F9214;
+  --lime:#8FCB1E;
+  --lime-lt:#B6EA4A;
+  --lime-dk:#5C8A0F;
 
-  --tan:#E7D8BC;
-  --tan-ink:#3B2F1B;
+  --board:#13110E;
+  --chalk:#F3F0E6;
 
-  --chalk-bg:#14171A;
-  --chalk:#F1F0E8;
-
-  --amber:#FFB000;          /* departure board only — a station colour */
-  --white:#FFFFFF;
-  --dim:rgba(255,255,255,.64);
-  --ink:#14181C;
+  --rule:rgba(42,32,22,.16);
+  --shadow:0 26px 54px -26px rgba(42,32,22,.5);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden}
-html{-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  font-family:'Inter',system-ui,-apple-system,sans-serif;
-  background:var(--concrete-2);color:var(--white);line-height:1.5;
-  -webkit-font-smoothing:antialiased;overscroll-behavior:none;letter-spacing:-.006em;
+  font-family:'Bricolage Grotesque',system-ui,-apple-system,sans-serif;
+  color:var(--ink);line-height:1.55;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  background-color:#E4D5B8;
+  background-image:url("assets/hex.svg");
+  background-size:330px 190px;
 }
 a{color:inherit;text-decoration:none}
 img,svg{display:block;max-width:100%}
+.wrap{width:min(1080px,92vw);margin-inline:auto}
 
-/* ---------- the station: concrete, steel, strip lighting ---------- */
-.bg{
-  position:fixed;inset:0;z-index:0;
+/* a soft light falling down the wall, so it is not a flat pattern */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 4%, rgba(176,200,226,.10) 0%, transparent 60%),
-    linear-gradient(178deg,#3D444B 0%,#2E353B 40%,#1E242A 100%);
+    radial-gradient(ellipse 90% 55% at 50% -8%, rgba(255,252,244,.66), transparent 62%),
+    linear-gradient(180deg, rgba(255,250,240,.24) 0%, transparent 26%, rgba(60,44,28,.14) 100%);
 }
-.bg::after{     /* poured-concrete mottling + panel joints */
-  content:"";position:absolute;inset:0;opacity:.55;
-  background:
-    repeating-linear-gradient(90deg, rgba(255,255,255,.028) 0 1px, transparent 1px 132px),
-    repeating-linear-gradient(0deg,  rgba(0,0,0,.16) 0 1px, transparent 1px 168px),
-    radial-gradient(ellipse 60% 40% at 18% 22%, rgba(255,255,255,.05), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 74% 78%, rgba(0,0,0,.25), transparent 70%);
-}
-.strips{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.strips i{      /* fluorescent tubes overhead */
-  position:absolute;height:2px;border-radius:2px;filter:blur(.6px);
-  background:linear-gradient(90deg,transparent,rgba(206,226,255,.42) 18%,rgba(206,226,255,.5) 82%,transparent);
-  box-shadow:0 0 30px 10px rgba(180,208,255,.09);
-}
-.strips i:nth-child(1){top:9%;width:74%;left:13%;opacity:.55}
-.strips i:nth-child(2){top:14.5%;width:54%;left:23%;opacity:.28}
-.strips i:nth-child(3){top:18%;width:38%;left:31%;opacity:.13}
-.strips i:nth-child(4){display:none}
-#fx{position:fixed;inset:0;z-index:1;pointer-events:none}
+main,header,footer{position:relative;z-index:1}
 
-/* the green wash the hatch throws across the concourse */
-.wash{
-  position:fixed;z-index:0;pointer-events:none;
-  left:0;top:0;width:62vw;height:100vh;
-  background:
-    radial-gradient(ellipse 26% 24% at 34% 46%, rgba(155,214,46,.30) 0%, rgba(155,214,46,.07) 44%, transparent 66%);
-  filter:blur(14px);
+/* ---------- the hanging sign ---------- */
+.hanger{
+  position:fixed;top:0;right:clamp(1rem,4vw,3rem);z-index:60;
+  display:flex;flex-direction:column;align-items:center;
+  transform-origin:50% 0;animation:swing 6.5s ease-in-out infinite;
 }
-@media(max-width:920px){.wash{left:0;top:0;width:100vw;height:56vh;opacity:.75}}
+@keyframes swing{0%,100%{transform:rotate(-1.6deg)}50%{transform:rotate(1.6deg)}}
+.hanger .rope{width:2px;height:26px;background:linear-gradient(180deg,#8A7458,#5C4A34)}
+.hanger .sign{
+  background:var(--board);color:var(--chalk);border-radius:4px;
+  padding:.55rem .9rem;text-align:center;box-shadow:0 14px 26px -12px rgba(0,0,0,.65);
+  border:2px solid #2E2A22;
+}
+.hanger .sign b{
+  display:block;font-family:'Caveat',cursive;font-size:1.5rem;font-weight:700;line-height:1;
+}
+.hanger .sign span{
+  display:block;font-family:'Fredoka',sans-serif;font-size:.56rem;letter-spacing:.16em;
+  text-transform:uppercase;opacity:.66;margin-top:.15rem;
+}
+.hanger.open .sign b{color:var(--lime-lt)}
+@media(max-width:720px){
+  .hanger{right:.7rem;transform:scale(.84);transform-origin:50% 0}
+  .hanger .rope{height:16px}
+}
 
-/* ---------- the counter front, along the bottom of every screen ---------- */
-.edge{
-  position:fixed;left:0;right:0;bottom:0;z-index:35;height:36px;
-  background:linear-gradient(180deg,var(--lime-lt) 0%,var(--lime) 42%,var(--lime-dk) 100%);
-  display:flex;align-items:center;overflow:hidden;
-  box-shadow:0 -20px 60px rgba(155,214,46,.3), inset 0 1px 0 rgba(255,255,255,.4);
+/* ---------- hero: the neon on the wall ---------- */
+.hero{padding:clamp(4.5rem,13vw,9rem) 0 clamp(2rem,5vw,3.5rem);text-align:center}
+.plaque{
+  display:inline-block;background:var(--paper);border:1px solid var(--rule);
+  border-radius:999px;padding:.4rem 1rem;
+  font-family:'Fredoka',sans-serif;font-size:.7rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);
 }
-.edge .run{display:flex;white-space:nowrap;animation:run 36s linear infinite;will-change:transform}
-.edge .run span{
-  font-family:'Roboto Mono',monospace;font-size:.66rem;font-weight:700;
-  letter-spacing:.3em;text-transform:uppercase;color:#1E2A08;padding:0 1.1rem;
-}
-@keyframes run{to{transform:translateX(-50%)}}
-@media(max-width:560px){.edge{height:30px}.edge .run span{font-size:.56rem;letter-spacing:.22em}}
 
-/* ---------- neon ----------
-   Traced off the photo: it is ONE line — "BEAN" in bold caps running straight
-   into "meup" in a rounded lowercase. White tube; the green is the panel it is
-   mounted on. It is not two stacked lines and it is not a cursive script. */
-.neon{display:inline-flex;align-items:baseline;line-height:1;position:relative;white-space:nowrap}
-.neon .n-bean{
-  font-weight:800;text-transform:uppercase;letter-spacing:-.045em;
-  font-size:var(--neon-size,clamp(2.6rem,10vw,5.6rem));color:#FFFFFF;
+/* the sign is a dark panel screwed to the tile, with the tubes on it */
+.signbox{
+  position:relative;margin:clamp(1.2rem,3vw,2rem) auto 0;
+  width:min(760px,100%);
+  background:linear-gradient(180deg,#171512 0%,#0E0D0B 100%);
+  border-radius:10px;padding:clamp(2rem,6vw,3.6rem) clamp(1rem,4vw,2.4rem);
+  box-shadow:0 34px 70px -28px rgba(30,22,12,.75), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.signbox .screw{position:absolute;width:9px;height:9px;border-radius:50%;
+  background:radial-gradient(circle at 34% 32%,#B9B2A4,#6A6357);box-shadow:inset 0 0 0 1px rgba(0,0,0,.4)}
+.signbox .screw.tl{top:11px;left:11px} .signbox .screw.tr{top:11px;right:11px}
+.signbox .screw.bl{bottom:11px;left:11px} .signbox .screw.br{bottom:11px;right:11px}
+
+.neon{display:inline-flex;align-items:baseline;white-space:nowrap;line-height:1}
+.neon .caps{
+  font-weight:800;text-transform:uppercase;letter-spacing:-.05em;
+  font-size:var(--neon,clamp(2.4rem,10.5vw,6rem));
+}
+.neon .low{
+  font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:-.015em;
+  font-size:calc(var(--neon,clamp(2.4rem,10.5vw,6rem)) * .78);margin-left:.02em;
+}
+/* tubes off, then they strike */
+.neon span{color:#3A3A36;text-shadow:none;transition:none}
+/* a real tube reads white and sharp; the bloom is the air around it, not the
+   glass. Keep the letterform crisp and push the haze outward. */
+.neon.on span{
+  color:#FFFFFF;
   text-shadow:
-    0 0 3px #fff, 0 0 10px #fff,
-    0 0 26px rgba(255,255,255,.85),
-    0 0 48px rgba(198,242,92,.7),
-    0 0 96px rgba(155,214,46,.5);
+    0 0 2px rgba(255,255,255,.9),
+    0 0 9px rgba(255,255,255,.55),
+    0 0 26px rgba(226,255,170,.45),
+    0 0 62px rgba(143,203,30,.38);
 }
-.neon .n-me{
-  font-family:'Fredoka','Inter',sans-serif;font-weight:500;
-  font-size:calc(var(--neon-size,clamp(2.6rem,10vw,5.6rem)) * .78);
-  color:#FFFFFF;margin-left:.02em;letter-spacing:-.01em;
-  text-shadow:
-    0 0 3px #fff, 0 0 9px #fff,
-    0 0 22px rgba(255,255,255,.8),
-    0 0 44px rgba(198,242,92,.65),
-    0 0 84px rgba(155,214,46,.45);
-}
-.neon.lit{animation:buzz 7s infinite}
-@keyframes buzz{
-  0%,96%,100%{opacity:1}
-  96.6%{opacity:.62}
-  97.2%{opacity:1}
-  97.8%{opacity:.7}
+.neon.on{animation:strike 1.5s steps(1,end) 1}
+@keyframes strike{
+  0%,7%{opacity:.2}   9%{opacity:1}   12%{opacity:.25}
+  16%{opacity:1}      19%{opacity:.4} 24%{opacity:1}
+  27%{opacity:.7}     30%,100%{opacity:1}
 }
 
-/* ---------- header ---------- */
-header{
-  position:fixed;top:0;left:0;right:0;z-index:40;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:max(.7rem,env(safe-area-inset-top)) clamp(.9rem,3.5vw,2rem) .7rem;
+.saying{
+  margin-top:clamp(1.4rem,3.4vw,2.2rem);
+  font-family:'Caveat',cursive;font-weight:700;
+  font-size:clamp(1.6rem,4.6vw,2.6rem);line-height:1.1;color:var(--ink);
 }
-.brand{
-  display:flex;align-items:center;gap:.6rem;
-  background:rgba(20,23,26,.72);border:1px solid var(--edge-l);border-radius:11px;
-  padding:.42rem .85rem;backdrop-filter:blur(8px);
-}
-.brand .neon{--neon-size:.98rem}
-.brand .n-me{font-size:.78rem}
-.brand small{
-  display:block;font-family:'Roboto Mono',monospace;font-size:.52rem;
-  letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:.2rem;
-}
-@media(max-width:560px){.brand small{display:none}.brand{padding:.38rem .7rem}}
-
-.status{
-  display:inline-flex;align-items:center;gap:.5rem;
-  background:rgba(10,12,14,.85);border:1px solid var(--edge-l);border-radius:11px;padding:.5rem .8rem;
-  font-family:'Roboto Mono',monospace;font-size:.67rem;letter-spacing:.1em;
-  text-transform:uppercase;white-space:nowrap;color:var(--amber);backdrop-filter:blur(8px);
-}
-.status .led{width:7px;height:7px;border-radius:50%;background:var(--amber);flex:0 0 7px}
-.status.open{color:var(--lime-lt)}
-.status.open .led{background:var(--lime);animation:pulse 2.2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(155,214,46,.75)}70%{box-shadow:0 0 0 8px rgba(155,214,46,0)}100%{box-shadow:0 0 0 0 rgba(155,214,46,0)}}
-.status b{font-weight:700}
-.status .sep{opacity:.4}
-@media(max-width:560px){.status{font-size:.57rem;padding:.42rem .6rem;gap:.36rem}}
-
-/* ---------- deck ---------- */
-.deck{
-  position:relative;z-index:20;height:100dvh;height:100vh;display:flex;
-  overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
-  overscroll-behavior-x:contain;scrollbar-width:none;-ms-overflow-style:none;
-  -webkit-overflow-scrolling:touch;
-}
-.deck::-webkit-scrollbar{display:none}
-.panel{
-  flex:0 0 100vw;width:100vw;height:100%;
-  scroll-snap-align:center;scroll-snap-stop:always;
-  display:flex;align-items:center;
-  padding:4.8rem clamp(1.1rem,4.5vw,4rem) 7rem;
-  overflow-y:auto;overscroll-behavior-y:contain;
-}
-.panel > .inner{width:min(1120px,100%);margin-inline:auto}
-.half{max-width:min(600px,100%)}
-.split{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(1.4rem,4vw,3.4rem);align-items:center}
-@media(max-width:920px){
-  .panel{align-items:flex-start;padding-top:4.3rem;padding-bottom:6.3rem}
-  .half{max-width:100%}
-  .split{grid-template-columns:1fr;gap:1.1rem}
+.saying small{
+  display:block;font-family:'Fredoka',sans-serif;font-weight:400;
+  font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);margin-top:.5rem;
 }
 
-.plate{
-  display:inline-block;background:rgba(20,23,26,.6);border:1px solid var(--edge-l);
-  border-radius:11px;padding:.34rem .8rem;
-  font-family:'Roboto Mono',monospace;font-size:.6rem;font-weight:500;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--dim);
+/* the lime counter, running the full width under the sign */
+.counter{
+  margin-top:clamp(1.6rem,4vw,2.6rem);
+  background:linear-gradient(180deg,var(--lime-lt) 0%,var(--lime) 40%,var(--lime-dk) 100%);
+  box-shadow:0 -12px 40px rgba(143,203,30,.34), inset 0 2px 0 rgba(255,255,255,.5);
 }
-@media(max-width:560px){.plate{font-size:.54rem;letter-spacing:.12em;padding:.3rem .62rem}}
+.counter .top{height:16px;background:linear-gradient(180deg,#FFFDF7,#E9E2D2);box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.counter .face{
+  display:flex;align-items:center;justify-content:center;gap:clamp(.8rem,3vw,2.4rem);
+  flex-wrap:wrap;padding:clamp(.9rem,2.4vw,1.4rem) 1rem;
+}
+.counter .face b{
+  font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.72rem,1.7vw,.88rem);
+  letter-spacing:.16em;text-transform:uppercase;color:#1E2B06;
+}
 
+/* ---------- sections ---------- */
+section{padding:clamp(2.8rem,6.5vw,4.6rem) 0}
+.eyebrow{
+  font-family:'Fredoka',sans-serif;font-size:.68rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);
+}
 h2{
-  font-size:clamp(1.8rem,5.4vw,3.1rem);line-height:1.04;font-weight:800;
-  letter-spacing:-.04em;text-transform:uppercase;margin-top:.85rem;
+  font-size:clamp(2.1rem,7vw,4.4rem);line-height:.98;font-weight:800;
+  letter-spacing:-.045em;margin-top:.5rem;
 }
-h2 .thin{font-weight:400;color:var(--dim)}
-h2 .go{color:var(--lime)}
-.lede{font-size:clamp(.97rem,2.1vw,1.13rem);margin-top:.9rem;max-width:46ch;color:var(--dim)}
+h2 .go{color:var(--lime-dk)}
+.body{font-size:clamp(1rem,2.1vw,1.16rem);color:var(--muted);max-width:52ch;margin-top:1rem}
 
-/* ---------- the hatch ---------- */
-.hatch{
-  position:relative;border-radius:18px;overflow:hidden;
-  background:linear-gradient(180deg,#1B1F23 0%,#101316 78%);
-  border:1px solid rgba(255,255,255,.1);
-  padding:clamp(1.3rem,3.4vw,2.2rem) clamp(1.2rem,3.4vw,2.2rem) 0;
-  box-shadow:0 0 0 1px rgba(155,214,46,.16), 0 40px 110px -30px rgba(155,214,46,.5);
-}
-.hatch::before{   /* tan honeycomb on the back wall, glimpsed behind the sign */
-  content:"";position:absolute;inset:0;
-  background-image:url("assets/hex.svg");background-size:56px 100px;
-  opacity:.1;mix-blend-mode:soft-light;
-}
-.hatch .in{position:relative;z-index:2;padding-bottom:1.3rem}
-.hatch .counter{     /* the lime counter front */
-  position:relative;z-index:2;margin:0 calc(-1 * clamp(1.2rem,3.4vw,2.2rem));
-  height:26px;background:linear-gradient(180deg,var(--lime-lt),var(--lime) 46%,var(--lime-dk));
-  box-shadow:0 -16px 46px rgba(155,214,46,.4), inset 0 1px 0 rgba(255,255,255,.45);
-}
-.toon{
-  margin-top:1rem;font-family:'Caveat',cursive;font-weight:600;
-  font-size:clamp(1.1rem,2.8vw,1.5rem);color:var(--lime-lt);
-}
-.toon small{
-  display:block;font-family:'Roboto Mono',monospace;font-size:.53rem;
-  letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-top:.1rem;
-}
+.pair{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(1.2rem,3vw,2.6rem);align-items:start;margin-top:1rem}
+@media(max-width:880px){.pair{grid-template-columns:1fr;gap:1.2rem}}
 
-/* today's special, as a strip */
-.special{
-  display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;margin-top:1rem;
-  background:var(--chalk-bg);border:1px solid rgba(255,255,255,.14);
-  border-radius:12px;padding:.65rem .9rem;
+/* the two big numbers, as enamel plates on the wall */
+.hours{display:flex;gap:clamp(.7rem,2vw,1.2rem);flex-wrap:wrap;margin-top:clamp(1.4rem,3vw,2rem)}
+.hours .h{
+  background:var(--paper);border:1px solid var(--rule);border-radius:12px;
+  padding:1rem 1.3rem;min-width:150px;box-shadow:var(--shadow);
 }
-.special .tag{
-  font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--lime);
+.hours .h b{display:block;font-size:clamp(2rem,5.4vw,2.9rem);font-weight:800;letter-spacing:-.05em;line-height:1}
+.hours .h.first b{color:var(--lime-dk)}
+.hours .h span{
+  display:block;margin-top:.3rem;font-family:'Fredoka',sans-serif;font-size:.6rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
 }
-.special b{font-family:'Caveat',cursive;font-size:1.3rem;font-weight:700;color:var(--chalk)}
-.special i{font-style:normal;font-size:.68rem;color:rgba(255,255,255,.4);font-family:'Roboto Mono',monospace;letter-spacing:.04em;margin-left:auto}
-@media(max-width:700px){.special i{margin-left:0;flex:1 0 100%}}
-
-.cta{display:flex;gap:.6rem;margin-top:1.4rem;flex-wrap:wrap}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  font:inherit;font-weight:700;font-size:.9rem;padding:.78rem 1.35rem;
-  border-radius:11px;border:1px solid transparent;cursor:pointer;white-space:nowrap;
-  transition:transform .18s ease,background .18s ease,border-color .18s ease;
+.hours .shut{
+  align-self:center;white-space:nowrap;font-family:'Fredoka',sans-serif;font-size:.72rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);max-width:13ch;line-height:1.6;
 }
-.btn:hover{transform:translateY(-2px)}
-.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.btn-g{background:var(--lime);color:#16210A;box-shadow:0 14px 34px -14px rgba(155,214,46,.9)}
-.btn-o{background:rgba(255,255,255,.06);color:var(--white);border-color:rgba(255,255,255,.28)}
-.btn-o:hover{border-color:var(--lime);color:var(--lime-lt)}
-
-/* ---------- the cup ---------- */
-.cupstage{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:min(56vh,440px)}
-@media(max-width:920px){.cupstage{min-height:min(30vh,260px);margin-top:.6rem}}
-.cupstage .glow{
-  position:absolute;left:50%;bottom:20%;translate:-50% 0;width:min(440px,96%);height:180px;border-radius:50%;
-  background:radial-gradient(ellipse at 50% 50%, rgba(155,214,46,.38), transparent 68%);filter:blur(10px);z-index:0;
+.week{
+  width:100%;max-width:400px;background:var(--paper);border:1px solid var(--rule);border-radius:12px;
+  padding:.6rem 1rem;box-shadow:var(--shadow);
 }
-.cupcol{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:min(252px,58%)}
-@media(max-width:920px){.cupcol{width:min(168px,42%)}}
-.cupcol svg.cup{width:100%}
-.cupcol .ledge{
-  width:116%;height:6px;border-radius:3px;margin-top:-4px;
-  background:linear-gradient(90deg,transparent,var(--lime) 16%,var(--lime) 84%,transparent);
-  box-shadow:0 0 28px rgba(155,214,46,.6);
-}
-.cupcol .steam{position:absolute;left:50%;top:0;transform:translate(-50%,-86%);width:52%;z-index:1}
-.steam path{
-  fill:none;stroke:rgba(226,246,190,.75);stroke-width:6;stroke-linecap:round;filter:blur(3px);
-  animation:rise 5.6s ease-in-out infinite;
-}
-.steam path:nth-child(2){animation-delay:-1.9s;stroke:rgba(226,246,190,.55)}
-.steam path:nth-child(3){animation-delay:-3.6s;stroke:rgba(226,246,190,.42)}
-@keyframes rise{
-  0%{opacity:0;transform:translateY(16px) scaleX(.85)}
-  22%{opacity:.9}
-  100%{opacity:0;transform:translateY(-42px) scaleX(1.2)}
+.week .r{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;font-size:.92rem}
+.week .r + .r{border-top:1px dashed var(--rule)}
+.week .r.today{font-weight:700;color:var(--lime-dk)}
+.week .r.shut span{color:var(--muted)}
+.week .cap{
+  margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--rule);
+  font-family:'Fredoka',sans-serif;font-size:.6rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;
 }
 
-/* ---------- times ---------- */
-.times{display:flex;gap:.65rem;margin-top:1.3rem;flex-wrap:wrap;align-items:stretch}
-.times .t{
-  background:rgba(20,23,26,.66);border:1px solid var(--edge-l);border-radius:14px;
-  padding:.85rem 1.1rem;min-width:142px;position:relative;overflow:hidden;
-}
-.times .t::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px}
-.times .t.first::after{background:var(--lime)}
-.times .t.last::after{background:var(--amber)}
-.times .t b{display:block;font-family:'Roboto Mono',monospace;font-size:clamp(1.5rem,4.4vw,2.1rem);font-weight:700;letter-spacing:-.02em;line-height:1}
-.times .t.first b{color:var(--lime)}
-.times .t.last b{color:var(--amber)}
-.times .t span{display:block;margin-top:.35rem;font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
-.times .shut{align-self:center;font-family:'Roboto Mono',monospace;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);max-width:11ch;line-height:1.6}
-
-.amen{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.1rem}
-.amen span{
-  font-family:'Roboto Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
-  background:rgba(20,23,26,.6);border:1px solid var(--edge-l);border-radius:8px;padding:.4rem .7rem;color:var(--dim);
-}
-
-/* ---------- split-flap ---------- */
-.flap{
-  background:#000;border:1px solid var(--edge-l);border-radius:14px;padding:1rem 1.1rem;
-  max-width:520px;box-shadow:inset 0 2px 24px rgba(0,0,0,.9);
-}
-.flap .hdr{
-  display:grid;grid-template-columns:1fr auto;gap:1rem;
-  font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.22em;
-  text-transform:uppercase;color:rgba(255,255,255,.3);
-  padding-bottom:.55rem;border-bottom:1px solid rgba(255,255,255,.1);
-}
-.flap .line{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:.6rem 0;border-bottom:1px dashed rgba(255,255,255,.08)}
-.flap .line:last-of-type{border-bottom:0}
-.cells{display:flex;gap:2px}
-.cell{
-  position:relative;display:inline-grid;place-items:center;min-width:.86em;height:1.5em;padding:0 .1em;
-  font-family:'Roboto Mono',monospace;font-weight:700;
-  background:linear-gradient(180deg,#1E1E1E 0 49.5%, #121212 50.5% 100%);
-  border-radius:3px;color:var(--amber);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
-}
-.cell::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.85)}
-.cell.sp{background:none;box-shadow:none;min-width:.4em}
-.cell.sp::after{display:none}
-.flap .word .cell{font-size:clamp(.72rem,2vw,.86rem);color:var(--white)}
-.flap .time .cell{font-size:clamp(.94rem,2.5vw,1.2rem)}
-.flap .foot{
-  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;padding-top:.6rem;
-  border-top:1px solid rgba(255,255,255,.1);
-  font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.32);
-}
-.flap .line.shut .cells .cell{color:rgba(255,255,255,.3)}
-.flap .line.today .word .cell{color:var(--lime)}
-
-/* ---------- chalkboard ---------- */
-.chalkboard{
+/* ---------- chalkboards ---------- */
+.boards{display:grid;grid-template-columns:1.6fr 1fr;gap:clamp(1rem,2.6vw,1.8rem);align-items:start;margin-top:clamp(1.4rem,3vw,2rem)}
+@media(max-width:820px){.boards{grid-template-columns:1fr}}
+.chalk{
   background:
-    radial-gradient(ellipse 70% 50% at 30% 25%, rgba(255,255,255,.045), transparent 70%),
-    radial-gradient(ellipse 60% 50% at 78% 76%, rgba(255,255,255,.03), transparent 70%),
-    var(--chalk-bg);
-  border-radius:8px;padding:clamp(1.1rem,3vw,2rem);
-  max-width:min(700px,100%);margin-inline:auto;
-  border:10px solid #241C12;
-  box-shadow:0 40px 80px -34px rgba(0,0,0,.95), inset 0 0 60px rgba(0,0,0,.6);
-  color:var(--chalk);
+    radial-gradient(ellipse 60% 50% at 28% 22%, rgba(255,255,255,.05), transparent 70%),
+    radial-gradient(ellipse 50% 50% at 76% 78%, rgba(255,255,255,.035), transparent 70%),
+    var(--board);
+  border:11px solid #3A2C1C;border-radius:5px;color:var(--chalk);
+  padding:clamp(1.1rem,3vw,2rem);
+  box-shadow:var(--shadow), inset 0 0 70px rgba(0,0,0,.55);
 }
-.chalkboard h3{
-  text-shadow:0 0 6px rgba(241,240,232,.3);
-  font-family:'Caveat',cursive;font-weight:700;font-size:clamp(1.9rem,5.2vw,2.9rem);
-  line-height:1;text-align:center;letter-spacing:.01em;
+.chalk h3{
+  font-family:'Caveat',cursive;font-weight:700;font-size:clamp(1.9rem,5vw,2.7rem);
+  line-height:1;text-align:center;text-shadow:0 0 7px rgba(243,240,230,.28);
 }
-.chalkboard .rule{height:2px;background:rgba(241,240,232,.35);margin:.6rem auto 1rem;width:72%;border-radius:2px}
-.chalklist{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:.1rem 2rem}
-@media(max-width:660px){.chalklist{grid-template-columns:1fr}}
-.chalklist li{padding:.3rem 0;border-bottom:1px dotted rgba(241,240,232,.22)}
-.chalklist .top{display:flex;align-items:baseline;gap:.5rem}
-.chalklist .nm{font-family:'Caveat',cursive;font-weight:600;font-size:1.32rem;letter-spacing:.01em;text-shadow:0 0 3px rgba(241,240,232,.35)}
-.chalklist .dot{flex:1;border-bottom:1px dotted rgba(241,240,232,.3);translate:0 -5px}
-.chalklist .pr{font-family:'Caveat',cursive;font-weight:700;font-size:1.24rem;color:rgba(241,240,232,.8)}
-.chalklist .nt{display:block;font-size:.72rem;color:rgba(241,240,232,.5);font-family:'Inter',sans-serif;margin-top:-.15rem}
-.chalknote{
-  margin-top:1rem;font-family:'Caveat',cursive;font-size:1.12rem;color:rgba(241,240,232,.78);
-  display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
-}
-@media(max-width:660px){
-  .chalkboard{border-width:7px;padding:1rem}
-  .chalklist .nm{font-size:1.18rem}
-  .chalklist .pr{font-size:1.1rem}
+.chalk .hr{height:2px;background:rgba(243,240,230,.4);width:70%;margin:.55rem auto 1.1rem;border-radius:2px;
+  clip-path:inset(0 100% 0 0);transition:clip-path 1s cubic-bezier(.22,1,.36,1) .15s}
+.chalk.in .hr{clip-path:inset(0 0 0 0)}
+.list{list-style:none}
+.list li{padding:.34rem 0;border-bottom:1px dotted rgba(243,240,230,.24)}
+.list .row{display:flex;align-items:baseline;gap:.5rem}
+.list .nm{font-family:'Caveat',cursive;font-weight:600;font-size:1.4rem;letter-spacing:.01em;text-shadow:0 0 4px rgba(243,240,230,.3)}
+.list .lead{flex:1;border-bottom:1px dotted rgba(243,240,230,.3);translate:0 -5px}
+.list .pr{font-family:'Caveat',cursive;font-weight:700;font-size:1.3rem;color:rgba(243,240,230,.85)}
+.list .nt{display:block;font-size:.74rem;color:rgba(243,240,230,.5);margin-top:-.1rem}
+/* chalk goes on left to right, as if written */
+.write{clip-path:inset(0 100% 0 0);transition:clip-path .55s cubic-bezier(.22,1,.36,1)}
+.chalk.in .write{clip-path:inset(0 0 0 0)}
+.boardfoot{
+  margin-top:1rem;font-family:'Caveat',cursive;font-size:1.1rem;color:rgba(243,240,230,.75);
+  display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;
 }
 
-/* ---------- hex tile panel ---------- */
-.tile{
-  background-image:url("assets/hex.svg");background-size:240px 139px;
-  color:var(--tan-ink);border-radius:16px;padding:clamp(1.2rem,3.2vw,2.2rem);
-  box-shadow:0 40px 80px -34px rgba(0,0,0,.9);
+/* the special board, hung slightly askew like a real one */
+.special{
+  background:var(--board);border:9px solid #C9A227;border-radius:4px;color:var(--chalk);
+  padding:clamp(1rem,2.6vw,1.5rem);text-align:center;rotate:-1.4deg;
+  box-shadow:var(--shadow), inset 0 0 60px rgba(0,0,0,.5);
 }
-.tilehead{background:rgba(255,252,244,.9);border:1px solid rgba(59,47,27,.14);border-radius:12px;padding:.85rem 1rem}
-.tile h3{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;text-transform:uppercase;letter-spacing:-.03em;line-height:1}
-.tile .sub{font-size:.9rem;margin-top:.35rem;color:#5C4A2E;max-width:44ch}
-.sells{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1.2rem}
-@media(max-width:560px){.sells{grid-template-columns:1fr}}
-.sells .s{
-  background:rgba(255,252,244,.86);border:1px solid rgba(59,47,27,.16);border-radius:11px;padding:.7rem .85rem;
+.special .tag{font-family:'Caveat',cursive;font-size:1.55rem;font-weight:700;color:#F4D35E}
+.special b{display:block;font-family:'Caveat',cursive;font-weight:700;font-size:clamp(1.6rem,4.4vw,2.2rem);line-height:1.1;margin-top:.3rem}
+.special .glass{margin:.8rem auto .2rem;width:56px}
+.special i{
+  display:block;font-style:normal;font-family:'Fredoka',sans-serif;font-size:.62rem;
+  letter-spacing:.12em;text-transform:uppercase;color:rgba(243,240,230,.5);margin-top:.5rem;
 }
-.sells .s b{display:block;font-size:1rem;font-weight:700;letter-spacing:-.01em}
-.sells .s span{display:block;font-size:.79rem;color:#6B5738;margin-top:.05rem}
+
+/* ---------- the shelf ---------- */
+.shelf{margin-top:clamp(1.4rem,3vw,2rem)}
+.things{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.6rem,1.6vw,1rem)}
+@media(max-width:820px){.things{grid-template-columns:repeat(2,1fr)}}
+.thing{
+  background:var(--paper);border:1px solid var(--rule);border-radius:12px;
+  padding:1rem;box-shadow:var(--shadow);
+}
+.thing .ic{width:34px;height:34px;margin-bottom:.6rem}
+.thing b{display:block;font-size:1.02rem;font-weight:700;letter-spacing:-.02em}
+.thing span{display:block;font-size:.82rem;color:var(--muted);margin-top:.15rem}
+.plank{
+  height:14px;margin-top:-1px;border-radius:0 0 8px 8px;
+  background:linear-gradient(180deg,#B08A5E,#8A6942);
+  box-shadow:0 12px 22px -12px rgba(42,32,22,.7);
+}
 
 /* ---------- reviews ---------- */
-.rate{display:grid;gap:.55rem}
-.rate .r{
-  background:rgba(20,23,26,.66);border:1px solid var(--edge-l);border-radius:15px;
-  padding:1rem 1.15rem;display:flex;align-items:baseline;gap:.65rem;position:relative;overflow:hidden;
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.8rem,2vw,1.2rem);margin-top:clamp(1.4rem,3vw,2rem)}
+@media(max-width:880px){.notes{grid-template-columns:1fr}}
+.note{
+  background:var(--paper);border:1px solid var(--rule);border-radius:4px;
+  padding:1.1rem 1.2rem;box-shadow:var(--shadow);position:relative;
 }
-.rate .r::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:var(--lime);opacity:.8}
-.rate .r b{font-size:clamp(2rem,4.8vw,2.9rem);font-weight:800;letter-spacing:-.04em;color:var(--lime);line-height:1}
-.rate .r span{font-family:'Roboto Mono',monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);line-height:1.7}
-@media(max-width:920px){.rate{grid-template-columns:1fr 1fr;gap:.5rem;margin-top:1rem}.rate .r{padding:.7rem .8rem}.rate .r b{font-size:1.45rem}}
-.revs{display:grid;gap:.55rem;margin-top:1rem}
-.rev{background:rgba(20,23,26,.6);border:1px solid var(--edge-l);border-left:3px solid var(--lime);border-radius:12px;padding:.85rem 1rem}
-.rev p{font-size:.98rem;font-weight:500;letter-spacing:-.015em}
-.rev .x{font-size:.86rem;color:var(--dim);margin-top:.2rem;font-weight:400}
-.rev cite{display:block;margin-top:.45rem;font-style:normal;font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.36)}
-@media(max-width:660px){.rev{padding:.7rem .8rem}.rev p{font-size:.9rem}}
-
-/* ---------- find it ---------- */
-.place{background:rgba(20,23,26,.66);border:1px solid var(--edge-l);border-radius:16px;padding:1.15rem;margin-top:1rem}
-.place .land{
-  display:flex;gap:.7rem;align-items:flex-start;
-  font-size:1rem;font-weight:600;letter-spacing:-.02em;
+.note:nth-child(2){rotate:.8deg}
+.note:nth-child(3){rotate:-.7deg}
+.note p{font-family:'Caveat',cursive;font-size:1.28rem;font-weight:600;line-height:1.3}
+.note .x{font-size:.86rem;color:var(--muted);margin-top:.35rem;font-family:'Bricolage Grotesque',sans-serif}
+.note cite{
+  display:block;margin-top:.7rem;font-style:normal;font-family:'Fredoka',sans-serif;
+  font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
 }
-.place .land svg{width:20px;height:20px;flex:0 0 20px;margin-top:2px;stroke:var(--lime);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.place p{font-size:.89rem;color:var(--dim);margin-top:.5rem}
-.contact{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;font-size:.87rem}
-.contact a{border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:2px}
+.scores{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:1.2rem;align-items:center}
+.score{
+  background:var(--lime);border-radius:12px;padding:.7rem 1rem;display:flex;align-items:baseline;gap:.45rem;
+  box-shadow:0 14px 30px -14px rgba(143,203,30,.9);
+}
+.score b{font-size:1.5rem;font-weight:800;letter-spacing:-.04em;color:#1E2B06}
+.score span{font-family:'Fredoka',sans-serif;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:#33470C;line-height:1.55}
 
-.clockcard{background:#000;border:1px solid var(--edge-l);border-radius:18px;padding:1.35rem 1.45rem;box-shadow:inset 0 2px 30px rgba(0,0,0,.9)}
-.clockcard .lbl{font-family:'Roboto Mono',monospace;font-size:.54rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:.5rem}
-.clockcard .now{font-family:'Roboto Mono',monospace;font-size:clamp(2.5rem,6.6vw,3.8rem);font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--white)}
-.clockcard .msg{margin-top:.95rem;padding-top:.85rem;border-top:1px solid rgba(255,255,255,.12);font-size:1rem;font-weight:700;letter-spacing:-.02em}
-.clockcard.open .msg{color:var(--lime)}
-.clockcard.shut .msg{color:var(--amber)}
-.clockcard .sub{font-family:'Roboto Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:.3rem}
+/* ---------- where ---------- */
+.where{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(1.2rem,3vw,2.4rem);align-items:start;margin-top:clamp(1.4rem,3vw,2rem)}
+@media(max-width:880px){.where{grid-template-columns:1fr}}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:1.3rem;box-shadow:var(--shadow)}
+.card .lead2{display:flex;gap:.7rem;align-items:flex-start;font-size:1.05rem;font-weight:700;letter-spacing:-.02em}
+.card .lead2 svg{width:21px;height:21px;flex:0 0 21px;margin-top:2px;stroke:var(--lime-dk);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card p{font-size:.92rem;color:var(--muted);margin-top:.55rem}
+.links{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+.pill{
+  display:inline-flex;align-items:center;gap:.45rem;background:var(--ink);color:var(--cream);
+  border-radius:999px;padding:.65rem 1.1rem;font-size:.88rem;font-weight:600;
+  transition:transform .18s ease,background .18s ease;
+}
+.pill:hover{transform:translateY(-2px)}
+.pill.go{background:var(--lime);color:#1E2B06}
+.pill svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.now{
+  background:var(--board);color:var(--chalk);border-radius:14px;padding:1.3rem 1.4rem;box-shadow:var(--shadow);
+}
+.now .lbl{font-family:'Fredoka',sans-serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(243,240,230,.4)}
+.now .t{font-size:clamp(2.4rem,6vw,3.4rem);font-weight:800;letter-spacing:-.05em;line-height:1;margin-top:.4rem}
+.now .msg{margin-top:.9rem;padding-top:.8rem;border-top:1px solid rgba(243,240,230,.16);font-family:'Caveat',cursive;font-size:1.45rem;font-weight:700}
+.now.open .msg{color:var(--lime-lt)}
+.now.shut .msg{color:#F4D35E}
+.now .sub{font-family:'Fredoka',sans-serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(243,240,230,.45);margin-top:.25rem}
+
+/* ---------- footer ---------- */
+footer{padding:clamp(2.4rem,6vw,4rem) 0 clamp(3rem,7vw,4.5rem);border-top:1px solid var(--rule);margin-top:clamp(2rem,5vw,3.5rem)}
+.foot{display:flex;justify-content:space-between;gap:1.4rem;flex-wrap:wrap;align-items:center}
+.foot .neon{--neon:1.5rem}
+.foot .neon span{color:var(--ink);text-shadow:none}
+.foot p{font-size:.8rem;color:var(--muted)}
 
 .chip{
-  display:inline-block;font-family:'Roboto Mono',monospace;font-size:.52rem;
-  letter-spacing:.14em;text-transform:uppercase;padding:.18rem .45rem;border-radius:4px;font-weight:700;
-  background:rgba(155,214,46,.14);color:var(--lime);border:1px solid rgba(155,214,46,.45);
+  display:inline-block;font-family:'Fredoka',sans-serif;font-size:.56rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:.2rem .5rem;border-radius:5px;font-weight:500;
+  background:rgba(143,203,30,.16);color:var(--lime-dk);border:1px solid rgba(143,203,30,.5);
 }
-.chalkboard .chip,.tile .chip{background:rgba(59,47,27,.1);color:#6B5738;border-color:rgba(59,47,27,.35)}
-.chalkboard .chip{background:rgba(241,240,232,.1);color:rgba(241,240,232,.7);border-color:rgba(241,240,232,.3)}
+.chalk .chip,.now .chip{background:rgba(243,240,230,.1);color:rgba(243,240,230,.7);border-color:rgba(243,240,230,.28)}
 
-/* ---------- indicator ---------- */
-.dots{
-  position:fixed;z-index:38;left:50%;translate:-50% 0;bottom:calc(36px + max(.65rem,env(safe-area-inset-bottom)));
-  display:flex;gap:.3rem;align-items:center;background:rgba(0,0,0,.62);
-  padding:.38rem .5rem;border-radius:10px;border:1px solid var(--edge-l);backdrop-filter:blur(8px);
-}
-.dots button{
-  width:21px;height:19px;border-radius:5px;border:0;padding:0;cursor:pointer;
-  background:rgba(255,255,255,.12);color:rgba(255,255,255,.5);
-  font-family:'Roboto Mono',monospace;font-size:.56rem;font-weight:700;
-  transition:background .25s ease,color .25s ease;
-}
-.dots button.on{background:var(--lime);color:#16210A}
-@media(max-width:560px){.dots{bottom:calc(30px + max(.5rem,env(safe-area-inset-bottom)))}}
-.hint{
-  position:fixed;z-index:38;right:clamp(1rem,4vw,2rem);bottom:calc(36px + max(.85rem,env(safe-area-inset-bottom)));
-  display:flex;align-items:center;gap:.45rem;font-family:'Roboto Mono',monospace;font-size:.59rem;
-  letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.6);transition:opacity .5s ease;
-}
-.hint svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;animation:nudge 1.8s ease-in-out infinite}
-@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
-.hint.gone{opacity:0;pointer-events:none}
-@media(max-width:700px){.hint{display:none}}
-
-/* the week board is big — desktop shows it on panel 2, phones on panel 6 */
-#board-6{display:none}
-@media(max-width:920px){
-  .panel h2{font-size:1.6rem}
-  #board-2{display:none}
-  #board-6{display:block;margin-top:.75rem}
-  .clockcard{display:none}
-  .place{padding:.85rem .95rem;margin-top:.85rem}
-  .place .land{font-size:.94rem}
-  .place p{font-size:.84rem;margin-top:.4rem}
-  .flap{padding:.8rem .9rem}
-  .flap .line{padding:.4rem 0}
-  .contact{margin-top:.7rem;gap:.75rem;font-size:.82rem}
-}
-
+/* ---------- arrive ---------- */
+.up{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+body.js .up.in,body:not(.js) .up{opacity:1;transform:none}
+body:not(.js) .up{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
-  .edge .run,.hint svg,.status.open .led,.neon.lit,.steam path{animation:none}
+  html{scroll-behavior:auto}
+  .hanger,.neon.on{animation:none}
+  .up{opacity:1;transform:none;transition:none}
+  .write,.chalk .hr{clip-path:none;transition:none}
 }
 </style>
 </head>
 <body>
 
-<div class="bg"></div>
-<div class="wash"></div>
-<div class="strips" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-<canvas id="fx"></canvas>
+<div class="hanger" id="hanger" role="status">
+  <div class="rope"></div>
+  <div class="sign"><b id="sign-b">—</b><span id="sign-s"></span></div>
+</div>
 
-<header>
-  <a class="brand" href="#" data-go="0" aria-label="Bean Me Up, Partick Station">
-    <span>
-      <span class="neon"><span class="n-bean">Bean</span><span class="n-me">meup</span></span>
-      <small>Partick Station</small>
-    </span>
-  </a>
-  <div class="status" id="status" role="status">
-    <span class="led"></span><span id="status-text">—</span>
-  </div>
-</header>
+<main>
 
-<div class="deck" id="deck">
+  <!-- ===== the sign on the wall ===== -->
+  <header class="hero">
+    <div class="wrap">
+      <span class="plaque up">Partick Station · Glasgow</span>
+      <div class="signbox up">
+        <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
+        <span class="neon" id="neon"><span class="caps">Bean</span><span class="low">meup</span></span>
+      </div>
+      <p class="saying up">“Best coffee in the toon.”<small>Their words, not ours</small></p>
+    </div>
+    <div class="counter up">
+      <div class="top"></div>
+      <div class="face" id="counter-face"></div>
+    </div>
+  </header>
 
-  <!-- 1 — the lit green hatch -->
-  <section class="panel"><div class="inner split">
-    <div class="half">
-      <span class="plate">Partick Station · Merkland Court · G11 6BU</span>
-      <div class="hatch">
-        <div class="in">
-          <span class="neon lit" style="--neon-size:clamp(2rem,7.4vw,4.2rem)">
-            <span class="n-bean">Bean</span><span class="n-me">meup</span>
-          </span>
-          <p class="toon">“Best coffee in the toon.”<small>Their words, not ours</small></p>
+  <!-- ===== the hours ===== -->
+  <section id="hours">
+    <div class="wrap">
+      <p class="eyebrow up">The morning shift</p>
+      <h2 class="up">Open at 6:45.<br>Gone by <span class="go">one</span>.</h2>
+      <div class="pair">
+        <div>
+          <p class="body up">Not a café you sit in. A hatch in the station wall for people going somewhere — first cup before the early train, shutters down before the lunch crowd has even woken up.</p>
+          <div class="hours up" id="hours-big"></div>
         </div>
-        <div class="counter"></div>
-      </div>
-      <div class="special" id="special"></div>
-      <div class="cta">
-        <a class="btn btn-g" href="#" data-go="2">See the board</a>
-        <a class="btn btn-o" href="#" data-go="5">
-          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Where it is
-        </a>
+        <div class="week up" id="week"></div>
       </div>
     </div>
+  </section>
 
-    <div class="cupstage" aria-hidden="true">
-      <div class="glow"></div>
-      <div class="cupcol">
-        <svg class="steam" viewBox="0 0 120 130">
-          <path d="M40 120 C 22 96, 58 84, 40 58 C 26 38, 46 26, 40 8"/>
-          <path d="M62 124 C 44 100, 80 86, 62 60 C 48 40, 68 28, 62 10"/>
-          <path d="M84 120 C 66 96, 102 84, 84 58 C 70 38, 90 26, 84 8"/>
-        </svg>
-        <svg class="cup" viewBox="0 0 260 330">
-          <defs>
-            <linearGradient id="cb" x1="46" y1="92" x2="222" y2="308" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#8A949D"/><stop offset=".22" stop-color="#333C44"/>
-              <stop offset=".62" stop-color="#161C22"/><stop offset="1" stop-color="#57626B"/>
-            </linearGradient>
-            <linearGradient id="cl" x1="30" y1="66" x2="234" y2="106" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#4A535B"/><stop offset=".5" stop-color="#141A20"/><stop offset="1" stop-color="#3D464E"/>
-            </linearGradient>
-            <linearGradient id="cr" x1="34" y1="288" x2="226" y2="308" gradientUnits="userSpaceOnUse">
-              <stop offset="0" stop-color="#C9CDD1"/><stop offset=".5" stop-color="#F1F3F4"/><stop offset="1" stop-color="#AAB0B5"/>
-            </linearGradient>
-          </defs>
-          <ellipse cx="130" cy="312" rx="86" ry="13" fill="#000" opacity=".45"/>
-          <path d="M46 98 h168 l-23 188 a16 16 0 0 1 -16 14 H85 a16 16 0 0 1 -16 -14 z" fill="url(#cb)"/>
-          <path d="M70 286 h120 l-2 14 a16 16 0 0 1 -16 14 H88 a16 16 0 0 1 -16 -14 z" fill="url(#cr)"/>
-          <rect x="34" y="74" width="192" height="30" rx="12" fill="url(#cl)"/>
-          <ellipse cx="130" cy="76" rx="96" ry="15" fill="#283037"/>
-          <ellipse cx="130" cy="74" rx="88" ry="12" fill="#0C1116"/>
-          <ellipse cx="130" cy="72" rx="17" ry="6" fill="#000" opacity=".8"/>
-          <path d="M212 104 q-8 92 -20 178" stroke="rgba(190,240,110,.8)" stroke-width="9" fill="none" stroke-linecap="round"/>
-          <path d="M62 106 q9 90 21 176" stroke="rgba(255,255,255,.2)" stroke-width="8" fill="none" stroke-linecap="round"/>
-          <text x="130" y="206" text-anchor="middle" font-family="Inter, sans-serif"
-                font-size="30" font-weight="800" fill="#F4F4F0" letter-spacing="-1.2">BEAN<tspan
-                font-family="Fredoka, sans-serif" font-weight="500" fill="#C6F25C" font-size="26">meup</tspan></text>
-        </svg>
-        <div class="ledge"></div>
+  <!-- ===== the boards ===== -->
+  <section id="board">
+    <div class="wrap">
+      <p class="eyebrow up">On the boards</p>
+      <h2 class="up">What people<br>actually <span class="go">order</span>.</h2>
+      <div class="boards">
+        <div class="chalk up" id="chalk">
+          <h3 class="write">The Board</h3>
+          <div class="hr"></div>
+          <ul class="list" id="list"></ul>
+          <p class="boardfoot write" id="chalk-foot"></p>
+        </div>
+        <div class="special up" id="special"></div>
       </div>
     </div>
-  </div></section>
+  </section>
 
-  <!-- 2 — the morning shift -->
-  <section class="panel"><div class="inner split">
-    <div class="half">
-      <span class="plate">The morning shift</span>
-      <h2>Open at 6:45.<br><span class="thin">Gone by one.</span></h2>
-      <p class="lede">This isn't a café you sit in. It's a hatch in the station wall for people going somewhere — first cup before the early train, shutters down before the lunch crowd has even woken up.</p>
-      <div class="times" id="times"></div>
-      <div class="amen" id="amen"></div>
-    </div>
-    <div id="board-2"></div>
-  </div></section>
-
-  <!-- 3 — the chalkboard -->
-  <section class="panel"><div class="inner">
-    <div class="chalkboard">
-      <h3>The Board</h3>
-      <div class="rule"></div>
-      <ul class="chalklist" id="chalk"></ul>
-      <p class="chalknote" id="chalknote"></p>
-    </div>
-  </div></section>
-
-  <!-- 4 — not just coffee -->
-  <section class="panel"><div class="inner split">
-    <div class="half">
-      <span class="plate">Not just coffee</span>
-      <h2>There's a <span class="go">whole fridge</span> in there.</h2>
-      <p class="lede">It's a small hatch that turns out to hold a lot. If you only ever get a flat white off them, you're missing most of it.</p>
-    </div>
-    <div class="tile">
-      <div class="tilehead">
-        <h3>Also on the go</h3>
-        <p class="sub">Everything below was seen in the hatch. The full list is worth asking about.</p>
+  <!-- ===== the shelf ===== -->
+  <section id="more">
+    <div class="wrap">
+      <p class="eyebrow up">Not just coffee</p>
+      <h2 class="up">There's a whole<br><span class="go">fridge</span> in there.</h2>
+      <p class="body up">A small hatch that turns out to hold a lot. If you only ever get a flat white off them, you're missing most of it.</p>
+      <div class="shelf up">
+        <div class="things" id="things"></div>
+        <div class="plank"></div>
       </div>
-      <div class="sells" id="sells"></div>
     </div>
-  </div></section>
+  </section>
 
-  <!-- 5 — what people say -->
-  <section class="panel"><div class="inner split">
-    <div class="half">
-      <span class="plate">What people say</span>
-      <h2>Fifteen years<br><span class="thin">of regulars.</span></h2>
-      <div class="revs" id="revs"></div>
-      <p class="plate" id="rank" style="margin-top:.85rem"></p>
+  <!-- ===== reviews ===== -->
+  <section id="says">
+    <div class="wrap">
+      <p class="eyebrow up">What people say</p>
+      <h2 class="up">Fifteen years<br>of <span class="go">regulars</span>.</h2>
+      <div class="scores up" id="scores"></div>
+      <div class="notes" id="notes"></div>
+      <p class="body up" id="rank" style="font-size:.86rem;margin-top:1.2rem"></p>
     </div>
-    <div class="rate" id="rate"></div>
-  </div></section>
+  </section>
 
-  <!-- 6 — you don't find it -->
-  <section class="panel"><div class="inner split">
-    <div class="half">
-      <span class="plate">Where it is</span>
-      <h2>You don't find it.<br><span class="thin">You walk past it.</span></h2>
-      <div class="place" id="place"></div>
-      <div id="board-6"></div>
-      <div class="contact" id="contact"></div>
+  <!-- ===== where ===== -->
+  <section id="where">
+    <div class="wrap">
+      <p class="eyebrow up">Where it is</p>
+      <h2 class="up">You don't find it.<br>You <span class="go">walk past</span> it.</h2>
+      <div class="where">
+        <div class="card up" id="place"></div>
+        <div class="now up" id="now"></div>
+      </div>
     </div>
-    <div class="clockcard" id="clockcard"></div>
-  </div></section>
+  </section>
 
-</div>
+</main>
 
-<div class="edge" aria-hidden="true"><div class="run" id="run"></div></div>
-
-<nav class="dots" id="dots" aria-label="Sections"></nav>
-<div class="hint" id="hint">
-  Swipe
-  <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
-</div>
+<footer>
+  <div class="wrap foot">
+    <span class="neon"><span class="caps">Bean</span><span class="low">meup</span></span>
+    <p id="legal"></p>
+  </div>
+</footer>
 
 <script src="assets/data.js"></script>
-<script src="assets/station.js"></script>
+<script src="assets/wall.js"></script>
 </body>
 </html>

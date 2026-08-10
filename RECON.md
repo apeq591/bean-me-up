@@ -13,11 +13,11 @@ Two kinds of source:
 
 | Observed | Where it went |
 |---|---|
-| **Apple/lime green** counter front + the light wash behind it | the brand colour: counter bar, glow, buttons, bottom strip |
-| **White neon logo** — BEAN in bold caps, *me up* in a lit script | the lockup, drawn in HTML/CSS so it actually glows |
-| **Warm tan/cream honeycomb hex tile** on the back wall | the "Also on the go" panel, and faintly behind the neon |
-| **Chalkboard black, white handwriting** | the whole menu panel — "The Board" |
-| **Hand-drawn special board** (an iced chai latte on it) | the Today's Special strip on the front |
+| **Apple/lime green** counter front + the light wash behind it | the counter band under the sign, the score tiles, the buttons |
+| **White neon logo** — BEAN caps running into rounded lowercase | the lockup, drawn in HTML/CSS so it actually strikes on and glows |
+| **Warm tan/cream honeycomb hex tile** on the back wall | the background of the entire site — it *is* the wall |
+| **Chalkboard black, white handwriting** | "The Board", which writes itself in left to right |
+| **Hand-drawn special board** (an iced chai latte on it) | the gold-framed special board, hung slightly askew |
 | **Cold drinks fridge, pastries, crisps, sweets** | its own section, not a heading |
 | **It is a hatch in the station wall, under the gig posters** | the copy, and the directions |
 
@@ -80,15 +80,26 @@ in `assets/data.js`, `showPrices` flips to `true`, and the last chip disappears.
 
 ## The idea the site is built on
 
-At 6:45 on a January morning Partick station is grey concrete, brushed steel and
-strip lighting — and this thing is a **glowing green box** in the middle of it.
-That is the entire site. The background is cold grey station; the content sits in
-the green light. It earns the dark theme instead of defaulting to it.
+**The wall.** Everything in that shop hangs on one surface — the warm honeycomb
+tile. The neon is screwed to it, the chalkboards hang off it, the lime counter
+runs along the bottom of it. So the site *is* that wall, and every section is an
+object mounted on it. You scroll down it the way your eye travels down it while
+you queue.
 
-Two things make it useful rather than just good-looking, and both come from the
+Nothing on the site is borrowed from "railway station" — no departure board, no
+platform edge, no concrete. That was an idea about where the shop happens to be,
+not about the shop. The tile, the neon, the chalk and the green are the shop.
+
+Three things carry it, and all three came off the photo:
+
+1. the neon **strikes on** when you arrive, like the tubes warming up
+2. the chalkboards **write themselves in**, left to right
+3. the OPEN / CLOSED sign **hangs and swings**, and it is live
+
+Two more make it useful rather than just good-looking, and both come from the
 hours:
 
-1. **The live OPEN / CLOSED pill** reads the visitor's own clock.
+1. **The hanging OPEN / CLOSED sign** reads the visitor's own clock.
 2. **The clock card** counts it down — *"open for another 26m"*.
 
 For a business with a four-hour trading window that is the most valuable thing a
@@ -97,6 +108,7 @@ matters more than any other question on this page.
 
 ## Running it
 
-Open `index.html` — no build step. Deep links `#p1`–`#p6` open a given panel.
+Open `index.html` — no build step. Normal vertical scroll. Deep links:
+`#hours`, `#board`, `#more`, `#says`, `#where`.
 Live at https://apeq591.github.io/bean-me-up/ (unlisted — `noindex` until they
 say yes).
