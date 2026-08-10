@@ -10,41 +10,10 @@
    ========================================================================= */
 
 const C = window.BMU;
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const { DAYS, toMins, openState, humanGap } = window.BMUClock;   // assets/clock.js
 const WEEK = [1, 2, 3, 4, 5, 6, 0];
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const chip = (label = 'to confirm') => (C.draft ? `<span class="chip">${label}</span>` : '');
-
-/* ===================== hours ===================== */
-
-const toMins = (hhmm) => {
-  const [h, m] = hhmm.split(':').map(Number);
-  return h * 60 + m;
-};
-
-function openState(now = new Date()) {
-  const day = now.getDay();
-  const mins = now.getHours() * 60 + now.getMinutes();
-  const today = C.hours[day];
-  if (today && mins >= toMins(today.open) && mins < toMins(today.close)) {
-    return { open: true, until: today.close };
-  }
-  for (let step = 0; step <= 7; step++) {
-    const d = (day + step) % 7;
-    const h = C.hours[d];
-    if (!h) continue;
-    if (step === 0 && mins >= toMins(h.open)) continue;
-    return { open: false, nextDay: step === 0 ? 'today' : DAYS[d], nextOpen: h.open };
-  }
-  return { open: false };
-}
-
-const humanGap = (mins) => {
-  const h = Math.floor(mins / 60), m = mins % 60;
-  if (h && m) return `${h}h ${m}m`;
-  if (h) return `${h}h`;
-  return `${m}m`;
-};
 
 /* the sign in the window — the one thing a four-hour business must answer */
 function renderSign() {

@@ -115,6 +115,32 @@ window.BMU = {
   /* ---- AMENITIES — LISTED --------------------------------------------- */
   amenities: ['Card &amp; contactless', 'Free Wi-Fi', 'Wheelchair accessible', 'Takeaway'],
 
+  /* ---- THE POSTERS -----------------------------------------------------
+     "DON'T SCAN THIS AFTER 1PM." Black poster, that sentence, a QR, nothing
+     else. No logo, no name, no green.
+
+     Scan after they shut  -> you are told to come back before 1pm. Act one.
+     Scan while they're open -> the secret, the arrows, the shop. Act two.
+
+     The QR is the position fix. Each poster carries its own id (?p=barriers),
+     so the page knows exactly where the reader is standing without GPS —
+     which is just as well, because GPS is useless inside a station.
+
+     `turn` is degrees to rotate FROM FACING THE POSTER to face the shop.
+     Relative rotation is reliable indoors; absolute compass heading is not,
+     because a station is a steel box. Until Mukta measures it on site it
+     stays null, and the arrow view falls back to the written directions
+     rather than pointing somewhere confidently wrong.                      */
+  posters: {
+    barriers: {
+      label: 'By the barriers',
+      metres: 40,          // TO CONFIRM — pace it out
+      turn: null,          // TO CONFIRM — degrees to turn, from facing the poster
+      facing: null         // TO CONFIRM — e.g. 'Turn around, keep the wall on your left'
+    }
+  },
+  posterDefault: 'barriers',
+
   /* ---- STILL UNKNOWN — ask when you go --------------------------------
      owner's name · prices off the chalkboards · the full food list ·
      a clean photo of the neon sign to replace the drawn lockup            */
