@@ -40,7 +40,7 @@
   --beamgrad:linear-gradient(180deg,rgba(127,212,232,0) 0%,rgba(127,212,232,.55) 45%,rgba(240,166,75,.75) 100%);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden}
 body{
   font-family:'Space Grotesk',system-ui,-apple-system,sans-serif;
   background:var(--void);color:var(--paper);line-height:1.6;
@@ -53,6 +53,12 @@ img,svg{display:block;max-width:100%}
 .kicker{
   font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
   color:var(--beam);font-weight:600;
+}
+/* Wide letter-spacing made this line wider than a phone screen, which pushed
+   the whole document out and cut off the header button. Tighten it on small
+   screens and let it wrap. */
+@media(max-width:560px){
+  .kicker{font-size:.64rem;letter-spacing:.15em;overflow-wrap:break-word}
 }
 .dim{color:var(--muted)}
 
