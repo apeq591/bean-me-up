@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Bean Me Up — Partick Station, Glasgow</title>
 <meta name="description" content="Bean Me Up: the green hatch in the wall at Partick Station, Glasgow. Open 6:45, gone by one. Best coffee in the toon.">
-<meta name="theme-color" content="#EFE3CE">
+<meta name="theme-color" content="#E0D8C8">
 <!-- Unlisted on purpose: a pitch demo for a business Mukta does not own yet.
      Keep it out of Google until the owner has said yes. -->
 <meta name="robots" content="noindex,nofollow">
@@ -53,7 +53,11 @@ body{
   font-family:'Bricolage Grotesque',system-ui,-apple-system,sans-serif;
   color:var(--ink);line-height:1.55;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
-  background-color:#E4D5B8;
+  /* The wall is deliberately desaturated. Their tile is warm, but at full
+     chroma it sat at ~40% saturation on a 38° hue — close enough to the lime
+     (81°, 74%) that two loud warm colours fought over the whole page and the
+     green lost. Quiet wall, loud brand. */
+  background-color:#D2C8B5;
   background-image:url("assets/hex.svg");
   background-size:330px 190px;
 }
