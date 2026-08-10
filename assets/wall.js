@@ -99,7 +99,7 @@ function renderBoard() {
 
   // their own special board, hung a little askew — with the iced glass they drew
   document.getElementById('special').innerHTML = `
-    <span class="tag">Special</span>
+    <span class="tag">Today's Special</span>
     <b>${C.special.name}</b>
     <svg class="glass" viewBox="0 0 60 96" aria-hidden="true">
       <path d="M14 14 h32 l-4 68 a8 8 0 0 1 -8 7 H26 a8 8 0 0 1 -8 -7 z"
@@ -246,7 +246,20 @@ setInterval(() => { renderSign(); renderNow(); }, 30000);
 
 arrive();
 
-// strike the tubes
+/* Strike the tubes — every single time you look at the sign, not just once.
+   Scroll away, scroll back, and it warms up again. */
 const neon = document.getElementById('neon');
-if (reduced) neon.classList.add('on');
-else setTimeout(() => neon.classList.add('on'), 420);
+
+function strike() {
+  neon.classList.remove('on');
+  void neon.offsetWidth;          // reflow, or the browser reuses the finished animation
+  neon.classList.add('on');
+}
+
+if (reduced || !('IntersectionObserver' in window)) {
+  neon.classList.add('on');       // no flicker, just lit
+} else {
+  new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) strike(); });
+  }, { threshold: .4 }).observe(document.querySelector('.signbox'));
+}

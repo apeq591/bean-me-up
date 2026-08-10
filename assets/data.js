@@ -82,7 +82,7 @@ window.BMU = {
      hand-drawn tall iced glass beside it. It changes, so it is flagged.    */
   special: {
     name: 'Iced chai latte',
-    note: 'Off their own special board — ask what today’s is'
+    note: 'It changes — ask what’s on today'
   },
 
   /* ---- SEEN: it is not only coffee ------------------------------------ */

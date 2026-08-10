@@ -127,6 +127,31 @@ main,header,footer{position:relative;z-index:1}
   font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:-.015em;
   font-size:calc(var(--neon,clamp(2.4rem,10.5vw,6rem)) * .78);margin-left:.02em;
 }
+/* THE CUP. In their real sign the "u" of "up" is drawn as a cup with steam
+   coming off it — Mukta spotted it in the photo. So it isn't a letter here,
+   it's a tube bent into a tapered mug, sitting on the same baseline. */
+.neon .cupwrap{
+  font-size:calc(var(--neon,clamp(2.4rem,10.5vw,6rem)) * .78);
+  display:inline-block;line-height:0;
+}
+.neon .cup{
+  height:.83em;width:auto;overflow:visible;vertical-align:baseline;
+  margin:0 .03em;
+  fill:none;stroke:currentColor;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;
+}
+.neon .cup .steam path{stroke-width:8;opacity:.8}
+.neon.on .cup{
+  filter:
+    drop-shadow(0 0 2px rgba(255,255,255,.9))
+    drop-shadow(0 0 8px rgba(255,255,255,.5))
+    drop-shadow(0 0 22px rgba(226,255,170,.45));
+}
+@keyframes waft{
+  0%,100%{transform:translateY(3px);opacity:.35}
+  50%    {transform:translateY(-3px);opacity:.95}
+}
+.neon.on .cup .steam path{animation:waft 3.4s ease-in-out infinite}
+.neon.on .cup .steam path:nth-child(2){animation-delay:-1.7s}
 /* tubes off, then they strike */
 .neon span{color:#3A3A36;text-shadow:none;transition:none}
 /* a real tube reads white and sharp; the bloom is the air around it, not the
@@ -354,7 +379,8 @@ body.js .up.in,body:not(.js) .up{opacity:1;transform:none}
 body:not(.js) .up{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .hanger,.neon.on{animation:none}
+  .hanger,.neon.on,.neon.on .cup .steam path{animation:none}
+  .neon .cup .steam path{opacity:.8}
   .up{opacity:1;transform:none;transition:none}
   .write,.chalk .hr{clip-path:none;transition:none}
 }
@@ -375,7 +401,7 @@ body:not(.js) .up{opacity:1;transform:none}
       <span class="plaque up">Partick Station · Glasgow</span>
       <div class="signbox up">
         <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
-        <span class="neon" id="neon"><span class="caps">Bean</span><span class="low">meup</span></span>
+        <span class="neon" id="neon" role="img" aria-label="Bean Me Up"><span class="caps">Bean</span><span class="low">me</span><span class="cupwrap"><svg class="cup" viewBox="-4 0 76 121" aria-hidden="true"><g class="steam"><path d="M22 34C9 19 33 9 21-6 15-14 25-19 22-25"/><path d="M48 34C36 21 58 12 47-1 42-8 50-12 47-17"/></g><path d="M4 50 10 90a24 24 0 0 0 48 0L64 50"/></svg></span><span class="low">p</span></span>
       </div>
       <p class="saying up">“Best coffee in the toon.”<small>Their words, not ours</small></p>
     </div>
@@ -457,7 +483,7 @@ body:not(.js) .up{opacity:1;transform:none}
 
 <footer>
   <div class="wrap foot">
-    <span class="neon"><span class="caps">Bean</span><span class="low">meup</span></span>
+    <span class="neon" role="img" aria-label="Bean Me Up"><span class="caps">Bean</span><span class="low">me</span><span class="cupwrap"><svg class="cup" viewBox="-4 0 76 121" aria-hidden="true"><g class="steam"><path d="M22 34C9 19 33 9 21-6 15-14 25-19 22-25"/><path d="M48 34C36 21 58 12 47-1 42-8 50-12 47-17"/></g><path d="M4 50 10 90a24 24 0 0 0 48 0L64 50"/></svg></span><span class="low">p</span></span>
     <p id="legal"></p>
   </div>
 </footer>
