@@ -76,7 +76,7 @@
 <div class="out">
   <a href="index.html"><button>Done — open the website</button></a>
   <a href="measure.html"><button class="ghost">Back to measuring</button></a>
-  <a href="scan.html?act=open"><button class="ghost">The scan, from the top</button></a>
+  <a href="scan.html?act=open" id="toscan"><button class="ghost" id="toscan-label">The scan, from the top</button></a>
 </div>
 
 <script>
@@ -152,6 +152,22 @@ $('start').addEventListener('click', async () => {
   window.addEventListener('devicemotion', onMotion);
   $('start').textContent = 'Sensors on — start walking';
 });
+
+/* The scan hides its chevrons when no turn angle is set — that is the rule, and
+   it is right. But a bare link to scan.html?act=open therefore lands on the one
+   version with no arrows at all, which reads as "the arrows are broken". So the
+   link carries whatever measure.html last saved, and says which it is using. */
+(() => {
+  let m = {};
+  try { m = JSON.parse(localStorage.getItem('bmu.measure')) || {}; } catch (e) { /* fine */ }
+  const measured = m.turn != null;
+  const turn = measured ? m.turn : 90;
+  const metres = m.paces ? Math.round(m.paces * (m.stride || 0.7)) : 20;
+  $('toscan').href = `scan.html?p=barriers&act=open&turn=${turn}&m=${metres}`;
+  $('toscan-label').textContent = measured
+    ? `The scan, with your ${turn}° and ${metres}m`
+    : 'The scan, with a demo angle (nothing measured yet)';
+})();
 
 $('reset').addEventListener('click', () => {
   steps = 0; n = 0; peak = 0; firstAt = 0; armed = true; dev = 0.4;
