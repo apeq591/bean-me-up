@@ -40,8 +40,30 @@ const num = (name, max) => {
 const turnParam = num('turn', 359);
 const metresParam = num('m', 5000);
 
+/* The pitch link.
+
+   She measures on site with measure.html, then shows the whole thing from ONE
+   bookmarked URL — scan.html?p=barriers&act=open — and it uses what she just
+   measured. Nobody edits a query string in front of the person they are
+   selling to. Only ever read in trial mode (?act=), which the printed QR never
+   carries, so a stranger at the wall is unaffected either way. */
+const savedMeasure = () => {
+  try {
+    const m = JSON.parse(localStorage.getItem('bmu.measure')) || {};
+    return {
+      turn: m.turn ?? null,
+      metres: m.paces ? Math.round(m.paces * (m.stride || 0.72)) : null
+    };
+  } catch (e) { return { turn: null, metres: null }; }
+};
+
+const fromPhone = params.has('act') ? savedMeasure() : { turn: null, metres: null };
+
 const poster = {
   ...scanned,
+  // saved measurements first, then anything named explicitly in the URL
+  ...(fromPhone.turn != null ? { turn: fromPhone.turn } : {}),
+  ...(fromPhone.metres != null ? { metres: fromPhone.metres } : {}),
   ...(turnParam != null ? { turn: turnParam } : {}),
   ...(metresParam != null ? { metres: metresParam } : {})
 };
