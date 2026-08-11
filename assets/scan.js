@@ -159,7 +159,7 @@ function startPacing() {
   const total = poster.metres;
   if (total == null) return;            // nothing measured, nothing to count down
 
-  let steps = 0, lastPeak = 0, ema = 9.8;
+  let steps = 0, lastPeak = 0, ema = 9.8, dev = 0.4, armed = true;
 
   const paint = () => {
     const left = Math.max(0, total - steps * STRIDE);
@@ -173,15 +173,31 @@ function startPacing() {
     if (left <= NEARLY) $('tell').innerHTML = '<b>It is right here.</b> ' + C.place.landmark;
   };
 
+  /* A fixed threshold assumes one way of carrying the thing. A phone swinging
+     in one hand throws several m/s²; an iPad gripped in two hands barely
+     wobbles, and a fixed bar simply never sees a step. So the bar is set from
+     how much THIS device is actually shaking: the mean deviation over the last
+     few seconds, floored so that standing still can never manufacture steps.
+
+     Peaks are also armed and disarmed — one step must fall back below the bar
+     before the next can count — which is what stops one heavy stride
+     registering three times. */
   const onMotion = (e) => {
     const a = e.accelerationIncludingGravity;
     if (!a) return;
     const mag = Math.hypot(a.x || 0, a.y || 0, a.z || 0);
-    ema = ema * 0.9 + mag * 0.1;        // gravity, and any slow drift along with it
+    ema = ema * 0.92 + mag * 0.08;      // gravity, and any slow drift along with it
+    const dyn = Math.abs(mag - ema);
+    dev = dev * 0.96 + dyn * 0.04;      // how lively this device is being carried
+
+    const bar = Math.max(0.32, dev * 1.5);
     const t = e.timeStamp || performance.now();
-    // one peak per footfall: a threshold so a swinging hand is not a step, and
-    // a floor on the gap so one bouncy stride is not counted three times
-    if (mag - ema > 1.15 && t - lastPeak > 280) { lastPeak = t; steps++; paint(); }
+
+    if (armed && dyn > bar && t - lastPeak > 250) {
+      armed = false; lastPeak = t; steps++; paint();
+    } else if (!armed && dyn < bar * 0.55) {
+      armed = true;                     // fallen back down: ready for the next footfall
+    }
   };
 
   const listen = () => window.addEventListener('devicemotion', onMotion);

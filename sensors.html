@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Sensors — is this phone counting steps?</title>
+<!--
+  A tool, not part of the site. Nothing links here and nothing here is branded.
+
+  When the countdown does not move there are only three possible reasons, and
+  guessing between them wastes a day:
+
+    1. no events at all      -> motion access is off or was declined
+    2. events, but no steps  -> the bar is above this device's actual shaking
+    3. steps, but too few    -> the stride is wrong for whoever is walking
+
+  This page shows which. It runs the SAME detector as assets/scan.js, so a
+  number read here is the number the real page would have used.
+-->
+<style>
+  :root{--ink:#F2F2F0;--dim:#8A8F8A;--lime:#B4E600;--bg:#121412;--warn:#E8A33D}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;padding:20px 18px calc(28px + env(safe-area-inset-bottom));
+    background:var(--bg);color:var(--ink);min-height:100vh;
+    font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  h1{font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);
+     margin:0 0 20px;font-weight:600}
+  button{font:600 17px/1 inherit;color:#101210;background:var(--lime);border:0;
+    border-radius:12px;padding:18px 20px;width:100%;margin:0 0 10px}
+  button.ghost{background:transparent;color:var(--ink);border:1px solid #3A403A}
+  .big{font-size:64px;font-weight:700;letter-spacing:-.03em;line-height:1;margin:10px 0 2px}
+  .big small{display:block;font-size:12px;font-weight:500;color:var(--dim);
+    letter-spacing:.14em;text-transform:uppercase;margin-top:10px}
+  table{width:100%;border-collapse:collapse;margin:18px 0}
+  td{padding:9px 0;border-top:1px solid #262A26;font-size:15px}
+  td:last-child{text-align:right;font-family:ui-monospace,Menlo,monospace;color:var(--lime)}
+  .bar{height:10px;background:#0B0D0B;border:1px solid #262A26;border-radius:6px;
+    overflow:hidden;margin:4px 0 16px;position:relative}
+  .bar i{position:absolute;inset:0 auto 0 0;background:var(--lime);width:0}
+  .bar u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--warn)}
+  p{color:#C9CEC9;margin:0 0 12px}
+  .hint{font-size:14px;color:var(--dim)}
+  .verdict{border:1px solid #3A403A;border-radius:12px;padding:14px;margin:0 0 16px;font-size:15px}
+</style>
+</head>
+<body>
+
+<h1>Step counter · diagnostic</h1>
+
+<button id="start">Turn the sensors on</button>
+<p class="hint" id="perm">Not started.</p>
+
+<div class="big" id="steps">0<small>steps counted</small></div>
+
+<div class="bar"><i id="fill"></i><u id="mark"></u></div>
+<p class="hint">Green = how hard the device is moving right now. Orange = the bar it has
+   to cross to count as a step. Walk: green should jump past orange once per footfall.</p>
+
+<div class="verdict" id="verdict">Waiting for the sensors.</div>
+
+<table>
+  <tr><td>Events arriving</td><td id="hz">—</td></tr>
+  <tr><td>Total events</td><td id="n">0</td></tr>
+  <tr><td>Movement now</td><td id="dyn">—</td></tr>
+  <tr><td>Bar to beat</td><td id="barv">—</td></tr>
+  <tr><td>Biggest seen</td><td id="peak">—</td></tr>
+  <tr><td>Steps &times; 0.72m</td><td id="metres">0.0 m</td></tr>
+</table>
+
+<button class="ghost" id="reset">Reset the count</button>
+
+<script>
+/* the detector, character for character the one in assets/scan.js */
+let steps = 0, lastPeak = 0, ema = 9.8, dev = 0.4, armed = true;
+let n = 0, peak = 0, firstAt = 0, lastAt = 0;
+
+const $ = (id) => document.getElementById(id);
+
+function onMotion(e) {
+  const a = e.accelerationIncludingGravity;
+  if (!a) return;
+  const mag = Math.hypot(a.x || 0, a.y || 0, a.z || 0);
+  ema = ema * 0.92 + mag * 0.08;
+  const dyn = Math.abs(mag - ema);
+  dev = dev * 0.96 + dyn * 0.04;
+
+  const bar = Math.max(0.32, dev * 1.5);
+  const t = e.timeStamp || performance.now();
+
+  if (armed && dyn > bar && t - lastPeak > 250) { armed = false; lastPeak = t; steps++; }
+  else if (!armed && dyn < bar * 0.55) { armed = true; }
+
+  n++;
+  if (!firstAt) firstAt = t;
+  lastAt = t;
+  if (dyn > peak) peak = dyn;
+
+  paint(dyn, bar);
+}
+
+function paint(dyn, bar) {
+  const scale = 6;                                  // m/s², full width of the meter
+  $('steps').innerHTML = steps + '<small>steps counted</small>';
+  $('fill').style.width = Math.min(100, dyn / scale * 100) + '%';
+  $('mark').style.left = Math.min(100, bar / scale * 100) + '%';
+  $('dyn').textContent = dyn.toFixed(2) + ' m/s²';
+  $('barv').textContent = bar.toFixed(2) + ' m/s²';
+  $('peak').textContent = peak.toFixed(2) + ' m/s²';
+  $('n').textContent = n;
+  $('metres').textContent = (steps * 0.72).toFixed(1) + ' m';
+
+  const secs = (lastAt - firstAt) / 1000;
+  $('hz').textContent = secs > 1 ? Math.round(n / secs) + ' per second' : 'measuring…';
+
+  // say which of the three problems this is, rather than making anyone guess
+  if (n < 5) $('verdict').textContent = 'No readings yet. If this stays here, motion access is off.';
+  else if (peak < 0.4) $('verdict').innerHTML = 'Readings are arriving but the device is barely moving — <b>walk with it</b>.';
+  else if (steps === 0) $('verdict').innerHTML = 'Moving, but nothing clears the bar. <b>Tell ApeQ the "biggest seen" number.</b>';
+  else $('verdict').innerHTML = 'Counting. Walk exactly 20 steps and check it says <b>20</b>.';
+}
+
+$('start').addEventListener('click', async () => {
+  if (!window.DeviceMotionEvent) {
+    $('perm').textContent = 'This browser has no motion sensor API at all.';
+    return;
+  }
+  if (typeof DeviceMotionEvent.requestPermission === 'function') {
+    try {
+      const r = await DeviceMotionEvent.requestPermission();
+      $('perm').textContent = 'Motion access: ' + r;
+      if (r !== 'granted') {
+        $('perm').textContent += ' — turn on Settings → Apps → Safari → Motion & Orientation Access, then reload.';
+        return;
+      }
+    } catch (err) {
+      $('perm').textContent = 'Could not ask for motion access: ' + err.message;
+      return;
+    }
+  } else {
+    $('perm').textContent = 'Motion access: not gated on this device.';
+  }
+  window.addEventListener('devicemotion', onMotion);
+  $('start').textContent = 'Sensors on — start walking';
+});
+
+$('reset').addEventListener('click', () => {
+  steps = 0; n = 0; peak = 0; firstAt = 0; armed = true; dev = 0.4;
+  paint(0, 0.32);
+});
+</script>
+</body>
+</html>
