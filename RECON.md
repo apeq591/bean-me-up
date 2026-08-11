@@ -86,6 +86,19 @@ arrow pointing the wrong way down a platform is worse than no arrow:
 
 Fill those three and the AR arrow switches itself on. Nothing else to change.
 
+**Do it with `measure.html`, not by hand.** Open
+<https://apeq591.github.io/bean-me-up/measure.html> at the poster spot: tap
+*facing the poster*, turn, tap *facing the shop*, then tap once per step as you
+walk. It uses the same heading formula as `scan.js`, so the number it prints is
+the number the arrow will use. If the compass gives nothing — steel box, or
+motion access declined — it offers eight buttons instead, and 45&deg; accuracy
+is plenty.
+
+It then hands the numbers straight to `scan.html?p=barriers&turn=…&m=…`, which
+shows the arrow **on that phone, for that page load only**. Nothing is written
+to `data.js` and the printed QR carries no such parameters — so a stranger at
+the wall still gets no arrow until the numbers are committed for real.
+
 **One more poster = one more entry** in `posters`, with its own `?p=` code. That
 is how the owner sees which position actually brings people in.
 

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Measure — poster to shop</title>
+<!--
+  A tool, not part of the site. Nothing links here and nothing here is branded;
+  the owner should never see it.
+
+  It answers the two things data.js is missing for a poster:
+    turn   — degrees to rotate FROM FACING THE POSTER to face the shop
+    metres — how far the walk is
+
+  The heading maths is deliberately IDENTICAL to assets/scan.js: same
+  `webkitCompassHeading ?? alpha`, same ((a - zero) + 360) % 360. If the two
+  ever disagreed, the measured number would not be the number the arrow uses,
+  and the whole exercise would be pointless.
+
+  Absolute heading in a steel station is junk. A DIFFERENCE between two
+  headings taken seconds apart in the same spot is fine — the distortion sits
+  in both readings and largely cancels. That is the only reason this works.
+-->
+<style>
+  :root { --ink:#F2F2F0; --dim:#8A8F8A; --lime:#B4E600; --bg:#121412; }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body {
+    margin:0; padding:20px 18px calc(28px + env(safe-area-inset-bottom));
+    background:var(--bg); color:var(--ink); min-height:100vh;
+    font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  }
+  h1 { font-size:15px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
+       margin:0 0 22px; font-weight:600; }
+  section { border-top:1px solid #262A26; padding:20px 0; }
+  h2 { font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--dim);
+       margin:0 0 12px; font-weight:600; }
+  p { margin:0 0 12px; color:#C9CEC9; }
+  .hint { font-size:14px; color:var(--dim); }
+  button {
+    font:600 17px/1 inherit; color:#101210; background:var(--lime);
+    border:0; border-radius:12px; padding:18px 20px; width:100%;
+    margin:0 0 10px; cursor:pointer;
+  }
+  button.ghost { background:transparent; color:var(--ink); border:1px solid #3A403A; }
+  button:disabled { opacity:.35; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .grid button { margin:0; font-size:15px; padding:15px 8px; }
+  .big { font-size:46px; font-weight:700; letter-spacing:-.02em; line-height:1; margin:6px 0 2px; }
+  .big small { display:block; font-size:13px; font-weight:500; color:var(--dim);
+               letter-spacing:.06em; text-transform:uppercase; margin-top:8px; }
+  code { display:block; white-space:pre; background:#0B0D0B; border:1px solid #262A26;
+         border-radius:10px; padding:14px; font-size:15px; color:var(--lime);
+         font-family:ui-monospace,Menlo,monospace; margin:0 0 12px; }
+  a.go { display:block; text-align:center; text-decoration:none; }
+  .warn { color:#E8A33D; font-size:14px; }
+  input { font:600 17px inherit; width:90px; padding:10px; border-radius:10px;
+          border:1px solid #3A403A; background:#0B0D0B; color:var(--ink); }
+  label { font-size:14px; color:var(--dim); }
+  .row { display:flex; align-items:center; gap:10px; margin:0 0 14px; }
+</style>
+</head>
+<body>
+
+<h1>Bean Me Up · site measurements</h1>
+
+<section>
+  <h2>1 · The turn</h2>
+  <p>Stand exactly where the poster would go. Face it square on, then tap.</p>
+  <button id="zero">I'm facing the poster</button>
+  <p class="hint">Now turn on the spot until you're facing the hatch. Don't walk yet.</p>
+  <button id="mark" disabled>I'm facing the shop</button>
+  <p class="warn" id="compass-warn" hidden></p>
+
+  <div id="manual" hidden>
+    <p class="hint">No compass reading — pick the closest by eye. Rounded to 45&deg; is plenty;
+       the arrow needs to not point backwards, not survey the place.</p>
+    <div class="grid">
+      <button class="ghost" data-deg="0">Straight ahead</button>
+      <button class="ghost" data-deg="45">Half right</button>
+      <button class="ghost" data-deg="90">Hard right</button>
+      <button class="ghost" data-deg="135">Back right</button>
+      <button class="ghost" data-deg="180">Behind me</button>
+      <button class="ghost" data-deg="225">Back left</button>
+      <button class="ghost" data-deg="270">Hard left</button>
+      <button class="ghost" data-deg="315">Half left</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2 · The walk</h2>
+  <p>Tap once per step as you walk from the poster to the hatch.</p>
+  <div class="big" id="paces">0<small>paces</small></div>
+  <button id="step">Step</button>
+  <button id="resetpaces" class="ghost">Reset paces</button>
+  <div class="row">
+    <label for="stride">Your step, in metres</label>
+    <input id="stride" type="number" inputmode="decimal" step="0.05" min="0.3" max="1.2" value="0.7">
+  </div>
+</section>
+
+<section>
+  <h2>3 · Send me these</h2>
+  <code id="out">turn: null,
+metres: null,</code>
+  <a class="go" id="demo" href="#"><button disabled id="demobtn">Try the arrow with these numbers</button></a>
+  <p class="hint">That link only changes the arrow on your own phone, for this one visit.
+     The printed QR is untouched — a stranger scanning the wall still gets no arrow
+     until these numbers are committed properly.</p>
+  <button class="ghost" id="wipe">Clear everything</button>
+</section>
+
+<script>
+/* ---------- storage: handy, never load-bearing ---------- */
+const KEY = 'bmu.measure';
+const save = (o) => { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) {} };
+const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } };
+
+let state = { turn: null, paces: 0, stride: 0.7, ...load() };
+
+const $ = (id) => document.getElementById(id);
+
+/* ---------- readout ---------- */
+function metres() {
+  if (!state.paces) return null;
+  return Math.round(state.paces * state.stride);
+}
+
+function render() {
+  $('paces').innerHTML = state.paces + '<small>paces' +
+    (metres() ? ' &middot; about ' + metres() + 'm' : '') + '</small>';
+  $('stride').value = state.stride;
+
+  $('out').textContent =
+    'turn: ' + (state.turn == null ? 'null' : state.turn) + ',\n' +
+    'metres: ' + (metres() == null ? 'null' : metres()) + ',';
+
+  const ready = state.turn != null;
+  $('demobtn').disabled = !ready;
+  $('demo').href = ready
+    ? 'scan.html?p=barriers&turn=' + state.turn + (metres() ? '&m=' + metres() : '')
+    : '#';
+
+  save(state);
+}
+
+/* ---------- the turn ----------
+   Same reading and same formula as scan.js, on purpose. */
+let zero = null, latest = null, listening = false;
+
+const onTurn = (e) => {
+  const a = e.webkitCompassHeading ?? e.alpha;
+  if (a == null) return;
+  latest = a;
+};
+
+function listen() {
+  window.addEventListener('deviceorientation', onTurn);
+  listening = true;
+  // If nothing arrives, the phone is not going to give us one — offer the buttons.
+  setTimeout(() => { if (latest == null) fallback('No compass reading from this phone.'); }, 1500);
+}
+
+function fallback(why) {
+  $('compass-warn').textContent = why + ' Use the buttons below instead.';
+  $('compass-warn').hidden = false;
+  $('manual').hidden = false;
+}
+
+$('zero').addEventListener('click', async () => {
+  if (!window.DeviceOrientationEvent) return fallback('This browser has no compass.');
+
+  // iOS only grants orientation on an explicit tap, which is what this is.
+  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    try {
+      const r = await DeviceOrientationEvent.requestPermission();
+      if (r !== 'granted') return fallback('Motion access was declined.');
+    } catch (e) { return fallback('Motion access could not be requested.'); }
+  }
+  if (!listening) listen();
+
+  zero = latest;
+  if (zero == null) {
+    // permission is fine, the first reading just has not landed yet
+    setTimeout(() => {
+      zero = latest;
+      if (zero == null) fallback('No compass reading from this phone.');
+      else { $('mark').disabled = false; $('zero').textContent = 'Facing the poster ✓ — tap to redo'; }
+    }, 600);
+    return;
+  }
+  $('mark').disabled = false;
+  $('zero').textContent = 'Facing the poster ✓ — tap to redo';
+});
+
+$('mark').addEventListener('click', () => {
+  if (zero == null || latest == null) return fallback('Lost the compass reading.');
+  state.turn = Math.round(((latest - zero) + 360) % 360) % 360;
+  render();
+});
+
+document.querySelectorAll('#manual button').forEach((b) => {
+  b.addEventListener('click', () => { state.turn = Number(b.dataset.deg); render(); });
+});
+
+/* ---------- the walk ---------- */
+$('step').addEventListener('click', () => { state.paces++; render(); });
+$('resetpaces').addEventListener('click', () => { state.paces = 0; render(); });
+$('stride').addEventListener('change', () => {
+  const v = Number($('stride').value);
+  state.stride = Number.isFinite(v) && v >= 0.3 && v <= 1.2 ? v : 0.7;
+  render();
+});
+
+$('wipe').addEventListener('click', () => {
+  state = { turn: null, paces: 0, stride: 0.7 };
+  zero = null;
+  $('mark').disabled = true;
+  $('zero').textContent = "I'm facing the poster";
+  render();
+});
+
+render();
+</script>
+</body>
+</html>

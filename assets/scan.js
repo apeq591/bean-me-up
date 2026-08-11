@@ -24,7 +24,27 @@ const show = (id) => $(id).classList.add('live');
 
 /* which poster was scanned — the QR is the position fix, so no GPS */
 const params = new URLSearchParams(location.search);
-const poster = C.posters[params.get('p')] || C.posters[C.posterDefault];
+const scanned = C.posters[params.get('p')] || C.posters[C.posterDefault];
+
+/* Demo override.
+   The printed QR only ever carries ?p= — so a stranger scanning the wall gets
+   whatever is in data.js, and an unmeasured poster still hides its arrow.
+   But measure.html hands the freshly-paced numbers straight through as
+   ?turn= and ?m=, which lets the arrow be shown on site the same minute it
+   is measured, without waiting for a commit. Nothing is written to data.js:
+   the override lives and dies with the page load. */
+const num = (name, max) => {
+  const v = Number(params.get(name));
+  return params.has(name) && Number.isFinite(v) && v >= 0 && v <= max ? v : null;
+};
+const turnParam = num('turn', 359);
+const metresParam = num('m', 5000);
+
+const poster = {
+  ...scanned,
+  ...(turnParam != null ? { turn: turnParam } : {}),
+  ...(metresParam != null ? { metres: metresParam } : {})
+};
 
 /* localStorage can be unavailable (private mode, blocked cookies). It is a
    nice-to-have, never load-bearing — so every use is wrapped. */
