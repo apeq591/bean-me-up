@@ -167,6 +167,24 @@ h1{
   text-shadow:0 2px 16px rgba(0,0,0,.95);margin-top:.6rem;display:none;text-align:center;
 }
 #way.behind .turnword{display:block}
+
+/* Arrival. The distance counts down off the phone's own step count, so the
+   last thing it must do is stop counting and say you are there — a number
+   stuck at 4m while you stand in front of the hatch is worse than no number. */
+.here{
+  display:none;text-align:center;color:var(--lime-lt);
+  font-size:clamp(2rem,10vw,3rem);font-weight:800;letter-spacing:-.04em;line-height:1;
+  text-shadow:0 2px 20px rgba(0,0,0,.9);
+}
+.here small{
+  display:block;font-family:'Fredoka',sans-serif;font-size:.58rem;font-weight:400;
+  letter-spacing:.18em;text-transform:uppercase;color:rgba(243,240,230,.7);margin-top:.7rem;
+}
+#way.arrived .metres,
+#way.arrived .stage,
+#way.arrived .turnword{display:none}
+#way.arrived .here{display:block;animation:land .5s ease-out}
+@keyframes land{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
 .tell{
   max-width:26rem;text-align:center;font-size:1.02rem;font-weight:700;line-height:1.4;
   text-shadow:0 2px 14px rgba(0,0,0,.95);
@@ -227,6 +245,7 @@ h1{
   <div class="veil"></div>
   <div class="ui">
     <p class="metres"><span id="dist">40</span>m<small id="dist-label">to go</small></p>
+    <p class="here" id="here">You're here<small>look up — it's the lit green hatch</small></p>
     <div class="stage">
       <div class="floor" id="floor">
         <svg class="chev" style="--i:0" viewBox="0 0 120 68" aria-hidden="true"><path d="M4 44 60 8l56 36v20L60 28 4 64z"/></svg>

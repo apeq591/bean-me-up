@@ -128,8 +128,71 @@ async function theWay() {
   $('tell').innerHTML =
     (poster.facing ? `${poster.facing}. ` : '') + C.place.landmark;
 
-  await startCamera();
+  // Both of these ask iOS for a sensor grant, and iOS only gives one while the
+  // tap that opened this screen still counts as fresh. Awaiting the camera
+  // first would spend that. Camera last, on purpose.
   startArrow();
+  startPacing();
+  await startCamera();
+}
+
+/* ===================== how far is left =====================
+
+   No GPS indoors, so the only honest source of "have I moved" is the phone
+   shaking as you walk. Count the footfalls off the accelerometer and multiply
+   by a stride. That is a step counter, not a tape measure: it drifts, so it
+   never counts past zero, and arrival is deliberately generous — inside a few
+   metres you can see the thing, and a number frozen at 4m while you stand in
+   front of the hatch is worse than no number at all.                        */
+
+const STRIDE = 0.72;    // an average adult pace, in metres
+const ARRIVED_AT = 4;   // metres — close enough that the hatch is in front of you
+const NEARLY = 12;      // metres — stop counting at them and start telling them
+
+function arrive() {
+  if ($('way').classList.contains('arrived')) return;
+  $('way').classList.add('arrived');
+  $('skip').textContent = 'Show me the menu';
+}
+
+function startPacing() {
+  const total = poster.metres;
+  if (total == null) return;            // nothing measured, nothing to count down
+
+  let steps = 0, lastPeak = 0, ema = 9.8;
+
+  const paint = () => {
+    const left = Math.max(0, total - steps * STRIDE);
+    if (left <= ARRIVED_AT) return arrive();
+
+    $('dist').textContent = Math.round(left);
+    // "about" is the honest word: this is a step count, and a step count can
+    // run fast or slow. Inside the last few metres the number stops being the
+    // useful thing anyway — what to look for is.
+    $('dist-label').textContent = 'about, on foot';
+    if (left <= NEARLY) $('tell').innerHTML = '<b>It is right here.</b> ' + C.place.landmark;
+  };
+
+  const onMotion = (e) => {
+    const a = e.accelerationIncludingGravity;
+    if (!a) return;
+    const mag = Math.hypot(a.x || 0, a.y || 0, a.z || 0);
+    ema = ema * 0.9 + mag * 0.1;        // gravity, and any slow drift along with it
+    const t = e.timeStamp || performance.now();
+    // one peak per footfall: a threshold so a swinging hand is not a step, and
+    // a floor on the gap so one bouncy stride is not counted three times
+    if (mag - ema > 1.15 && t - lastPeak > 280) { lastPeak = t; steps++; paint(); }
+  };
+
+  const listen = () => window.addEventListener('devicemotion', onMotion);
+
+  if (typeof DeviceMotionEvent?.requestPermission === 'function') {
+    DeviceMotionEvent.requestPermission()
+      .then(r => { if (r === 'granted') listen(); })
+      .catch(() => { /* declined — the distance simply stays put */ });
+  } else if (window.DeviceMotionEvent) {
+    listen();
+  }
 }
 
 async function startCamera() {
