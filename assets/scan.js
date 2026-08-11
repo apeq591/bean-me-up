@@ -62,8 +62,10 @@ function actTooLate(s) {
     : 'They are shut. Nothing here works until they are not.';
 
   const tick = () => {
-    const now = openState();
-    if (now.open) return location.reload();     // they opened while you stood there
+    const now = trialState(openState());
+    // they opened while you stood there — but never while a trial is pinning
+    // the page shut, or it would reload itself every half minute
+    if (now.open) return location.reload();
     // A countdown is only useful while it is short enough to feel. Past a day
     // "65h 15m" means nothing to anybody — name the day instead.
     if (now.inMins == null) {
@@ -198,6 +200,42 @@ function startArrow() {
 
 /* ===================== which act ===================== */
 
-const state = openState();
+/* Trial mode — for Mukta, not for the wall.
+
+   ?act=open  forces act two, whatever the clock says
+   ?act=shut  forces act one
+
+   The gate itself is untouched. Editing the hours, or deleting the check, would
+   mean a stranger scanning at six in the evening gets told the shop is open —
+   and the one thing this page is FOR is being right about that. A parameter
+   only she has in her address bar shows the same screens without ever lying to
+   anyone standing at the poster, and there is nothing to remember to put back.  */
+const forced = params.get('act');
+
+const closeOfNextOpenDay = () => {
+  const day = new Date().getDay();
+  for (let step = 0; step <= 7; step++) {
+    const h = C.hours[(day + step) % 7];
+    if (h) return h.close;
+  }
+  return '13:00';
+};
+
+function trialState(real) {
+  if (forced === 'open' && !real.open) {
+    return { open: true, until: C.hours[new Date().getDay()]?.close ?? closeOfNextOpenDay() };
+  }
+  if (forced === 'shut' && real.open) {
+    // ask the clock what it would say a minute after they shut, so the
+    // countdown and the day name are the real ones rather than invented
+    const after = new Date();
+    after.setHours(...String(real.until).split(':').map(Number), 0, 0);
+    after.setMinutes(after.getMinutes() + 1);
+    return openState(after);
+  }
+  return real;
+}
+
+const state = trialState(openState());
 if (state.open) actSecret(state);
 else actTooLate(state);
