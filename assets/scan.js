@@ -119,7 +119,12 @@ const toSite = () => { location.href = 'index.html'; };
 async function theWay() {
   $('reveal').classList.remove('live');
   $('way').classList.add('live');
-  $('skip').addEventListener('click', toSite);
+
+  // one button, two jobs: end the walk, then leave for the menu
+  $('skip').addEventListener('click', () => {
+    if ($('way').classList.contains('arrived')) toSite();
+    else arrive();
+  });
 
   $('dist').textContent = poster.metres ?? '—';
   $('dist-label').textContent = poster.metres ? 'roughly, on foot' : 'distance to confirm';
@@ -149,10 +154,17 @@ const STRIDE = 0.72;    // an average adult pace, in metres
 const ARRIVED_AT = 4;   // metres — close enough that the hatch is in front of you
 const NEARLY = 12;      // metres — stop counting at them and start telling them
 
+/* Counting footfalls will always be a guess, so the person walking gets the
+   final say: one tap on the button ends the walk whether the count agrees or
+   not. Stopping the sensor here matters too — nothing should keep counting
+   steps at somebody who has already put their phone away. */
+let stopPacing = null;
+
 function arrive() {
   if ($('way').classList.contains('arrived')) return;
   $('way').classList.add('arrived');
   $('skip').textContent = 'Show me the menu';
+  if (stopPacing) stopPacing();
 }
 
 function startPacing() {
@@ -201,6 +213,7 @@ function startPacing() {
   };
 
   const listen = () => window.addEventListener('devicemotion', onMotion);
+  stopPacing = () => window.removeEventListener('devicemotion', onMotion);
 
   if (typeof DeviceMotionEvent?.requestPermission === 'function') {
     DeviceMotionEvent.requestPermission()
