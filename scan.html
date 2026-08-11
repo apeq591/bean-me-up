@@ -126,9 +126,47 @@ h1{
 }
 .metres small{display:block;font-family:'Fredoka',sans-serif;font-size:.6rem;font-weight:400;
   letter-spacing:.2em;text-transform:uppercase;color:rgba(243,240,230,.66);margin-top:.5rem;text-align:center}
-.arrow{width:min(58vw,230px);filter:drop-shadow(0 0 26px rgba(143,203,30,.75))}
-.arrow path{fill:var(--lime)}
-.spin{transition:transform .18s linear}
+/* ---------- the way: a path laid on the floor ----------
+   A flat arrow spinning on the glass is read as a direction in two dimensions,
+   and in a station that means it appears to point straight through a wall.
+   Chevrons lying IN THE FLOOR PLANE, receding away from you and pulsing
+   outward, read as "walk that way" instead — the floor is the one surface you
+   can both see and trust indoors.
+
+   --yaw   which way the path runs, off the compass (same relative maths as before)
+   --pitch how far the floor is tipped away, off the phone's own tilt, so the
+           chevrons stay glued to the ground as you raise and lower the phone. */
+.stage{
+  perspective:640px;perspective-origin:50% 46%;
+  width:100%;height:min(42vh,320px);display:flex;align-items:center;
+  justify-content:center;pointer-events:none;
+}
+.floor{
+  position:relative;width:0;height:0;transform-style:preserve-3d;
+  transform:rotateX(var(--pitch,66deg)) rotateZ(var(--yaw,0deg));
+  transition:transform .18s linear;
+}
+.chev{
+  position:absolute;left:-60px;top:-34px;width:120px;height:68px;
+  transform:translateY(calc(var(--i) * -74px)) scale(calc(1 - var(--i) * .12));
+  filter:drop-shadow(0 0 22px rgba(143,203,30,.7));
+  animation:flow 1.5s ease-in-out infinite;animation-delay:calc(var(--i) * -.28s);
+}
+.chev path{fill:var(--lime)}
+@keyframes flow{0%,100%{opacity:.18}45%{opacity:1}}
+
+/* Behind you is the one case an arrow cannot draw honestly — it would point
+   off the bottom of the screen at the floor by your feet. Say it in words. */
+#way.behind .floor{display:none}
+#way.behind .uturn{display:block}
+.uturn{display:none;width:min(40vw,150px);filter:drop-shadow(0 0 26px rgba(143,203,30,.75))}
+.uturn path{fill:none;stroke:var(--lime);stroke-width:9;stroke-linecap:round}
+.uturn polygon{fill:var(--lime)}
+.turnword{
+  font-size:clamp(1.4rem,7vw,2rem);font-weight:800;letter-spacing:-.02em;
+  text-shadow:0 2px 16px rgba(0,0,0,.95);margin-top:.6rem;display:none;text-align:center;
+}
+#way.behind .turnword{display:block}
 .tell{
   max-width:26rem;text-align:center;font-size:1.02rem;font-weight:700;line-height:1.4;
   text-shadow:0 2px 14px rgba(0,0,0,.95);
@@ -143,7 +181,7 @@ h1{
   text-transform:uppercase;color:rgba(243,240,230,.55)}
 
 /* no measured turn angle, or no compass — the words do the work instead */
-#way.nodir .arrow{display:none}
+#way.nodir .stage{display:none}
 #way.nodir .tell{font-size:clamp(1.3rem,6vw,1.7rem);line-height:1.3;max-width:20rem}
 #way.nodir .ui{justify-content:center;gap:2.2rem}
 
@@ -189,9 +227,19 @@ h1{
   <div class="veil"></div>
   <div class="ui">
     <p class="metres"><span id="dist">40</span>m<small id="dist-label">to go</small></p>
-    <svg class="arrow spin" id="arrow" viewBox="0 0 100 120" aria-hidden="true">
-      <path d="M50 2 96 60H72v56H28V60H4z"/>
-    </svg>
+    <div class="stage">
+      <div class="floor" id="floor">
+        <svg class="chev" style="--i:0" viewBox="0 0 120 68" aria-hidden="true"><path d="M4 44 60 8l56 36v20L60 28 4 64z"/></svg>
+        <svg class="chev" style="--i:1" viewBox="0 0 120 68" aria-hidden="true"><path d="M4 44 60 8l56 36v20L60 28 4 64z"/></svg>
+        <svg class="chev" style="--i:2" viewBox="0 0 120 68" aria-hidden="true"><path d="M4 44 60 8l56 36v20L60 28 4 64z"/></svg>
+        <svg class="chev" style="--i:3" viewBox="0 0 120 68" aria-hidden="true"><path d="M4 44 60 8l56 36v20L60 28 4 64z"/></svg>
+      </div>
+      <svg class="uturn" viewBox="0 0 120 120" aria-hidden="true">
+        <path d="M86 104V54a26 26 0 0 0-52 0v22"/>
+        <polygon points="34,96 14,66 54,66"/>
+      </svg>
+    </div>
+    <p class="turnword">Turn around</p>
     <div>
       <p class="tell" id="tell"></p>
       <button class="skip" id="skip">I've found it — show me the menu</button>

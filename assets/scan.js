@@ -159,7 +159,7 @@ async function startCamera() {
    and the written directions do the work. Better a still arrow than a
    confident wrong one. */
 function startArrow() {
-  const arrow = $('arrow');
+  const floor = $('floor');
   const note = $('cam-note');
 
   // No measured turn angle means no honest arrow. A big arrow pointing
@@ -178,12 +178,27 @@ function startArrow() {
   }
 
   let zero = null;
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+
   const onTurn = (e) => {
     const a = e.webkitCompassHeading ?? e.alpha;
     if (a == null) return;
     if (zero === null) zero = a;                 // this is "facing the poster"
     const turned = ((a - zero) + 360) % 360;     // how far they have rotated since
-    arrow.style.transform = `rotate(${((poster.turn - turned) + 360) % 360}deg)`;
+    const rel = ((poster.turn - turned) + 360) % 360;   // where the shop is, from here
+
+    /* Behind you, an arrow drawn on the floor would run off the bottom of the
+       screen and read as "walk into your own feet". Words are better. */
+    const behind = rel > 118 && rel < 242;
+    $('way').classList.toggle('behind', behind);
+    if (behind) return;
+
+    floor.style.setProperty('--yaw', rel + 'deg');
+
+    /* beta is the phone's own tilt: ~90 held upright looking ahead, less as it
+       is tipped down towards the ground. Raking the floor plane to match keeps
+       the chevrons lying on the actual floor instead of floating. */
+    if (e.beta != null) floor.style.setProperty('--pitch', clamp(e.beta - 10, 30, 80) + 'deg');
   };
 
   const listen = () => window.addEventListener('deviceorientation', onTurn);
