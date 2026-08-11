@@ -138,8 +138,10 @@ function render() {
 
   const ready = state.turn != null;
   $('demobtn').disabled = !ready;
+  // act=open so the path screen comes up whatever the clock says — this tool
+  // gets used in a living room at night as much as on a platform at seven.
   $('demo').href = ready
-    ? 'scan.html?p=barriers&turn=' + state.turn + (metres() ? '&m=' + metres() : '')
+    ? 'scan.html?p=barriers&act=open&turn=' + state.turn + (metres() ? '&m=' + metres() : '')
     : '#';
 
   save(state);
