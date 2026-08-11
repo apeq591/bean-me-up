@@ -42,6 +42,9 @@
   p{color:#C9CEC9;margin:0 0 12px}
   .hint{font-size:14px;color:var(--dim)}
   .verdict{border:1px solid #3A403A;border-radius:12px;padding:14px;margin:0 0 16px;font-size:15px}
+  /* every tool page needs a way out of it */
+  a{text-decoration:none;display:block}
+  .out{margin-top:26px;border-top:1px solid #262A26;padding-top:20px}
 </style>
 </head>
 <body>
@@ -69,6 +72,12 @@
 </table>
 
 <button class="ghost" id="reset">Reset the count</button>
+
+<div class="out">
+  <a href="index.html"><button>Done — open the website</button></a>
+  <a href="measure.html"><button class="ghost">Back to measuring</button></a>
+  <a href="scan.html?act=open"><button class="ghost">The scan, from the top</button></a>
+</div>
 
 <script>
 /* the detector, character for character the one in assets/scan.js */

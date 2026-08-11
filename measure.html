@@ -58,6 +58,9 @@
           border:1px solid #3A403A; background:#0B0D0B; color:var(--ink); }
   label { font-size:14px; color:var(--dim); }
   .row { display:flex; align-items:center; gap:10px; margin:0 0 14px; }
+  /* every tool page needs a way out of it */
+  a { text-decoration:none; display:block; }
+  .out { margin-top:26px; border-top:1px solid #262A26; padding-top:20px; }
 </style>
 </head>
 <body>
@@ -110,6 +113,12 @@ metres: null,</code>
      until these numbers are committed properly.</p>
   <button class="ghost" id="wipe">Clear everything</button>
 </section>
+
+<div class="out">
+  <a href="index.html"><button>Done — open the website</button></a>
+  <a href="sensors.html"><button class="ghost">Check the step counter</button></a>
+</div>
+<p class="hint">Your measurements stay saved on this device — leaving here does not lose them.</p>
 
 <script>
 /* ---------- storage: handy, never load-bearing ---------- */
