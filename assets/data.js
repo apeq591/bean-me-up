@@ -44,7 +44,7 @@ window.BMU = {
   hoursConfirmed: false,
   hours: {                       // 0 = Sunday … 6 = Saturday
     1: { open: '06:45', close: '13:00' },
-    2: { open: '06:45', close: '13:00' },
+    2: { open: '06:45', close: '13:30' },   // 13:00 here was OUR transcription slip
     3: { open: '06:45', close: '13:30' },
     4: { open: '06:45', close: '13:30' },
     5: { open: '06:45', close: '13:30' },

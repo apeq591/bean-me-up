@@ -35,7 +35,7 @@ already inside a station.
 | Tagline **"Best coffee in the toon"** | their own Facebook |
 | Google 4.7/5 from 26 reviews · Facebook 4.6/5 from 5 | RestaurantGuru |
 | #285 of 1,703 coffeehouses in Glasgow | RestaurantGuru |
-| Hours 06:45–13:00 (Mon–Tue), 06:45–13:30 (Wed–Fri), closed weekends | RestaurantGuru |
+| Hours 06:45–13:00 (**Mon only**), 06:45–13:30 (Tue–Fri), closed weekends | RestaurantGuru |
 | Card, free Wi-Fi, wheelchair access, takeaway | Yelp, RestaurantGuru |
 
 Reviews are real and attributed — Andrew M. (Yelp, Feb 2018), Usman B. (Google,
