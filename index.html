@@ -368,6 +368,13 @@ footer{padding:clamp(2.4rem,6vw,4rem) 0 clamp(3rem,7vw,4.5rem);border-top:1px so
 .foot .neon{--neon:1.5rem}
 .foot .neon span{color:var(--ink);text-shadow:none}
 .foot p{font-size:.8rem;color:var(--muted)}
+.footend{text-align:right}
+@media(max-width:720px){.footend{text-align:left}}
+/* the signature — same line, same link, as the other shops she's built */
+.credit{margin-top:.45rem}
+.credit a{color:var(--lime-dk);font-weight:700;text-decoration:underline;
+  text-underline-offset:3px;text-decoration-thickness:2px}
+.credit a::after{content:" ↗";text-decoration:none}
 
 .chip{
   display:inline-block;font-family:'Fredoka',sans-serif;font-size:.56rem;letter-spacing:.12em;
@@ -375,6 +382,20 @@ footer{padding:clamp(2.4rem,6vw,4rem) 0 clamp(3rem,7vw,4.5rem);border-top:1px so
   background:rgba(143,203,30,.16);color:var(--lime-dk);border:1px solid rgba(143,203,30,.5);
 }
 .chalk .chip,.now .chip{background:rgba(243,240,230,.1);color:rgba(243,240,230,.7);border-color:rgba(243,240,230,.28)}
+
+/* ---------- on a phone ----------
+   Checked on a 390px screen. Three things were out of proportion:
+   the tile was drawn at desktop size so barely one hexagon fitted across;
+   the hanging Open sign was landing on top of the Partick plaque; and the
+   neon only filled 56% of its panel, so the sign read small inside a big
+   empty box. Everything here is sizing — nothing moves or disappears. */
+@media(max-width:720px){
+  body{background-size:190px 110px}
+  .hero{padding-top:6.5rem}                 /* give the sign room to swing */
+  .signbox{padding:1.7rem 1rem}
+  .neon{--neon:13.5vw}                      /* fills ~74% of the panel now */
+  .saying{font-size:clamp(1.5rem,7vw,2.2rem)}
+}
 
 /* ---------- arrive ---------- */
 .up{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
@@ -487,7 +508,10 @@ body:not(.js) .up{opacity:1;transform:none}
 <footer>
   <div class="wrap foot">
     <span class="neon" role="img" aria-label="Bean Me Up"><span class="caps">Bean</span><span class="low">me</span><span class="cupwrap"><svg class="cup" viewBox="-4 0 76 121" aria-hidden="true"><g class="steam"><path d="M22 34C9 19 33 9 21-6 15-14 25-19 22-25"/><path d="M48 34C36 21 58 12 47-1 42-8 50-12 47-17"/></g><path d="M4 50 10 90a24 24 0 0 0 48 0L64 50"/></svg></span><span class="low">p</span></span>
-    <p id="legal"></p>
+    <div class="footend">
+      <p id="legal"></p>
+      <p class="credit">Designed by <a href="https://apeq591.github.io/mukta-card/" target="_blank" rel="noopener">Mukta Dhandge</a></p>
+    </div>
   </div>
 </footer>
 
